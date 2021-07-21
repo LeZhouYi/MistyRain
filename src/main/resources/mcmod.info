@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mistyrain",
+  "name": "Misty Rain",
+  "description": "只是一些简单的内容",
+  "version": "0.0.0",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Skily_Leyu"],
+  "credits": "感谢ustc_zzzz|TeamCovertDragon的教程;感谢Forge和FML guys提供的平台和教程案例",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
