@@ -59,7 +59,7 @@ public class Pattern{
 	 * @param point 待检查的点
 	 * @return true=矩阵之内，flase=矩阵之外
 	 **/
-	public boolean isExsit(Point2D point){
+	public boolean isExist(Point2D point){
 		return MathUtils.isBetween(0,x,point.getX()-1)&&MathUtils.isBetween(0,z,point.getZ());
 	}
 
@@ -76,7 +76,7 @@ public class Pattern{
 				Point2D point = new Point2D(x,z);
 				if(isEqual(point, main)){
 					for(Point2D tePoint:point.getNearPoints(1)){
-						if(isExsit(tePoint)&&isEqual(tePoint,near)){
+						if(isExist(tePoint)&&isEqual(tePoint,near)){
 							points.push(point);
 							break;
 						}
@@ -94,7 +94,7 @@ public class Pattern{
 	 * @return 返回截取的新的矩阵
 	 **/
 	public Pattern extractPattern(Point2D start, Point2D end){
-		if(!isExsit(start)||!isExsit(end)){
+		if(!isExist(start)||!isExist(end)){
 			return null;
 		}
 		int startX = MathUtils.min(start.getX(),end.getX());

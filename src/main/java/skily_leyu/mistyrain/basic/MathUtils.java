@@ -25,7 +25,7 @@ public class MathUtils{
 	 * @param isUnique 是否唯一，重复即不插入
 	 * @return 返回新的有序列表
 	 **/
-	public List<Integer> insert(List<Integer> list, int value ,boolean isDesc, boolean isUnique){
+	public static List<Integer> insert(List<Integer> list, int value ,boolean isDesc, boolean isUnique){
 		List<Integer> telist = new ArrayList<Integer>();
 		telist.addAll(list);
 		for(int i = 0;i<telist.size();i++){

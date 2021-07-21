@@ -8,6 +8,11 @@ public class Point2D{
 
 	private int x;
 	private int z;
+
+	public Point2D(int size){
+		this(size,size);
+	}
+
 	public Point2D(int x, int z){
 		this.x = x;
 		this.z = z;
