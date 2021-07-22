@@ -40,7 +40,7 @@ public class Point2D{
 		};
 	}
 
-	public Point2D decrease(int x, int z){
+	private Point2D decrease(int x, int z){
 		return new Point2D(this.x-x,this.z-z);
 	}
 

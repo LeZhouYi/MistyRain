@@ -21,7 +21,7 @@ public class Point3D{
 		return add(point.getX(),point.getY(),point.getZ());
 	}
 
-	public Point3D add(int x, int y, int z){
+	private Point3D add(int x, int y, int z){
 		return new Point3D(this.x+x,this.y+y,this.z+z);
 	}
 

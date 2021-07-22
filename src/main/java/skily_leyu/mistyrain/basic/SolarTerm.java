@@ -1,5 +1,10 @@
 package skily_leyu.mistyrain.basic;
 
+/**
+ * 时令
+ * @author Skily
+ * @version 1.0.0
+ */
 public enum SolarTerm{
 
 	BeginningOfSpring("立春"),

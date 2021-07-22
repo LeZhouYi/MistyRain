@@ -1,5 +1,10 @@
 package skily_leyu.mistyrain.basic;
 
+/**
+ * 时段
+ * @author Skily
+ * @version 1.0.0
+ */
 public enum TimeTerm{
 
 	BeforeDawn(1,5,"凌晨"),

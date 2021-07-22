@@ -111,20 +111,23 @@ public class MathUtils{
 
 	/**
 	 * 最小值
+	 * @return 返回两者之中的最小值
 	 **/
 	public static int min(int x, int y){
 		return x>y?y:x;
 	}
 
 	/**
-	 * 最大值
+	 * 求最大值
+	 * @return 返回两者之中的最大值
 	 **/
 	public static int max(int x, int y){
 		return x>y?x:y;
 	}
 
 	/**
-	 * 是否范围内
+	 * 是否范围内[start,end]
+	 * @return true=在范围内，false=在范围外
 	 **/
 	public static boolean isBetween(int start, int end, int value){
 		return start<=value&&value<=end;

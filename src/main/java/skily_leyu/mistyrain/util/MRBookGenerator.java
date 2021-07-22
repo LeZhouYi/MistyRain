@@ -10,40 +10,70 @@ import skily_leyu.mistyrain.basic.Dot;
 import skily_leyu.mistyrain.basic.Trigger;
 import skily_leyu.mistyrain.basic.MathUtils;
 
+/**
+ * 用于MR的说明书或成就
+ * @author Skily
+ * @version 1.0.0
+ */
 public class MRBookGenerator{
 
+	/**创建时间，一般为首次打开该书的时间 */
 	private long createTime;
+	/**最后编辑时间，一般为最后一次数据更新的时间 */
 	private long lastEditTime;
+	/**拥有者，非拥者无法打开 */
 	private String owner;
+	/**存储所有收集点 */
 	private Map<Integer,Dot> dots;
+	/**存储所有节点 */
 	private Map<Integer,Dot> sections;
+	/**存储所有章节 */
 	private Map<Integer,Dot> chapters;
+	/**节点与收集点的对应Map，一个节点对应多个收集点 */
 	private Map<Integer,List<Integer>> chapterMap;
+	/**章节与节点的对应Map，一个章节对应多个节点 */
 	private Map<Integer,List<Integer>> sectionMap;
+	/**存储所有方块的触发器 */
 	private Map<String,List<Trigger>> blockTriggers;
+	/**存储所有物品的触发器 */
 	private Map<String,List<Trigger>> itemTriggers;
+	/**存储其它类型的触发器，如地形，天气，时令等 */
 	private Map<String,List<Trigger>> otherTriggers;
 
+	/**解锁所有成就 */
 	public void addAllCollections(){
 		this.chapterMap = new HashMap<Integer,List<Integer>>();
 		this.sectionMap = new HashMap<Integer,List<Integer>>();
-		Set<Integer> dotKey = dots.keySet();
+
+		Set<Integer> dotKey = this.dots.keySet();//获取收集点集
 		for(int value:dotKey){
 			Dot teDot = dots.get(value);
-			if(chapterMap.containsKey(teDot.getFather())){
+			if(this.sectionMap.containsKey(teDot.getFather())){
+				//已存在该节点
+				List<Integer> dotList = this.sectionMap.get(teDot.getFather());
+				this.sectionMap.replace(teDot.getFather(),MathUtils.insert(dotList,value,true,true));
+			}else{
+				//不存在该节点
 				List<Integer> dotList = new ArrayList<Integer>();
 				dotList.add(value);
-				this.chapterMap.put(teDot.getFather(),dotList);
-			}else{
-				List<Integer> dotList = this.chapterMap.get(teDot.getFather());
-				this.chapterMap.replace(teDot.getFather(),MathUtils.insert(dotList,value,true,true));
+				this.sectionMap.put(teDot.getFather(),dotList);
 			}
 		}
-		// dotKey = sections.keySet();
-		// for(int value:dotKey){
-		// 	Dot teDot = sections.get(value);
-			
-		// }
+
+		dotKey = this.sections.keySet();//获取节点集
+		for(int value:dotKey){
+			Dot teDot = sections.get(value);
+			if(this.chapterMap.containsKey(teDot.getFather())){
+				//已存在该章节
+				List<Integer> secList = this.chapterMap.get(teDot.getFather());
+				this.chapterMap.replace(teDot.getFather(),MathUtils.insert(secList,value,true,true));
+			}else{
+				//未存在该章节
+				List<Integer> secList = new ArrayList<Integer>();
+				secList.add(value);
+				this.chapterMap.put(teDot.getFather(),secList);
+			}
+		}
 	}
 
 	//--------------------getter and setter-----------------------
