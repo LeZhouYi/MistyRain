@@ -9,6 +9,8 @@ public enum CellType{
 	/**主要**/
 	MAIN,
 	/**核心**/
-	CORE;
+	CORE,
+	/**表面 */
+	SURFACE;
 
 }

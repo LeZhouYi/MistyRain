@@ -5,6 +5,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import skily_leyu.mistyrain.basic.Point3D;
 
+/**
+ * 一些用于Minecraft相关的方法
+ * @author Skily
+ * @version 1.0.0
+ */
 public class MRUtils{
 
 	public static boolean isAirBlock(IBlockState blockState){

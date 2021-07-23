@@ -2,6 +2,9 @@
 /.gradle
 /build
 
+#vscode
+/.vscode
+
 # ForgeGradle
 /run
 
