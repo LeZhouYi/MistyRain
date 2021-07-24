@@ -20,15 +20,24 @@ import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraft.world.storage.WorldInfo;
 
+/**
+ * 地形提供器，按一定规则返回一系列地形
+ * @author Skily
+ * @version 1.0.0
+ */
 public class MRBiomeProvider extends BiomeProvider {
 
+	//初始化出生地形
 	static {
 		allowedBiomes = Lists.newArrayList(MRBiomes.biomeCloudyPeak);
 	}
 
+	//区块设置
 	private ChunkGeneratorSettings settings;
+
 	private GenLayer genBiomes;
 	private GenLayer biomeIndexLayer;
+
 	private final BiomeCache biomeCache;
 
 	public MRBiomeProvider(WorldInfo info) {
@@ -37,12 +46,16 @@ public class MRBiomeProvider extends BiomeProvider {
 
 	private MRBiomeProvider(long seed, WorldType worldTypeIn, String options) {
 		this.biomeCache = new BiomeCache(this);
+		
+		//初始化区块设置
 		if (worldTypeIn == WorldType.CUSTOMIZED && !options.isEmpty()) {
 			this.settings = ChunkGeneratorSettings.Factory.jsonToFactory(options).build();
 		}
 
+		//初始化并获得所有地形生成器
 		GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldTypeIn, this.settings);
 		agenlayer = getModdedBiomeGenerators(worldTypeIn, seed, agenlayer);
+
 		this.genBiomes = agenlayer[0];
 		this.biomeIndexLayer = agenlayer[1];
 	}
@@ -61,12 +74,15 @@ public class MRBiomeProvider extends BiomeProvider {
 	public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
 		IntCache.resetIntCache();
 
+		//初始化或者调整尺寸
 		if (biomes == null || biomes.length < width * height) {
 			biomes = new Biome[width * height];
 		}
 
+		//获取分布值
 		int[] aint = this.genBiomes.getInts(x, z, width, height);
 
+		//生成地形分布图
 		try {
 			for (int i = 0; i < width * height; ++i) {
 				biomes[i] = allowedBiomes.get(aint[i] % allowedBiomes.size());

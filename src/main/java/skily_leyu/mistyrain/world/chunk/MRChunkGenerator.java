@@ -20,6 +20,11 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
+/**
+ * 初始化维度区块生成相关
+ * @author Skily
+ * @version 1.0.0
+ */
 public class MRChunkGenerator implements IChunkGenerator {
 
 	protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
@@ -87,6 +92,9 @@ public class MRChunkGenerator implements IChunkGenerator {
 		this.forestNoise = ctx.getForest();
 	}
 
+	/**
+	 * 生成高度图
+	 */
 	private void generateHeightmap(int p_185978_1_, int p_185978_2_, int p_185978_3_) {
 		this.depthRegion = this.depthNoise.generateNoiseOctaves(this.depthRegion, p_185978_1_, p_185978_3_, 5, 5,
 				(double) this.settings.depthNoiseScaleX, (double) this.settings.depthNoiseScaleZ,
@@ -103,26 +111,27 @@ public class MRChunkGenerator implements IChunkGenerator {
 		int i = 0;
 		int j = 0;
 
+		//对应BiomeWeights
 		for (int k = 0; k < 5; ++k) {
 			for (int l = 0; l < 5; ++l) {
+				
 				float f2 = 0.0F;
 				float f3 = 0.0F;
 				float f4 = 0.0F;
-//				int i1 = 2;
+
+				//已由setBlocksInChunk对biomesForGeneration进行初始化
 				Biome biome = this.biomesForGeneration[k + 2 + (l + 2) * 10];
 
+				//5*5的范围
 				for (int j1 = -2; j1 <= 2; ++j1) {
 					for (int k1 = -2; k1 <= 2; ++k1) {
+						//获得图层相对位置上的Biome
 						Biome biome1 = this.biomesForGeneration[k + j1 + 2 + (l + k1 + 2) * 10];
+
 						float f5 = this.settings.biomeDepthOffSet
 								+ biome1.getBaseHeight() * this.settings.biomeDepthWeight;
 						float f6 = this.settings.biomeScaleOffset
 								+ biome1.getHeightVariation() * this.settings.biomeScaleWeight;
-
-//						if (this.terrainType == WorldType.AMPLIFIED && f5 > 0.0F) {
-//							f5 = 1.0F + f5 * 2.0F;
-//							f6 = 1.0F + f6 * 4.0F;
-//						}
 
 						float f7 = this.biomeWeights[j1 + 2 + (k1 + 2) * 5] / (f5 + 2.0F);
 
