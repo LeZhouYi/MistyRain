@@ -17,6 +17,19 @@ public class BlockSpringMud {
        this.setHardness(MRProperty.dirtHardness);
        this.setResistance(MRProperty.dirtHardness);
        this.setSoundType(SoundType.DIRT);
+       this.setMaterial(Materil.DIRT);
+       this.setDefaultState(blockstate.getDefaultState().withProperty(STAGE,0));
+       this.setRandomTick(true);
+    }
+
+    @Override
+    public int getMetaFromState(IBlokState blockstate){
+        return blockstate.getProperty(STATE);
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta){
+        return this.getDefaultState().withProperty(STAGE,meta%4);
     }
 
 }
