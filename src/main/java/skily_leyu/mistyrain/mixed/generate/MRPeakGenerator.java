@@ -28,6 +28,7 @@ public class MRPeakGenerator extends WorldGenerator{
 
 	//Peak相关
 	private int height = 100; //高度
+	private int depth = 4; //填充深度
 	private float gradient = 0.1; //斜率
 	private int bound = 16; //顶点随机范围[-16,16]
 
@@ -149,8 +150,7 @@ public class MRPeakGenerator extends WorldGenerator{
 		int zGap = MathUtils.randInt(rand,2*bound,-bound);
 		Point3D apex = base.add(xGap,height-1,zGap);
 
-		//向上生成
-		for(int h = 0, teSize = size;h<height;h++){
+		for(int h = -this.depth, teSize = size;h<height;h++){
 			//线性插值
 			float rate = (float)h/height;
 			Point3D tePoint = new Point3D((int)(xGap*rate),h,(int)(zGap*rate));//偏移量
@@ -168,7 +168,7 @@ public class MRPeakGenerator extends WorldGenerator{
 					//BlockPos=中心+层级偏移量+图格级偏移量
 					BlockPos tePos = MRUtils.toBlockPos(base.add(tePoint).add(center.decrease(new Point2D(x,z))));
 					IBlockState blockstate = getCellBlock(pattern.getBit(new Point2D(x,z)),h);
-					if(!MRUtils.isAirBlock(blockstate)){
+					if(!MRUtils.isAirBlock(blockstate)&&MRUtils.canReplace(worldIn,tePos)){
 						worldIn.setBlockState(tePos,blockstate,2);
 					}
 				}
@@ -206,6 +206,11 @@ public class MRPeakGenerator extends WorldGenerator{
 
 	public MRPeakGenerator setBound(int bound){
 		this.bound = bound;
+		return this;
+	}
+
+	public MRPeakGenerator setDepth(int depth){
+		this.depth = depth;
 		return this;
 	}
 

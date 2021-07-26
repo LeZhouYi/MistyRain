@@ -7,28 +7,48 @@ package skily_leyu.mistyrain.basic;
  */
 public enum TimeTerm{
 
-	BeforeDawn(1,5,"凌晨"),
-	Dawn(5,7,"黎明"),
-	Morning(7,11,"早晨"),
-	Noon(11,14,"中午"),
-	AfterNoon(14,17,"午后"),
-	Dusk(17,19,"黄昏"),
-	Night(19,23,"夜晚"),
-	MidNight(23,1,"深夜");
+	BeforeDawn(1.0F,5.0F,"凌晨"),
+	Dawn(5.0F,7.0F,"黎明"),
+	Morning(7.0F,11.0F,"早晨"),
+	Noon(11.0F,14.0F,"中午"),
+	AfterNoon(14.0F,17.0F,"午后"),
+	Dusk(17.0F,19.0F,"黄昏"),
+	Night(19.0F,23.0F,"夜晚"),
+	MidNight(23.0F,1.0F,"深夜");
 
 	private int begin;
 	private int end;
 	private String name;
 
-	private TimeTerm(int begin, int end, String name){
+	private TimeTerm(float begin, float end, String name){
 		this.begin = begin;
 		this.end = end;
 		this.name = name;
 	}
 
+	/**
+	 * 根据now来获取当天的时间段
+	 * @param now [0.0F,24.0F]
+	 * @return TimeTerm返回对应的时间段，若now值不正确，则返回深夜
+	 */
+	public static TimeTerm getTimeTerm(float now){
+		for(TimeTerm timeTerm: TimeTerm.values()){
+			if(timeTerm!=MidNight){
+				if(now>timeTerm.getBegin()&&now<=timeTerm.getEnd()){
+					return timeTerm;
+				}
+			}else{
+				if(now>timeTerm.getBegin()||now<=timeTerm.getEnd()){
+					return timeTerm;
+				}
+			}
+		}
+		return TimeTerm.MidNight;
+	}
+
 	//------------------getter and setter------------------------
-	public int getBegin(){return this.begin;}
-	public int getEnd(){return this.end;}
+	public float getBegin(){return this.begin;}
+	public float getEnd(){return this.end;}
 	public String getName(){return this.name;}
 
 }

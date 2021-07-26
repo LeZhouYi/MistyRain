@@ -20,4 +20,12 @@ public class MRUtils{
 		return new BlockPos(point.getX(),point.getY(),point.getZ());
 	}
 	
+	public static boolean canReplace(World worldIn, BlockPos pos){
+		IBlockState blockstate = worldIn.getBlockState(pos);
+		if(blockstate.getBlock()==Blocks.Air||blockstate.getMaterial == Material.WATER){
+			return true;
+		}
+		return false;
+	}
+
 }
