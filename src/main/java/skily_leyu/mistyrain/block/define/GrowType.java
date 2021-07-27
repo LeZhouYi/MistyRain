@@ -1,3 +1,5 @@
+package skily_leyu.mistyrain.block.define;
+
 /**
  * 标记方块生长的状态
  * @author Skily

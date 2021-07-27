@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.basic;
+package skily_leyu.mistyrain.basic.pattern;
 /**
  * 三维坐标，整型
  * @author Skily

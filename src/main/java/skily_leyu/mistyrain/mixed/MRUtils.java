@@ -1,9 +1,11 @@
-package skily_leyu.mistyrain.util;
+package skily_leyu.mistyrain.mixed;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import skily_leyu.mistyrain.basic.Point3D;
+import net.minecraft.world.World;
+import skily_leyu.mistyrain.basic.pattern.Point3D;
 
 /**
  * 一些用于Minecraft相关的方法
@@ -22,7 +24,7 @@ public class MRUtils{
 	
 	public static boolean canReplace(World worldIn, BlockPos pos){
 		IBlockState blockstate = worldIn.getBlockState(pos);
-		if(blockstate.getBlock()==Blocks.Air||blockstate.getMaterial == Material.WATER){
+		if(blockstate.getBlock()==Blocks.AIR||blockstate.getMaterial() == Material.WATER){
 			return true;
 		}
 		return false;

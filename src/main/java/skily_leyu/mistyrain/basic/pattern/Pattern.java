@@ -1,6 +1,9 @@
-package skily_leyu.mistyrain.basic;
+package skily_leyu.mistyrain.basic.pattern;
 
 import java.util.Stack;
+
+import skily_leyu.mistyrain.basic.MathUtils;
+import skily_leyu.mistyrain.basic.type.CellType;
 
 /**
  * 二维矩阵，取值为CellType

@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.basic;
+package skily_leyu.mistyrain.basic.type;
 
 /**
  * 时段
@@ -16,8 +16,8 @@ public enum TimeTerm{
 	Night(19.0F,23.0F,"夜晚"),
 	MidNight(23.0F,1.0F,"深夜");
 
-	private int begin;
-	private int end;
+	private float begin;
+	private float end;
 	private String name;
 
 	private TimeTerm(float begin, float end, String name){

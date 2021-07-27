@@ -1,5 +1,6 @@
-package skily_leyu.mistyrain.util;
+package skily_leyu.mistyrain.mixed.generate;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
@@ -7,11 +8,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import skily_leyu.mistyrain.basic.CellType;
 import skily_leyu.mistyrain.basic.MathUtils;
-import skily_leyu.mistyrain.basic.Pattern;
-import skily_leyu.mistyrain.basic.Point2D;
-import skily_leyu.mistyrain.basic.Point3D;
+import skily_leyu.mistyrain.basic.pattern.Pattern;
+import skily_leyu.mistyrain.basic.pattern.Point2D;
+import skily_leyu.mistyrain.basic.pattern.Point3D;
+import skily_leyu.mistyrain.basic.type.CellType;
+import skily_leyu.mistyrain.mixed.MRUtils;
 
 public class MRPeakGenerator extends WorldGenerator{
 	
@@ -29,7 +31,7 @@ public class MRPeakGenerator extends WorldGenerator{
 	//Peak相关
 	private int height = 100; //高度
 	private int depth = 4; //填充深度
-	private float gradient = 0.1; //斜率
+	private float gradient = 0.1F; //斜率
 	private int bound = 16; //顶点随机范围[-16,16]
 
 	public MRPeakGenerator(List<IBlockState> blockList){
@@ -52,9 +54,9 @@ public class MRPeakGenerator extends WorldGenerator{
 	 */
 	private IBlockState getCellBlock(CellType type, int height){
 		if(height<this.height-1){
-			return this.blockList[type.ordinal()];
+			return this.blockList.get(type.ordinal());
 		}else{
-			return this.blockList[CellType.SURFACE.ordinal()];
+			return this.blockList.get(CellType.SURFACE.ordinal());
 		}
 	}
 
@@ -66,7 +68,7 @@ public class MRPeakGenerator extends WorldGenerator{
 	 */
 	private boolean canGenerate(World worldIn, BlockPos position){
 		//检查区块加载
-		if(!worldIn.isAreaLoad(position,16)){
+		if(!worldIn.isAreaLoaded(position, radius)){
 			return false;
 		}
 		//检查是否存在支撑方块
@@ -148,7 +150,6 @@ public class MRPeakGenerator extends WorldGenerator{
 		//生成顶层中心点
 		int xGap = MathUtils.randInt(rand,2*bound,-bound);
 		int zGap = MathUtils.randInt(rand,2*bound,-bound);
-		Point3D apex = base.add(xGap,height-1,zGap);
 
 		for(int h = -this.depth, teSize = size;h<height;h++){
 			//线性插值

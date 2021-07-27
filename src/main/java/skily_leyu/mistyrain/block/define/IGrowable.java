@@ -1,3 +1,5 @@
+package skily_leyu.mistyrain.block.define;
+
 /**
  * 使用原版生长的一些特性基础上，增加一些自身方便进行代码组织的方法
  * @author Skily

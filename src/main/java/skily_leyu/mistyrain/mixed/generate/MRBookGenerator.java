@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.util;
+package skily_leyu.mistyrain.mixed.generate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import skily_leyu.mistyrain.basic.Dot;
-import skily_leyu.mistyrain.basic.Trigger;
 import skily_leyu.mistyrain.basic.MathUtils;
+import skily_leyu.mistyrain.basic.book.Dot;
+import skily_leyu.mistyrain.basic.book.Trigger;
 
 /**
  * 用于MR的说明书或成就
@@ -48,9 +48,9 @@ public class MRBookGenerator{
 		initMap(false);
 		if(this.dots.containsKey(dotIndex)){
 			Dot dot = this.dots.get(dotIndex);
-			addDotCollection(dot,true); //添加进对应的节点
+			addDotCollection(dot,dotIndex,true); //添加进对应的节点
 			if(this.sections.containsKey(dot.getFather())){
-				addSectionCollection(this.sections.get(dot.getFather()),false);//添加进对应的章节
+				addDotCollection(this.sections.get(dot.getFather()),dot.getFather(),false);//添加进对应的章节
 			}
 		}
 	}
@@ -60,17 +60,17 @@ public class MRBookGenerator{
 	 * @param dot 指当前节点
 	 * @param isDot 指是否是收集点，true=父节点为节点，false=父节点为章节
 	 */
-	private void addDotCollection(Dot dot, boolean isDot){
+	private void addDotCollection(Dot dot,int value, boolean isDot){
 		Map<Integer,List<Integer>> map = (isDot)?(this.sectionMap):(this.chapterMap);
-		if(this.sectionMap.containsKey(teDot.getFather())){
+		if(map.containsKey(dot.getFather())){
 			//已存在该节点
-			List<Integer> dotList = this.sectionMap.get(teDot.getFather());
-			this.sectionMap.replace(teDot.getFather(),MathUtils.insert(dotList,value,true,true));
+			List<Integer> dotList = map.get(dot.getFather());
+			map.replace(dot.getFather(),MathUtils.insert(dotList,value,true,true));
 		}else{
 			//不存在该节点
 			List<Integer> dotList = new ArrayList<Integer>();
 			dotList.add(value);
-			this.sectionMap.put(teDot.getFather(),dotList);
+			map.put(dot.getFather(),dotList);
 		}
 	}
 
@@ -80,10 +80,10 @@ public class MRBookGenerator{
 	 */
 	public void initMap(boolean isRebuild){
 		if(this.chapterMap == null||isRebuild){
-			this.chapterMap = new HashMap<Integer,List<Integer>();
+			this.chapterMap = new HashMap<Integer,List<Integer>>();
 		}
 		if(this.sectionMap == null||isRebuild){
-			this.sectionMap = new HashMap<Integer,List<Integer>();
+			this.sectionMap = new HashMap<Integer,List<Integer>>();
 		}
 	}
 
@@ -93,13 +93,14 @@ public class MRBookGenerator{
 		Set<Integer> dotKey = this.dots.keySet();//获取收集点集
 		for(int value:dotKey){
 			Dot teDot = dots.get(value);
-			addDotCollection(teDot);
+			addDotCollection(teDot,value,true);
 		}
 
 		dotKey = this.sections.keySet();//获取节点集
 		for(int value:dotKey){
 			Dot teDot = sections.get(value);
-			addSectionCollection(teDot);
+			addDotCollection(teDot,value,false);
+		}
 	}
 
 	//--------------------getter and setter-----------------------

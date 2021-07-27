@@ -1,4 +1,7 @@
-package skily_leyu.mistyrain.basic;
+package skily_leyu.mistyrain.basic.pattern;
+
+import skily_leyu.mistyrain.basic.MathUtils;
+
 /**
  * 二维坐标，整型
  * @author Skily

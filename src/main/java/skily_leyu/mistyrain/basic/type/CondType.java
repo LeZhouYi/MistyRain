@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.basic;
+package skily_leyu.mistyrain.basic.type;
 
 /**
  * 触发器的类型

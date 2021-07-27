@@ -1,10 +1,19 @@
+package skily_leyu.mistyrain.block.basic;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import skily_leyu.mistyrain.block.MRProperty;
 
 /**
  * 春泥
  * @author Skily
  * @version 1.0.0
  */
-public class BlockSpringMud {
+public class BlockSpringMud extends Block{
     /**
      * state = 0, 普通的泥土状态
      * stage = 1，当上方无完整方法，非冬天，有草状态
@@ -14,17 +23,17 @@ public class BlockSpringMud {
     public static final IProperty<Integer> STAGE = MRProperty.PART_STAGE;
 
     public BlockSpringMud(){
-       this.setHardness(MRProperty.dirtHardness);
-       this.setResistance(MRProperty.dirtHardness);
-       this.setSoundType(SoundType.DIRT);
-       this.setMaterial(Materil.DIRT);
-       this.setDefaultState(blockstate.getDefaultState().withProperty(STAGE,0));
-       this.setRandomTick(true);
+        super(Material.GROUND,MapColor.GREEN_STAINED_HARDENED_CLAY);
+        this.setHardness(MRProperty.dirtHardness);
+        this.setResistance(MRProperty.dirtHardness);
+        this.setSoundType(SoundType.GROUND);
+        this.setDefaultState(blockState.getBaseState().withProperty(STAGE,0));
+        this.setTickRandomly(true);
     }
 
     @Override
-    public int getMetaFromState(IBlokState blockstate){
-        return blockstate.getProperty(STATE);
+    public int getMetaFromState(IBlockState blockstate){
+        return blockstate.getValue(STAGE);
     }
 
     @Override

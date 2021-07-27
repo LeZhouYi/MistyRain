@@ -1,9 +1,19 @@
+package skily_leyu.mistyrain.block.basic;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import skily_leyu.mistyrain.block.MRProperty;
+
 /**
  * 雨石
  * @author Skily
  * @version 1.0.0
  */
-public class BlockRainStone{
+public class BlockRainStone extends Block{
 
     /**
      * 0 = 普通的石头状态
@@ -14,17 +24,17 @@ public class BlockRainStone{
     public static final IProperty<Integer> STAGE = MRProperty.PART_STAGE;
 
     public BlockRainStone(){
+        super(Material.ROCK,MapColor.BLUE_STAINED_HARDENED_CLAY);
         this.setHardness(MRProperty.stoneHardness);
         this.setResistance(MRProperty.stoneHardness);
         this.setSoundType(SoundType.STONE);
-        this.setMaterial(Material.STONE);
-        this.setDefaultState(blockstate.getDefaultState().withProperty(STAGE,0));
-        this.setRandomTick(true);
+        this.setDefaultState(blockState.getBaseState().withProperty(STAGE,0));
+        this.setTickRandomly(true);
     }
 
     @Override
-    public int getMetaFromState(IBlokState blockstate){
-        return blockstate.getProperty(STATE);
+    public int getMetaFromState(IBlockState blockstate){
+        return blockstate.getValue(STAGE);
     }
 
     @Override

@@ -1,9 +1,20 @@
+package skily_leyu.mistyrain.block.plant.flowingcyantree;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+import skily_leyu.mistyrain.block.MRProperty;
+
 /**
  * 流青木根
  * @author Skily
  * @version 1.0.0
  */
-public class BlockFctRoot {
+public class BlockFctRoot extends Block{
     
     /**
      * 是否有分支，false = 没有分支， true = 有分支，方向根据FACING决定
@@ -16,19 +27,23 @@ public class BlockFctRoot {
     public static final IProperty<EnumFacing> FACING = MRProperty.FACING;
 
     public BlockFctRoot(){
-
+        super(Material.WOOD, MapColor.GREEN_STAINED_HARDENED_CLAY);
+        this.setHardness(MRProperty.woodHardness);
+        this.setResistance(MRProperty.woodHardness);
+        this.setSoundType(SoundType.WOOD);
+        this.setDefaultState(blockState.getBaseState().withProperty(BRANCH, false).withProperty(VERTICAL, false).withProperty(FACING, EnumFacing.EAST));
     }
 
     @Override
-    public int getMetaFromState(IBlokState blockstate){
-        return blockstate.getProperty(FACING).getHorizontalIndex()*4 
-            + (blockstate.getProperty(VERTICAL)?1:0)*2;
+    public int getMetaFromState(IBlockState blockstate){
+        return blockstate.getValue(FACING).getHorizontalIndex()*4 
+            + (blockstate.getValue(VERTICAL)?1:0)*2;
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta){
-        return this.getDefaultState().withProperty(FACING,EnumFacing.plane.Horizontal[meta/4])
-            .withProperty(VERTICAL,Boolean.valueOf(meta%4/2));
+        return this.getDefaultState().withProperty(FACING,EnumFacing.Plane.HORIZONTAL.facings()[meta/4])
+            .withProperty(VERTICAL,Boolean.valueOf(meta%4/2==1));
     }
 
 }

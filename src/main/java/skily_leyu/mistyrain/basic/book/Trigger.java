@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.basic;
+package skily_leyu.mistyrain.basic.book;
 
 import java.util.List;
 

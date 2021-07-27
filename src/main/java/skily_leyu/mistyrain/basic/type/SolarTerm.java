@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.basic;
+package skily_leyu.mistyrain.basic.type;
 
 /**
  * 时令
@@ -54,8 +54,8 @@ public enum SolarTerm{
 					return solarTerm;
 				}
 			}else{
-				if(value>=solarTerm.getStart()||value<solarTerm.getEnd(){
-					return solorTerm;
+				if(value>=solarTerm.getStart()||value<solarTerm.getEnd()){
+					return solarTerm;
 				}
 			}
 		}
