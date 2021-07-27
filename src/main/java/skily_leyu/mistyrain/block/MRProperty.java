@@ -6,6 +6,8 @@ public class MRProperty {
     /**用于基础的方块状态 */
     public static final IProperty<Integer> PART_STAGE = PropertyInteger.create("stage",0,3);
 
+    /**是否有分支，一般为一分支 */
+    public static final IProperty<Boolean> HAS_BRANCH = PropertyBoolean.create("has_branch");
     /**是否竖直状态 */
     public static final IProperty<Boolean> IS_VERTICAL = PropertyBoolean.create("is_vertical");
     /**是否为活着的状态，标记方块是否可以进行生长更新 */
