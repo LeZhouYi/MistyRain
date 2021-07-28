@@ -14,8 +14,13 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.MistyRain;
-import skily_leyu.mistyrain.creativetabs.MRCreativeTabs;
+import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
 
+/**
+ * 物品注册表
+ * @author Skily
+ * @version 1.0.0
+ */
 public class MRItems{
     
     public static final Item herbalsBook = getRegistryItem(ItemHerbalsBook.class, "herbals_book", "herbalBook");

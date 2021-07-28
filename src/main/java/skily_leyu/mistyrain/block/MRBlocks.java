@@ -20,7 +20,7 @@ import skily_leyu.mistyrain.block.basic.BlockRainStone;
 import skily_leyu.mistyrain.block.basic.BlockSpringMud;
 import skily_leyu.mistyrain.block.basic.BlockSwordStone;
 import skily_leyu.mistyrain.block.basic.BlockWaterStone;
-import skily_leyu.mistyrain.creativetabs.MRCreativeTabs;
+import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
 
 /**
  * 方块注册表

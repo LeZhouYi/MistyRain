@@ -11,6 +11,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import skily_leyu.mistyrain.MistyRain;
 import skily_leyu.mistyrain.mixed.generate.MRBookGenerator;
 
+/**
+ * 读取MR相关的json配置文件
+ * @author Skily
+ * @version 1.0.0
+ */
 public class MRReader {
 
     public static MRBookGenerator herbalsBook;

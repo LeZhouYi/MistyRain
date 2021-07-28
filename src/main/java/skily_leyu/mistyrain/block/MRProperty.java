@@ -6,8 +6,14 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.util.EnumFacing;
 
+/**
+ * 集中一些用于配置的属性和IProperty
+ * @author Skily
+ * @version 1.0.0
+ */
 public class MRProperty {
-
+    
+    //------硬度相关的属性----------//
     public static float dirtHardness = 0.5F;
     public static float stoneHardness = 1.5F;
     public static float woodHardness = 2.0F;
