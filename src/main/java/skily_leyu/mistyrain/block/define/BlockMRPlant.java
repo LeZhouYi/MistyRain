@@ -32,13 +32,15 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
 	public final void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(worldIn, pos, state, rand);
         if(!worldIn.isRemote&&isAreaLoaded(worldIn,pos)){
+            if(mustSupport()&&!hasSupport()){
+                destroy(world,rand,pos,state);
+                return;
+            }
             PlantEvent event = canGrow(worldIn, rand, pos, state);
             if(event==PlantEvent.GROW){
                 grow(world,rand,pos,state);
             }else if(event==PlantEvent.DECAY){
                 decay(world,rand,pos,state);
-            }else if(event==PlantEvent.DESTROY){
-                destroy(world,rand,pos,state);
             }
         }
     }

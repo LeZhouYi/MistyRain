@@ -46,4 +46,9 @@ public class BlockFctRoot extends Block{
             .withProperty(VERTICAL,Boolean.valueOf(meta%4/2==1));
     }
 
+    @Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { BRANCH,VERTICAL,FACING });
+	}
+
 }

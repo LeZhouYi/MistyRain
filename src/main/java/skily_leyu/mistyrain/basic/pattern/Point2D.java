@@ -1,7 +1,5 @@
 package skily_leyu.mistyrain.basic.pattern;
 
-import skily_leyu.mistyrain.basic.MathUtils;
-
 /**
  * 二维坐标，整型
  * @author Skily
@@ -27,7 +25,9 @@ public class Point2D{
 	 * @return 各分量的差的平方和
 	 **/
 	public int squareDistance(Point2D tePoint){
-		return MathUtils.sumOfSquare(this.x-tePoint.getX(),this.z-tePoint.getZ());
+		int x = this.x-tePoint.getX();
+		int z = this.z-tePoint.getZ();
+		return x*x+z*z;
 	}
 
 	/**
@@ -36,10 +36,10 @@ public class Point2D{
 	 **/
 	public Point2D[] getNearPoints(int length){
 		return new Point2D[]{
-			new Point2D(x-length,z),
-			new Point2D(x+length,z),
-			new Point2D(x,z-length),
-			new Point2D(x,z+length)
+			decrease(length,0),
+			decrease(-length,0),
+			decrease(0,length),
+			decrease(0,-length)
 		};
 	}
 
