@@ -1,6 +1,7 @@
 package skily_leyu.mistyrain.block.define;
 
 import net.minecraft.block.IGrowable;
+import skily_leyu.mistyrain.block.define.PlantEvent;
 
 /**
  * 使用原版生长的一些特性基础上，增加一些自身方便进行代码组织的方法
@@ -47,6 +48,11 @@ public interface IMRPlant extends IGrowable{
 	boolean hasSupport(World worldIn, BlockPos pos, IBlockState state);
 
 	/**
+	 * 检查区块是否加载
+	 */
+	boolean isAreaLoaded(World worldIn, BlockPos pos);
+
+	/**
 	 * 是否必须检索依赖
 	 * @return true=强制性，false=不强制，即不检索
 	 */
@@ -56,6 +62,6 @@ public interface IMRPlant extends IGrowable{
 	 * 根据状态返回此时应执行的方法
 	 * @return GrowType 返回对应的状态
 	 */
-	GrowType canGrow(World worldIn, Random rand, BlockPos pos, IBlockState state);
+	PlantEvent canGrow(World worldIn, Random rand, BlockPos pos, IBlockState state);
 
 }

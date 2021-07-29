@@ -11,10 +11,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class MRConfig {
 
 	private static Configuration config;
-
-	public static int cloudyForestWaterDepth;
-	public static int cloudyForestSoilHeight;
 	
+	public static int tickSpeed;
+
 	public MRConfig(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
@@ -24,8 +23,7 @@ public class MRConfig {
 
 	/**加载所有属性 */
 	protected void init() {
-		cloudyForestWaterDepth = loadInt("cloudyForestWaterDepth", 3);
-		cloudyForestSoilHeight = loadInt("cloudyForestSoilHeight", 4);
+		tickSpeed = loadInt("tickSpeed",40);
 	}
 
 	/**
