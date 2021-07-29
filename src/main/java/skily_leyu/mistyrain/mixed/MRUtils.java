@@ -17,7 +17,7 @@ public class MRUtils{
 	/**
 	 * 判断该方块是否为Air
 	 * @param blockState 需要判断的方法，无检查
-	 * @return true=是空气方法
+	 * @return true=是空气方块
 	 */
 	public static boolean isAirBlock(IBlockState blockState){
 		return blockState.getBlock()==Blocks.AIR;
