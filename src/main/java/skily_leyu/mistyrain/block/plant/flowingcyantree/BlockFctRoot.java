@@ -8,13 +8,14 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import skily_leyu.mistyrain.block.MRProperty;
+import skily_leyu.mistyrain.block.define.BlockMRPlant;
 
 /**
  * 流青木根
  * @author Skily
  * @version 1.0.0
  */
-public class BlockFctRoot extends Block{
+public class BlockFctRoot extends BlockMRPlant{
     
     /**
      * 是否有分支，false = 没有分支， true = 有分支，方向根据FACING决定

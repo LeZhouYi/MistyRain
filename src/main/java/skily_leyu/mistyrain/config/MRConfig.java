@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class MRConfig {
 
 	private static Configuration config;
-	
+
 	public static int tickSpeed;
 
 	public MRConfig(FMLPreInitializationEvent event) {
