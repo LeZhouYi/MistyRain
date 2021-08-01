@@ -7,11 +7,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import skily_leyu.mistyrain.MistyRain;
+import skily_leyu.mistyrain.world.biome.decorator.DecoratorCloudPeak;
 
 public class MRBiomes {
 
 	public static final Biome biomeCloudyPeak = new BiomeCloudyPeak(new BiomeProperties("mr_cloudy_peak")
-			.setBaseHeight(-0.25F).setHeightVariation(0.015F).setTemperature(0.6F).setRainfall(0.85F), null)
+			.setBaseHeight(-0.25F).setHeightVariation(0.015F).setTemperature(0.6F).setRainfall(0.85F), new DecoratorCloudPeak())
 					.setRegistryName(MistyRain.MODID, "cloudy_peak");
 
 	@Mod.EventBusSubscriber

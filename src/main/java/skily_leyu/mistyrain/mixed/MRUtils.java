@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import skily_leyu.mistyrain.MistyRain;
 import skily_leyu.mistyrain.basic.pattern.Point3D;
 
 /**
@@ -14,6 +15,10 @@ import skily_leyu.mistyrain.basic.pattern.Point3D;
  */
 public class MRUtils{
 
+	public static void logInfo(String name, Object object) {
+		MistyRain.getLogger().info(name+":"+object.toString());
+	}
+	
 	/**
 	 * 判断该方块是否为Air
 	 * @param blockState 需要判断的方法，无检查

@@ -1,11 +1,14 @@
 package skily_leyu.mistyrain.block.define;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import skily_leyu.mistyrain.block.define.IMRPlant;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import skily_leyu.mistyrain.config.MRConfig;
-import skily_leyu.mistyrain.block.define.PlantEvent;
 
 /**
  * 具有生长特性的MR植物方法基类
@@ -13,13 +16,13 @@ import skily_leyu.mistyrain.block.define.PlantEvent;
  * @version 1.0.0
  */
 public abstract class BlockMRPlant extends Block implements IMRPlant{
-    
+
     public BlockMRPlant(Material material, MapColor mapColor){
         super(material,mapColor);
     }
 
     @Override
-	boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient){
+    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient){
         return false;
     }
 
@@ -32,22 +35,22 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
 	public final void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(worldIn, pos, state, rand);
         if(!worldIn.isRemote&&isAreaLoaded(worldIn,pos)){
-            if(mustSupport()&&!hasSupport()){
-                destroy(world,rand,pos,state);
+            if(mustSupport()&&!hasSupport(worldIn, pos, state)){
+                destroy(worldIn,rand,pos,state);
                 return;
             }
             PlantEvent event = canGrow(worldIn, rand, pos, state);
             if(event==PlantEvent.GROW){
-                grow(world,rand,pos,state);
+                grow(worldIn,rand,pos,state);
             }else if(event==PlantEvent.DECAY){
-                decay(world,rand,pos,state);
+                decay(worldIn,rand,pos,state);
             }
         }
     }
 
     @Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state){
-        updateTick(worldIn,pos,state,rand);
+        return true;
     }
 
     @Override

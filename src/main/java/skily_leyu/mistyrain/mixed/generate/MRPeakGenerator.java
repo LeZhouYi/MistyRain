@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import skily_leyu.mistyrain.MistyRain;
 import skily_leyu.mistyrain.basic.MathUtils;
 import skily_leyu.mistyrain.basic.pattern.Pattern;
 import skily_leyu.mistyrain.basic.pattern.Point2D;
@@ -68,13 +69,14 @@ public class MRPeakGenerator extends WorldGenerator{
 	 */
 	private boolean canGenerate(World worldIn, BlockPos position){
 		//检查区块加载
-		if(!worldIn.isAreaLoaded(position, radius)){
+		if(!worldIn.isAreaLoaded(position, radius+1)){
 			return false;
 		}
+		MRUtils.logInfo("genPos", position);
 		//检查是否存在支撑方块
-		int checkRadius = (int)(this.radius*0.75F);
+		int checkRadius = (int)(this.radius*0.2F);
 		for(BlockPos tePos:BlockPos.getAllInBox(position.add(-checkRadius,-1,-checkRadius),position.add(checkRadius,-1,checkRadius))){
-			if(!MRUtils.isAirBlock(worldIn.getBlockState(tePos))){
+			if(MRUtils.isAirBlock(worldIn.getBlockState(tePos))){
 				return false;
 			}
 		}

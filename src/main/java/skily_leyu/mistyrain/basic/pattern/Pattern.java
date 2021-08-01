@@ -63,7 +63,7 @@ public class Pattern{
 	 * @return true=矩阵之内，flase=矩阵之外
 	 **/
 	public boolean isExist(Point2D point){
-		return MathUtils.isBetween(0,x,point.getX()-1)&&MathUtils.isBetween(0,z,point.getZ());
+		return MathUtils.isBetween(0,x-1,point.getX())&&MathUtils.isBetween(0,z-1,point.getZ());
 	}
 
 	/**

@@ -23,43 +23,43 @@ import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
  */
 public class MRItems{
     
-    public static final Item herbalsBook = getRegistryItem(ItemHerbalsBook.class, "herbals_book", "herbalBook");
-
-    protected static Item getRegistryItem(Class<? extends Item> classIn, String registryName, String unlocalizedName) {
-        try {
-            return classIn.getConstructor().newInstance().setCreativeTab(MRCreativeTabs.tabMistyRain)
-                    .setRegistryName(MistyRain.MODID, registryName).setUnlocalizedName(unlocalizedName);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            e.printStackTrace();
-        }
-		return Items.AIR;
-	}
-
-    @Mod.EventBusSubscriber
-	public static class ObjectRegistryHandler {
-
-		@SubscribeEvent
-		public static void registerItems(final RegistryEvent.Register<Item> event) {
-			MistyRain.getLogger().info("Registrying items[HerbalGarden]");
-			final IForgeRegistry<Item> registry = event.getRegistry();
-			registry.registerAll(herbalsBook);
-        }
-
-		@SubscribeEvent
-		@SideOnly(Side.CLIENT)
-		public static void registerItemModels(final ModelRegistryEvent event) {
-			MistyRain.getLogger().info("Registrying item models[HerbalGarden]");
-			registerItemModel(0, herbalsBook);
-		}
-
-		@SideOnly(Side.CLIENT)
-		public static void registerItemModel(int parMetaData, Item... parItem) {
-			for (Item item : parItem) {
-				ModelLoader.setCustomModelResourceLocation(item, parMetaData,
-						new ModelResourceLocation(item.getRegistryName(), "inventory"));
-			}
-		}
-	}
+//    public static final Item herbalsBook = getRegistryItem(ItemHerbalsBook.class, "herbals_book", "herbalBook");
+//
+//    protected static Item getRegistryItem(Class<? extends Item> classIn, String registryName, String unlocalizedName) {
+//        try {
+//            return classIn.getConstructor().newInstance().setCreativeTab(MRCreativeTabs.tabMistyRain)
+//                    .setRegistryName(MistyRain.MODID, registryName).setUnlocalizedName(unlocalizedName);
+//        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+//                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+//            e.printStackTrace();
+//        }
+//		return Items.AIR;
+//	}
+//
+//    @Mod.EventBusSubscriber
+//	public static class ObjectRegistryHandler {
+//
+//		@SubscribeEvent
+//		public static void registerItems(final RegistryEvent.Register<Item> event) {
+//			MistyRain.getLogger().info("Registrying items[HerbalGarden]");
+//			final IForgeRegistry<Item> registry = event.getRegistry();
+//			registry.registerAll(herbalsBook);
+//        }
+//
+//		@SubscribeEvent
+//		@SideOnly(Side.CLIENT)
+//		public static void registerItemModels(final ModelRegistryEvent event) {
+//			MistyRain.getLogger().info("Registrying item models[HerbalGarden]");
+//			registerItemModel(0, herbalsBook);
+//		}
+//
+//		@SideOnly(Side.CLIENT)
+//		public static void registerItemModel(int parMetaData, Item... parItem) {
+//			for (Item item : parItem) {
+//				ModelLoader.setCustomModelResourceLocation(item, parMetaData,
+//						new ModelResourceLocation(item.getRegistryName(), "inventory"));
+//			}
+//		}
+//	}
 
 }
