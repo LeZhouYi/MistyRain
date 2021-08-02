@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.mixed.generate;
+package skily_leyu.mistyrain.world.biome.generator;
 
 import java.util.List;
 import java.util.Random;
@@ -14,15 +14,14 @@ import skily_leyu.mistyrain.basic.pattern.Pattern;
 import skily_leyu.mistyrain.basic.pattern.Point2D;
 import skily_leyu.mistyrain.basic.pattern.Point3D;
 import skily_leyu.mistyrain.basic.type.CellType;
-import skily_leyu.mistyrain.mixed.MRUtils;
 
-public class MRPeakGenerator extends WorldGenerator{
+public class GeneratorMRPeak extends WorldGenerator{
 	
 	//图格相关
-	private int radius = 16; //基础图格半径
-	private int size = 2*radius+1; //图集大小
-	protected float[] spreadRate = new float[]{0.25F,0.35F,0.75F,0.85F,1.0F}; //图格比率
-	protected float[] mixRate = new float[]{0.3F,0.6F}; //混合比率
+	private int radius; //基础图格半径
+	private int size; //图集大小
+	protected float[] spreadRate; //图格比率
+	protected float[] mixRate; //混合比率
 
 	//Minecraft相关
 	private Random rand; //生成器，通常为世界随机生成器
@@ -30,12 +29,13 @@ public class MRPeakGenerator extends WorldGenerator{
 	private List<IBlockState> blockList;//图格对应的方块列表,以CellType.ordinal()的取值对应
 
 	//Peak相关
-	private int height = 100; //高度
-	private int depth = 4; //填充深度
-	private float gradient = 0.1F; //斜率
-	private int bound = 16; //顶点随机范围[-16,16]
+	private int height; //高度
+	private int depth; //填充深度
+	private float gradient; //斜率
+	private int bound; //顶点随机范围
+	private float checkRate;//检查范围
 
-	public MRPeakGenerator(List<IBlockState> blockList){
+	public GeneratorMRPeak(List<IBlockState> blockList){
 		this.blockList = blockList;
 	}
 
@@ -45,6 +45,30 @@ public class MRPeakGenerator extends WorldGenerator{
 	private void init(Random rand, BlockPos pos){
 		this.rand = rand;
 		this.pos = pos;
+		if(this.radius==0){
+			this.setRadius(MRConfig.cloudPeakRadius);
+		}
+		if(this.spreadRate==null){
+			this.setSpreadRate(MRConfig.cloudPeakCellRate);
+		}
+		if(this.mixRate==null){
+			this.setMixRate(MRConfig.cloudPeakMixRate);
+		}
+		if(this.depth==0){
+			this.setDepth(MRConfig.cloudPeakDepth);
+		}
+		if(this.bound==0){
+			this.setBound(MRConfig.cloudPeakTopBound);
+		}
+		if(this.height==0){
+			this.setHeight(MRConfig.cloudPeakMinHeight+this.rand.nextInt(MRConfig.cloudPeakMaxHeight-MRConfig.cloudPeakMinHeight));
+		}
+		if(this.gradient==0.0F){
+			this.setGradient(MRConfig.cloudPeakMinGradient+this.rand.nextFloat(MRConfig.cloudPeakMaxGradient-MRConfig.cloudPeakMinGradient));
+		}
+		if(this.checkRate==0.0F){
+			this.checkRate=MRConfig.cloudPeakCheckRate;
+		}
 	}
 
 	/**
@@ -72,9 +96,12 @@ public class MRPeakGenerator extends WorldGenerator{
 		if(!worldIn.isAreaLoaded(position, radius+1)){
 			return false;
 		}
-		MRUtils.logInfo("genPos", position);
+		//检查上限及下限
+		if(position.getY()<=depth||position.getY()+height>=world.getHeight()){
+			return false;
+		}
 		//检查是否存在支撑方块
-		int checkRadius = (int)(this.radius*0.2F);
+		int checkRadius = (int)(this.radius*this.checkRate);
 		for(BlockPos tePos:BlockPos.getAllInBox(position.add(-checkRadius,-1,-checkRadius),position.add(checkRadius,-1,checkRadius))){
 			if(MRUtils.isAirBlock(worldIn.getBlockState(tePos))){
 				return false;
@@ -84,16 +111,18 @@ public class MRPeakGenerator extends WorldGenerator{
 	}
 
 	/**
-	 * 生成基础图集,一般用于最初位置该层的生成
-	 * @return 返回根据设置生成的最初的图集
+	 * 生成基础图集
+	 * @param size 图集大小
+	 * @param radius 图集半径
+	 * @return 返回根据设置生成图集
 	 */
-	private Pattern genBasePattern(){
+	private Pattern genBasePattern(int size,int radius){
 		Pattern pattern = new Pattern(size);
 		Point2D point = new Point2D(radius,radius);
 		for(int x = 0; x < size; x++){
 			for(int z = 0; z < size; z++){
 				Point2D tePoint = new Point2D(x,z);
-				pattern.setBit(tePoint,getCellType(point.squareDistance(tePoint)));
+				pattern.setBit(tePoint,getCellType(point.squareDistance(tePoint,radius)));
 			}
 		}
 		Stack<Point2D> sideStack = pattern.getSideCell(CellType.SIDE,CellType.EMPTY);
@@ -103,6 +132,7 @@ public class MRPeakGenerator extends WorldGenerator{
 				for(Point2D nearPoint:mainPoint.getNearPoints(1)){
 					if(pattern.isExist(nearPoint)){
 						pattern.setBit(nearPoint, CellType.EMPTY);
+						//TODO:修改边缘
 					}
 				}
 				pattern.setBit(mainPoint,CellType.EMPTY);
@@ -114,9 +144,10 @@ public class MRPeakGenerator extends WorldGenerator{
 	/**
 	 * 图格绘制逻辑，根据距离返回不同的取值，有依赖属性配置
 	 * @param distance 一般为中心点与该点的轴差平方和，与半径的平方作差
+	 * @param radius 当前图集的半径
 	 * @return 返回对应逻辑的取值
 	 */
-	private CellType getCellType(int distance){
+	private CellType getCellType(int distance, int radius){
 		float rate = (float)distance/(radius*radius);
 		if(rate<=spreadRate[0]){
 			return CellType.CORE;
@@ -138,31 +169,30 @@ public class MRPeakGenerator extends WorldGenerator{
 	 */
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		//检查是否可以生成
-		if(!canGenerate(worldIn,position)){
-			return false;
-		}
+
 		//初始化参数
 		init(rand,position);
-
-		//生成基础图层数据
-		Pattern pattern = genBasePattern();
-		Point3D base = new Point3D(pos.getX(),pos.getY(),pos.getZ());
 
 		//生成顶层中心点
 		int xGap = MathUtils.randInt(rand,2*bound,-bound);
 		int zGap = MathUtils.randInt(rand,2*bound,-bound);
 
+		//检查是否可以生成
+		if(!canGenerate(worldIn,position)||!worldIn.isAreaLoaded(position.add(xGap,height,zGap),(int)((size-gradient)/2))){
+			return false;
+		}
+
+		Point3D base = new Point3D(pos.getX(),pos.getY(),pos.getZ());
 		for(int h = -this.depth, teSize = size;h<height;h++){
 			//线性插值
 			float rate = (float)h/height;
 			Point3D tePoint = new Point3D((int)(xGap*rate),h,(int)(zGap*rate));//偏移量
 
-			//第0层不需要放缩
-			if(h!=0){
+			if(size!=(int)(size - gradient*rate)&&h!=-this.depth){
 				teSize = (int)(size - gradient*rate);
-				pattern = pattern.scalePattern(teSize,teSize);
+				pattern = genBasePattern(teSize, teSize/2)
 			}
+
 			//获取中心
 			Point2D center = new Point2D(teSize/2);
 

@@ -15,8 +15,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.util.math.ChunkPos;
 import skily_leyu.mistyrain.basic.MathUtils;
 import skily_leyu.mistyrain.basic.type.CellType;
-import skily_leyu.mistyrain.mixed.generate.MRPeakGenerator;
 import skily_leyu.mistyrain.config.MRConfig;
+import skily_leyu.mistyrain.world.biome.generator.GeneratorMRPeak;
 
 public class DecoratorCloudPeak extends BiomeDecorator{
 
@@ -25,10 +25,11 @@ public class DecoratorCloudPeak extends BiomeDecorator{
 	public DecoratorCloudPeak(){
 		List<IBlockState> blockList = new ArrayList<>();
 		blockList.add(Blocks.AIR.getDefaultState());
-		for(int i=1;i<CellType.values().length;i++) {
-			blockList.add(Blocks.STONE.getDefaultState());			
-		}
-		this.peakGenerator = new MRPeakGenerator(blockList);
+		blockList.add(Blokcs.DIRT.getDefaultState());
+		blockList.add(Blocks.STONE.getDefaultState());
+		blockList.add(Blocks.WOOD.getDefaultState());
+		blockList.add(Blocks.GRASS.getDefaultState());
+		this.peakGenerator = new GeneratorMRPeak(blockList);
 	}
 
     @Override
