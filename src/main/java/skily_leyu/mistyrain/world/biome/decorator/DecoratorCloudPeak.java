@@ -13,26 +13,26 @@ import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.gen.ChunkGeneratorSettings;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.util.math.ChunkPos;
+
 import skily_leyu.mistyrain.basic.MathUtils;
-import skily_leyu.mistyrain.basic.type.CellType;
 import skily_leyu.mistyrain.config.MRConfig;
 import skily_leyu.mistyrain.world.biome.generator.GeneratorMRPeak;
 
-public class DecoratorCloudPeak extends BiomeDecorator{
+public class DecoratorCloudPeak extends BiomeDecorator {
 
 	private WorldGenerator peakGenerator;
 
-	public DecoratorCloudPeak(){
+	public DecoratorCloudPeak() {
 		List<IBlockState> blockList = new ArrayList<>();
 		blockList.add(Blocks.AIR.getDefaultState());
-		blockList.add(Blokcs.DIRT.getDefaultState());
+		blockList.add(Blocks.DIRT.getDefaultState());
 		blockList.add(Blocks.STONE.getDefaultState());
-		blockList.add(Blocks.WOOD.getDefaultState());
+		blockList.add(Blocks.LOG.getDefaultState());
 		blockList.add(Blocks.GRASS.getDefaultState());
 		this.peakGenerator = new GeneratorMRPeak(blockList);
 	}
 
-    @Override
+	@Override
 	public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
 		if (this.decorating) {
 			throw new RuntimeException("Already decorating");
@@ -45,11 +45,11 @@ public class DecoratorCloudPeak extends BiomeDecorator{
 		}
 	}
 
-    @Override
+	@Override
 	protected void genDecorations(Biome biomeIn, World worldIn, Random random) {
 		ChunkPos forgeChunkPos = new ChunkPos(chunkPos);
-		for (int index = 0; index < MRConfig.cloudPeakCheckTime; index++) {
-			if (MathUtils.canDo(random, MRConfig.cloudPeakGenRate)) {
+		for (int index = 0; index < MRConfig.peakGenTime; index++) {
+			if (MathUtils.canDo(random, MRConfig.peakGenRate)) {
 				int x = random.nextInt(16) + 8;
 				int z = random.nextInt(16) + 8;
 				BlockPos blockpos = worldIn.getHeight(this.chunkPos.add(x, 0, z));
@@ -62,6 +62,6 @@ public class DecoratorCloudPeak extends BiomeDecorator{
 
 		}
 
-    }
+	}
 
 }

@@ -91,6 +91,14 @@ public class MathUtils{
 		return base + rand.nextInt(bound);
 	}
 
+	public static int randInt(Random rand, int[] region) {
+		return randInt(rand, region[0], region[1]-region[0]);
+	}
+	
+	public static float randFloat(Random rand, float[] region) {
+		return region[0]+rand.nextFloat()*(region[1]-region[0]);
+	}
+	
 	/**
 	 * @param rand 随机数生成器
 	 * @param bound 随机范围[0,bound]

@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import skily_leyu.mistyrain.MistyRain;
-import skily_leyu.mistyrain.mixed.generate.MRBookGenerator;
+import skily_leyu.mistyrain.utility.MRBook;
 
 /**
  * 读取MR相关的json配置文件
@@ -18,10 +18,10 @@ import skily_leyu.mistyrain.mixed.generate.MRBookGenerator;
  */
 public class MRReader {
 
-    public static MRBookGenerator herbalsBook;
+    public static MRBook herbalsBook;
 
     public MRReader(FMLPreInitializationEvent event) {
-        herbalsBook = loadJson(MRBookGenerator.class, "herbals_book");
+        herbalsBook = loadJson(MRBook.class, "herbals_book");
     }
 
     private <T> T loadJson(Class<T> jsonClass, String registryName) {

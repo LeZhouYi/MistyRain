@@ -1,4 +1,6 @@
-package skily_leyu.mistyrain.mixed;
+package skily_leyu.mistyrain.utility;
+
+import java.util.Random;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -6,7 +8,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import skily_leyu.mistyrain.MistyRain;
+import skily_leyu.mistyrain.basic.MathUtils;
 import skily_leyu.mistyrain.basic.pattern.Point3D;
+import skily_leyu.mistyrain.basic.type.Season;
+import skily_leyu.mistyrain.basic.type.SolarTerm;
+import skily_leyu.mistyrain.config.MRConfig;
 
 /**
  * 一些用于Minecraft相关的方法
@@ -27,7 +33,7 @@ public class MRUtils{
         while(nowMonth>13.0F){
             nowMonth-=12.0F;
         }
-        return SolerTerm.getSolarTerm(nowMonth);
+        return SolarTerm.getSolarTerm(nowMonth);
     }
 
     /**
@@ -38,7 +44,7 @@ public class MRUtils{
         if(indexMonth>=12||indexMonth<=2){
             return Season.WINTER;
         }else{
-            return Season.values()[index/3-1];
+            return Season.values()[indexMonth/3-1];
         }
     }
 
