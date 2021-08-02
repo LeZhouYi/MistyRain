@@ -50,9 +50,23 @@ public class BlockRainStone extends Block{
 	}
 
     @Override
+	public int tickRate(World worldIn) {
+		return MRConfig.tickSpeed;
+	}
+
+    @Override
     public boolean isFullCube(IBlockState state){
         return true;
     }
     
+    @Override
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+        super(worldIn,pos,state,rand);
+        if(!worldIn.isRemote&&worldIn.isAreaLoaded(pos, 1)){
+            boolean hasCover = MRUtils.isCoverBlock(worldIn.getBlockState(pos.up()));
+            for(EnumFacing facing:EnumFacing.plane.HORIZONTAL){
+            }
+        }
+    }
 
 }
