@@ -27,7 +27,15 @@ public class MRConfig {
 
 	private static Configuration config;
 
-	public static int tickSpeed;
+	public static int tickSpeed; //植物生长更新Tick
+	public static float growRate; //植物生长相关的基础概率
+
+	public static int solarTermDays; //时令持续天数
+	public static int solarTermStart; //游戏初始的时令
+
+	//--------------根据获得的属性来计算获得的属性---------------------- 
+    public static float monthStart;//游戏初始日期
+    public static int monthDays;//一月持续天
 
 	public MRConfig(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
@@ -36,9 +44,17 @@ public class MRConfig {
 		config.save();
 	}
 
+	protected void afterInit(){
+		startDay = SolarTerm.values()[MRConfig.solarTermStart].getStart();
+		monthStart = MRConfig.solarTermDays*2;
+	}
+
 	/**加载所有属性 */
 	protected void init() {
 		tickSpeed = loadInt("tickSpeed",40);
+		growRate = loadFloat("growRate",0.1F);
+		solarTermDays = loadInt("solarTermDays",15);
+		solarTermStart = loadInt("solarTermStart",0);
 	}
 
 	/**

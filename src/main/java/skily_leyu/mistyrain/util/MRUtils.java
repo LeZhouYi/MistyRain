@@ -15,10 +15,56 @@ import skily_leyu.mistyrain.basic.pattern.Point3D;
  */
 public class MRUtils{
 
+	public static boolean canGrow(Random rand){
+		return MathUtils.canDo(rand,MRConfig.growRate);
+	}
+
+    /**
+     * @return 获得当前的时令
+     */
+    public static SolarTerm getSolarTerm(World worldIn){
+        float nowMonth = getNowMonth(worldIn);
+        while(nowMonth>13.0F){
+            nowMonth-=12.0F;
+        }
+        return SolerTerm.getSolarTerm(nowMonth);
+    }
+
+    /**
+     * @return 获得当前的季节
+     */
+    public static Season getSeason(World worldIn){
+        int indexMonth = ((int)getNowMonth(worldIn)-1)%12 + 1;
+        if(indexMonth>=12||indexMonth<=2){
+            return Season.WINTER;
+        }else{
+            return Season.values()[index/3-1];
+        }
+    }
+
+    /**
+     *@return 获得当前日期的浮点值
+     */
+    public static float getNowMonth(World worldIn){
+        long days = (worldIn.getWorldTime() / 24000);
+        return MRConfig.monthStart+(float)days/MRConfig.monthDays;
+    }
+
+	/**
+	 * 调试，输入变量名及取值
+	 */
 	public static void logInfo(String name, Object object) {
 		MistyRain.getLogger().info(name+":"+object.toString());
 	}
 	
+	/**
+	 * 判断是否为覆盖类型的方块
+	 * @return true=是覆盖类型的方块
+	 */
+	public static boolean isCoverBlock(IBlockState blockstate){
+		return blockstate.isFullCube()&&!blockstate.isOblique();
+	}
+
 	/**
 	 * 判断该方块是否为Air
 	 * @param blockState 需要判断的方法，无检查

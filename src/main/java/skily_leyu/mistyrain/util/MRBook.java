@@ -15,7 +15,7 @@ import skily_leyu.mistyrain.basic.book.Trigger;
  * @author Skily
  * @version 1.0.0
  */
-public class MRBookGenerator{
+public class MRBook{
 
 	/**创建时间，一般为首次打开该书的时间 */
 	private long createTime;
