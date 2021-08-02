@@ -62,7 +62,7 @@ public class MRUtils{
 	 * @return true=是覆盖类型的方块
 	 */
 	public static boolean isCoverBlock(IBlockState blockstate){
-		return blockstate.isFullCube()&&!blockstate.isOblique();
+		return blockstate.isFullCube()&&!blockstate.isOpaqueCube();
 	}
 
 	/**

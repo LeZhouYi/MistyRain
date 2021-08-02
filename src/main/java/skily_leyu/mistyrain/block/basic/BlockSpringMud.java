@@ -45,6 +45,21 @@ public class BlockSpringMud extends Block{
     }
 
     @Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { STAGE });
+	}
+
+    @Override
+	public int tickRate(World worldIn) {
+		return MRConfig.tickSpeed;
+	}
+
+    @Override
+    public int isFullCube(IBlockState state){
+        return true;
+    }
+
+    @Override
 	public final void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super(worldIn,pos,state,rand);
         if(!worldIn.isRemote&&worldIn.isAreaLoaded(pos,1)){

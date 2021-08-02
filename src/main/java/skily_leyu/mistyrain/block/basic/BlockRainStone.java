@@ -17,11 +17,13 @@ public class BlockRainStone extends Block{
 
     /**
      * 0 = 普通的石头状态
-     * 1 = 有植物依附侧边时，侧面有草状态
-     * 2 = 上方无完整方块，非冬，有草状态
-     * 3 = 上方有雪时，冬天，有雪状态
+     * 1 = 有草状态
+     * 2 = 上方有雪时，有雪状态
+     * 3 = 顶上无草，侧生草状态
+     * 4 = 顶上有草，侧生草状态
+     * 5 = 顶上有雪，侧生草状态
      */
-    public static final IProperty<Integer> STAGE = MRProperty.PART_STAGE;
+    public static final IProperty<Integer> STAGE = MRProperty.HALF_STAGE;
 
     public BlockRainStone(){
         super(Material.ROCK,MapColor.BLUE_STAINED_HARDENED_CLAY);
@@ -40,6 +42,16 @@ public class BlockRainStone extends Block{
     @Override
     public IBlockState getStateFromMeta(int meta){
         return this.getDefaultState().withProperty(STAGE,meta%4);
+    }
+
+    @Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { STAGE });
+	}
+
+    @Override
+    public boolean isFullCube(IBlockState state){
+        return true;
     }
     
 
