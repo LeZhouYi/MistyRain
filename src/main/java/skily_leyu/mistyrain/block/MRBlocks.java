@@ -48,6 +48,7 @@ public class MRBlocks {
 			MistyRain.getLogger().info("Registrying Blocks[HerbalGarden]");
 			final IForgeRegistry<Block> registry = event.getRegistry();
 //			registry.registerAll(springMud);
+//			MRUtils.registerPlantSoil(springMud);
        }
 
 		@SubscribeEvent

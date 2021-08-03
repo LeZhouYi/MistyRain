@@ -21,6 +21,16 @@ import skily_leyu.mistyrain.config.MRConfig;
  */
 public class MRUtils{
 
+	private static List<Block> soilList = Lists.newArrayList(Blocks.GRASS, Blocks.DIRT, Blocks.FARMLAND);
+
+	public static void registerPlantSoil(Block... blocks){
+		soilList.addAll(block);
+	}
+
+	public static boolean isPlantSoil(IBlockState blockState) {
+		return soilList.contains(blockState.getBlock());
+	}
+
 	public static boolean isSnow(IBlockState blockstate){
 		return blockstate.getMaterial()==Material.SNOW;
 	}

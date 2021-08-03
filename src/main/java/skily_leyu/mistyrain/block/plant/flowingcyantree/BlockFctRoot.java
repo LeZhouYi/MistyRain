@@ -33,6 +33,7 @@ public class BlockFctRoot extends BlockMRPlant{
         this.setResistance(MRProperty.woodHardness);
         this.setSoundType(SoundType.WOOD);
         this.setDefaultState(blockState.getBaseState().withProperty(BRANCH, false).withProperty(VERTICAL, false).withProperty(FACING, EnumFacing.EAST));
+        this.setTickRandomly(true);
     }
 
     @Override
@@ -51,5 +52,23 @@ public class BlockFctRoot extends BlockMRPlant{
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[] { BRANCH,VERTICAL,FACING });
 	}
+
+    @Override
+    public boolean hasSupport(World worldIn, BlockPos pos, IBlockState state){
+        if(state.getValue(VERTICAL)){
+            return isSuitBlock(worldIn.getBlockState(pos.down()));
+        }else{
+            return isSuitBlock(worldIn.getBlockState(pos.offset(state.getValue(FACING).getOpposite())));
+        }
+    }
+
+    @Override
+    public void destroy(World worldIn, Random rand, BlockPos pos, IBlockState state){
+        //TODO:
+    }
+
+    public static boolean isSuitBlock(IBlockState blockstate){
+        return MRUtils.isPlantSoil(blockstate)||blockstate.getBlock()==MRBlocks.rainStone;
+    }
 
 }

@@ -50,7 +50,7 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
 
     @Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state){
-        return true;
+        return false;
     }
 
     @Override
