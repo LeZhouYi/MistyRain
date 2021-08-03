@@ -75,7 +75,7 @@ public class BlockSpringMud extends Block{
             }
             Season season = MRUtils.getSeason(worldIn);
             if(season==Season.WINTER){
-                if(worldIn.getBlockState(pos.up()).getMaterial()==Material.SNOW){
+                if(MRUtils.isSnow(worldIn.getBlockState(pos.up()))){
                     //冬天有雪
                     worldIn.setBlockState(pos,state.withProperty(STAGE,4),2);
                 }else{
@@ -84,12 +84,12 @@ public class BlockSpringMud extends Block{
                 }
             }else if(season==Season.AUTUMN){
                 //非冬，非春夏，仅草
-                worldIn.setBlockState(pos,state.withProperty(STAGE,1),2);
+                worldIn.setBlockState(pos,state.withProperty(STAGE,2),2);
             }else{
                 int stage = state.getValue(STAGE);
                 if(stage!=2&&stage!=3){
                     //长草
-                    worldIn.setBlockState(pos,state.withProperty(STAGE,1),2);
+                    worldIn.setBlockState(pos,state.withProperty(STAGE,2),2);
                 }else if(stage==2){
                     //长花
                     if(MRUtils.canGrow(rand)){

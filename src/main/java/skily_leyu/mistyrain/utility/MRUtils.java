@@ -21,6 +21,17 @@ import skily_leyu.mistyrain.config.MRConfig;
  */
 public class MRUtils{
 
+	public static boolean isSnow(IBlockState blockstate){
+		return blockstate.getMaterial()==Material.SNOW;
+	}
+
+	/**
+	 * @return 判断当前是否属于植物类型的方块
+	 */
+	public static boolean isPlant(IBlockState blockstate){
+		return IPlantable.class instanceof blockstate.getBlock().getClass();
+	}
+
 	public static boolean canGrow(Random rand){
 		return MathUtils.canDo(rand,MRConfig.growRate);
 	}

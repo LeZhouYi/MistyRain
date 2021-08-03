@@ -31,23 +31,63 @@ public class GeneratorMRPeak extends WorldGenerator {
 	// Peak相关
 	private int height; // 高度
 	private int depth; // 填充深度
-	private float gradient; // 斜率
 	private int bound; // 顶点随机范围
+	private int pointNum; //异形点数量
+	private float gradient; // 斜率
 	private float checkRate;// 检查范围
+	private float[] xWeight;//-x与x的权重
+	private float[] zWeight;//-z与z的权重
+	private float[] pointDist; //各异形点计算距离
+	private float[] pointRate; //各异形点的权重
+	private List<Float[]> points; //异形点相对位置
+	private Point2D[] pointsCache; //缓存当前图层的异形点
 
 	public GeneratorMRPeak(List<IBlockState> blockList) {
 		this.blockList = blockList;
 	}
 
 	/**
+	 * 初始化异形点，每次生成新的图层均需要初始化
+	 * @param size 图集大小
+	 * @param radius 图集半径
+	 */
+	private void initPoints(int size, int radius){
+		this.pointsCache = new Point2D[this.pointNum];
+		for(int i = 0; i< this.pointNum; i++){
+			float[] tePoints = this.points.get(i);
+			this.pointsCache[i]= new Point2D(size/2+radius*tePoints[0],size/2+radius*tePoint[1]);
+		}
+	}
+
+	/**
 	 * 初始化必要的参数
 	 */
 	private void init(Random rand, BlockPos pos) {
+		//初始参数
 		this.rand = rand;
 		this.pos = pos;
+
+		//每次均需随机的参数
 		this.setHeight(MathUtils.randInt(rand, MRConfig.peakHeight));
 		this.setGradient(MathUtils.randFloat(rand, MRConfig.peakGradient));
 		this.setRadius(MathUtils.randInt(rand, MRConfig.peakRadius));
+		this.xWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
+		this.zWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
+		this.pointNum = MathUtils.randInt(rand,MRConfig.peakPointNum);
+		
+		this.points = new ArrayList<>();
+		this.pointRate = new float[this.pointNum];
+		this.pointDist = new float[this.pointNum];
+		for(int i = 0; i < this.pointNum; i++){
+			float[] tePoint = new float[2];
+			tePoint[0] = (rand.nextInt(2)==0?1:-1)*MathUtils.randFloat(rand,MRConfig.peakPointRadius);
+			tePoint[1] = (rand.nextInt(2)==0?1:-1)*MathUtils.randFloat(rand,MRConfig.peakPointRadius);
+			points.add(tePoint);
+			this.pointDist[i] = MathUtils.randFloat(rand,MRConfig.peakPointRadius);
+			this.pointRate[i] = MathUtils.randFloat(rand,MRConfig.peakPointRate);
+		}
+
+		//仅初始化一次
 		if (this.spreadRate == null) {
 			this.setSpreadRate(MRConfig.peakCellRate);
 		}
@@ -126,7 +166,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 		for (int x = 0; x < size; x++) {
 			for (int z = 0; z < size; z++) {
 				Point2D tePoint = new Point2D(x, z);
-				pattern.setBit(tePoint, getCellType(point.squareDistance(tePoint), radius));
+				pattern.setBit(tePoint, getCellType(getDistance(point,tePoint,radius), radius));
 			}
 		}
 		return pattern;
@@ -134,12 +174,12 @@ public class GeneratorMRPeak extends WorldGenerator {
 
 	/**
 	 * 图格绘制逻辑，根据距离返回不同的取值，有依赖属性配置
-	 * @param distance 一般为中心点与该点的轴差平方和，与半径的平方作差
+	 * @param distance 计算的综合距离
 	 * @param radius   当前图集的半径
 	 * @return 返回对应逻辑的取值
 	 */
-	private CellType getCellType(int distance, int radius) {
-		float rate = (float) distance / (radius * radius);
+	private CellType getCellType(float distance, int radius) {
+		float rate = distance / (radius * radius);
 		if (rate <= spreadRate[0]) {
 			return CellType.CORE;
 		} else if (rate <= spreadRate[1]) {
@@ -153,6 +193,25 @@ public class GeneratorMRPeak extends WorldGenerator {
 		} else {
 			return CellType.EMPTY;
 		}
+	}
+
+	/**
+	 * 距离计算
+	 * @param center 中心点
+	 * @param radius 当前图集的半径
+	 * @return 返回计算出来的综合的距离
+	 */
+	public float getDistance(Point2D center, Point2D now, int radius){
+		float xFactor = (now.getX()<center.getX())?(xWeight[0]):(xWeight[1]);
+		float zFactor = (now.getZ()<center.getZ())?(zWeight[0]):(zWeight[1]);
+		float disFactor = xFactor*(MathUtils.sumOfSquare(now.getX()-center.getX()))+zFactor*(MathUtils.sumOfSquare(now.getZ()-center.getZ()));
+		for(int i = 0;i<this.pointNum;i++){
+			int tedist = now.getMHTDistance(this.pointsCache[i]);
+			if(tedist<= radius*this.pointDist[i]){
+				disFactor -= (tedist*this.pointRate[i]);
+			}
+		}
+		return disFactor;
 	}
 
 	/**
@@ -185,6 +244,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 
 			if (size != (int) (size - size * gradient * rate) || h == -this.depth) {
 				teSize = (int) (size - size * gradient * rate);
+				initPoints(teSize,teSize/2);
 				pattern = genPattern(teSize, teSize / 2);
 			}
 

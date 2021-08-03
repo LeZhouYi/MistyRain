@@ -71,7 +71,22 @@ public class BlockRainStone extends Block{
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if(!worldIn.isRemote&&worldIn.isAreaLoaded(pos, 1)){
             boolean hasCover = MRUtils.isCoverBlock(worldIn.getBlockState(pos.up()));
+            boolean hasSnow = MRUtils.isSnow(worldIn.getBlockState(pos.up()));
+            boolean hasPlant = false;
             for(EnumFacing facing:EnumFacing.HORIZONTALS){
+                if(MRUtils.isPlant(worldIn.getBlockState(pos.offset(facing)))){
+                    hasPlant = true;
+                    break;
+                }
+            }
+            if(hasCover){
+                worldIn.setBlockState(state.withProperty(STAGE,(hasPlant)?3:0));
+            }else{
+                if(hasSnow){
+                    worldIn.setBlockState(state.withProperty(STAGE,(hasPlant)?5:2));
+                }else{
+                    worldIn.setBlockState(state.withProperty(STAGE,(hasPlant)?4:1));
+                }
             }
         }
     }

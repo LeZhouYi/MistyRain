@@ -31,6 +31,16 @@ public class Point2D{
 	}
 
 	/**
+	 * 	返回两点的曼哈顿距离
+	 * @param tePoint 另一个点
+	 */
+	public int getMHTDistance(Point2D tePoint){
+		int x = (tePoint.getX()>this.x?1:-1)*(tePoint.getX()-this.x);
+		int z = (tePoint.getZ()>this.z?1:-1)*(tePoint.getZ()-this.z);
+		return x+z;
+	}
+
+	/**
 	 * @param length 各方向取点的长
 	 * @return 各方向取点的集 
 	 **/

@@ -20,11 +20,16 @@ public class MRConfig {
 	public static int peakMaxGenHeight = 128; // 只在该高度以下生成山峰，过高容易重叠
 	public static int[] peakRadius = new int[] {5,20}; //山峰的直径
 	public static int[] peakHeight = new int[] {64,128}; //山峰的高度
+	public static int[] peakPointNum = new int[]{1,3}; //山峰异形点的数量 
+	
 	public static float peakGenRate = 0.25F;// 生成山峰概率
 	public static float peakCheckRate = 0.75F; // 检查基础的范围，0=只检查一个方块
+	public static float[] peakWeight= new float[]{1.0F,1.25F}; //图形在XZ方向的权重，影响基本形状
 	public static float[] peakGradient = new float[]{0.5F,0.9F}; // 最小缩放格数
 	public static float[] peakMixRate = new float[] { 0.3F, 0.6F }; // 山峰图格混合比率
 	public static float[] peakCellRate = new float[] { 0.25F, 0.35F, 0.75F, 0.85F, 1.0F };// 山峰图格比率
+	public static float[] peakPointRadius = new float[]{0.25F,0.5F}; //山峰异形点计算范围
+	public static float[] peakPointRate = new float[]{0.25F,0.5F}; //山峰异形点计算权重
 
 	private static Configuration config;
 
