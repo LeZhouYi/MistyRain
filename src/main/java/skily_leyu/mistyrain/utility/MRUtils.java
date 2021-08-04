@@ -27,6 +27,14 @@ public class MRUtils{
 		soilList.addAll(block);
 	}
 
+	public void spreadDestroy(world worldIn, Random rand, BlockPos pos, IBlockState blockstate){
+		if(isPlant(blockstate)){
+			if(!((IMRPlant)blockstate.getBlock()).hasSupport(worldIn,pos.up(),blockstate)){
+				((IMRPlant)blockstate.getBlock()).destroy(worldIn,rand,pos.up(),blockstate);
+			}
+		}
+	}
+
 	public static boolean isPlantSoil(IBlockState blockState) {
 		return soilList.contains(blockState.getBlock());
 	}
@@ -40,6 +48,10 @@ public class MRUtils{
 	 */
 	public static boolean isPlant(IBlockState blockstate){
 		return IPlantable.class instanceof blockstate.getBlock().getClass();
+	}
+
+	public static boolean canDrop(Random rand){
+		return MathUtils.canDo(rand.MRConfig.dropRate);
 	}
 
 	public static boolean canGrow(Random rand){

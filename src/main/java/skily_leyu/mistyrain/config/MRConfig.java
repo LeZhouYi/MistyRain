@@ -35,6 +35,7 @@ public class MRConfig {
 
 	public static int tickSpeed; // 植物生长更新Tick
 	public static float growRate; // 植物生长相关的基础概率
+	public static float dropRate; //植物掉落物品的基础概率
 
 	public static int solarTermDays; // 时令持续天数
 	public static int solarTermStart; // 游戏初始的时令
@@ -58,7 +59,10 @@ public class MRConfig {
 	/** 加载所有属性 */
 	protected void init() {
 		tickSpeed = loadInt("tickSpeed", 40);
+		
 		growRate = loadFloat("growRate", 0.1F);
+		dropRate = loadFloat("dropRate", 0.1F);
+
 		solarTermDays = loadInt("solarTermDays", 15);
 		solarTermStart = loadInt("solarTermStart", 0);
 	}

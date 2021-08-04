@@ -68,4 +68,16 @@ public interface IMRPlant extends IGrowable{
 	 */
 	PlantEvent canGrow(World worldIn, Random rand, BlockPos pos, IBlockState state);
 
+	/**
+	 * 检查当前方块是否可以依赖的方块
+	 * @return true=是为可依赖的方块
+	 */
+	boolean isSuitBlock(IBlockState blockstate);
+
+	/**
+	 * 检查方块
+	 * @return true=存在依赖或不需要依赖，fasle=没有依赖且执行破坏方法
+	 */
+	boolean checkSupport(World worldIn, Random rand, BlockPos pos, IBlockState state);
+
 }

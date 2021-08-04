@@ -21,24 +21,16 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
         super(material,mapColor);
     }
 
-    @Override
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient){
-        return false;
-    }
-
+    //---------------------Block Method----------------------
     @Override
 	public final int tickRate(World worldIn) {
 		return MRConfig.tickSpeed;
 	}
-
+    
     @Override
-	public final void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-		super.updateTick(worldIn, pos, state, rand);
-        if(!worldIn.isRemote&&isAreaLoaded(worldIn,pos)){
-            if(mustSupport()&&!hasSupport(worldIn, pos, state)){
-                destroy(worldIn,rand,pos,state);
-                return;
-            }
+    public final void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+        super.updateTick(worldIn, pos, state, rand);
+        if(!worldIn.isRemote&&isAreaLoaded(worldIn,pos)&&checkSupport(world,rand,pos,state)){
             PlantEvent event = canGrow(worldIn, rand, pos, state);
             if(event==PlantEvent.GROW){
                 grow(worldIn,rand,pos,state);
@@ -48,6 +40,12 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
         }
     }
 
+    //---------------------Plant Method------------------------
+    @Override
+    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient){
+        return false;
+    }
+    
     @Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state){
         return false;
@@ -64,7 +62,7 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
 
     @Override
     public void destroy(World worldIn, Random rand, BlockPos pos, IBlockState state){
-
+        worldIn.setBlockToAir(pos);
     }
 
     @Override
@@ -85,6 +83,20 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
     @Override
     public PlantEvent canGrow(World worldIn, Random rand, BlockPos pos, IBlockState state){
         return PlantEvent.STOP;
+    }
+
+    @Override
+    public boolean isSuitBlock(IBlockState blockstate){
+        return true;
+    }
+
+    @Override
+    public boolean checkSupport(World worldIn, Random rand, BlockPos pos, IBlockState state){
+        if(mustSupport()&&!hasSupport(worldIn, pos, state)){
+            destroy(worldIn,rand,pos,state);
+            return false;
+        }
+        return true;
     }
 
 }
