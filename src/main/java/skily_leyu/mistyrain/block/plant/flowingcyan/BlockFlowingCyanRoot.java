@@ -63,6 +63,12 @@ public class BlockFctRoot extends BlockMRPlant{
     }
 
     @Override
+    public boolean isSuitBlock(IBlockState blockstate){
+        return MRUtils.isPlantSoil(blockstate)||blockstate.getBlock()==MRBlocks.rainStone;
+    }
+
+    
+    @Override
     public void destroy(World worldIn, Random rand, BlockPos pos, IBlockState state){
         super(worldIn,rand,pos,state);
         //掉落
@@ -78,10 +84,6 @@ public class BlockFctRoot extends BlockMRPlant{
         }
     }
 
-    @Override
-    public boolean isSuitBlock(IBlockState blockstate){
-        return MRUtils.isPlantSoil(blockstate)||blockstate.getBlock()==MRBlocks.rainStone;
-    }
 
     /**
      * 监测依赖方块的变化
