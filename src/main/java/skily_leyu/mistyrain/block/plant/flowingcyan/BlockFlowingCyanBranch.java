@@ -1,11 +1,19 @@
-public class BlockFctBranch extends BlockMRPlant{
-    
-    public BlockFctBranch(){
+package skily_leyu.mistyrain.block.plant.flowingcyan;
+
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import skily_leyu.mistyrain.block.MRProperty;
+import skily_leyu.mistyrain.block.define.BlockMRPlant;
+
+public class BlockFlowingCyanBranch extends BlockMRPlant{
+
+    public BlockFlowingCyanBranch(){
         super(Material.WOOD, MapColor.GREEN_STAINED_HARDENED_CLAY);
         this.setHardness(MRProperty.woodHardness);
         this.setResistance(MRProperty.woodHardness);
         this.setSoundType(SoundType.WOOD);
-        this.setDefaultState(blockState.getBaseState().withProperty(VERTICAL, false).withProperty(FACING, EnumFacing.EAST));
+//        this.setDefaultState(blockState.getBaseState().withProperty(VERTICAL, false).withProperty(FACING, EnumFacing.EAST));
         this.setTickRandomly(true);
     }
 

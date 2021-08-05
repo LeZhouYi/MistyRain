@@ -26,11 +26,11 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
 	public final int tickRate(World worldIn) {
 		return MRConfig.tickSpeed;
 	}
-    
+
     @Override
     public final void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super.updateTick(worldIn, pos, state, rand);
-        if(!worldIn.isRemote&&isAreaLoaded(worldIn,pos)&&checkSupport(world,rand,pos,state)){
+        if(!worldIn.isRemote&&isAreaLoaded(worldIn,pos)&&checkSupport(worldIn,rand,pos,state)){
             PlantEvent event = canGrow(worldIn, rand, pos, state);
             if(event==PlantEvent.GROW){
                 grow(worldIn,rand,pos,state);
@@ -45,7 +45,7 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient){
         return false;
     }
-    
+
     @Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state){
         return false;

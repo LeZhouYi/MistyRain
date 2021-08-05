@@ -1,5 +1,6 @@
 package skily_leyu.mistyrain.world.biome.generator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -52,10 +53,25 @@ public class GeneratorMRPeak extends WorldGenerator {
 	 * @param radius 图集半径
 	 */
 	private void initPoints(int size, int radius){
+		
+		this.pointNum = MathUtils.randInt(rand,MRConfig.peakPointNum);
+		
+		this.points = new ArrayList<>();
+		this.pointRate = new float[this.pointNum];
+		this.pointDist = new float[this.pointNum];
+		for(int i = 0; i < this.pointNum; i++){
+			Float[] tePoint = new Float[2];
+			tePoint[0] = (rand.nextInt(2)==0?1:-1)*MathUtils.randFloat(rand,MRConfig.peakPointRadius);
+			tePoint[1] = (rand.nextInt(2)==0?1:-1)*MathUtils.randFloat(rand,MRConfig.peakPointRadius);
+			points.add(tePoint);
+			this.pointDist[i] = MathUtils.randFloat(rand,MRConfig.peakPointRadius);
+			this.pointRate[i] = MathUtils.randFloat(rand,MRConfig.peakPointRate);
+		}
+		
 		this.pointsCache = new Point2D[this.pointNum];
 		for(int i = 0; i< this.pointNum; i++){
-			float[] tePoints = this.points.get(i);
-			this.pointsCache[i]= new Point2D(size/2+radius*tePoints[0],size/2+radius*tePoint[1]);
+			Float[] tePoints = this.points.get(i);
+			this.pointsCache[i]= new Point2D((int)(size/2+radius*tePoints[0]),(int)(size/2+(int)radius*tePoints[1]));
 		}
 	}
 
@@ -73,20 +89,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 		this.setRadius(MathUtils.randInt(rand, MRConfig.peakRadius));
 		this.xWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
 		this.zWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
-		this.pointNum = MathUtils.randInt(rand,MRConfig.peakPointNum);
 		
-		this.points = new ArrayList<>();
-		this.pointRate = new float[this.pointNum];
-		this.pointDist = new float[this.pointNum];
-		for(int i = 0; i < this.pointNum; i++){
-			float[] tePoint = new float[2];
-			tePoint[0] = (rand.nextInt(2)==0?1:-1)*MathUtils.randFloat(rand,MRConfig.peakPointRadius);
-			tePoint[1] = (rand.nextInt(2)==0?1:-1)*MathUtils.randFloat(rand,MRConfig.peakPointRadius);
-			points.add(tePoint);
-			this.pointDist[i] = MathUtils.randFloat(rand,MRConfig.peakPointRadius);
-			this.pointRate[i] = MathUtils.randFloat(rand,MRConfig.peakPointRate);
-		}
-
 		//仅初始化一次
 		if (this.spreadRate == null) {
 			this.setSpreadRate(MRConfig.peakCellRate);
@@ -208,7 +211,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 		for(int i = 0;i<this.pointNum;i++){
 			int tedist = now.getMHTDistance(this.pointsCache[i]);
 			if(tedist<= radius*this.pointDist[i]){
-				disFactor -= (tedist*this.pointRate[i]);
+				disFactor -= (tedist*tedist*this.pointRate[i]);
 			}
 		}
 		return disFactor;
@@ -244,7 +247,9 @@ public class GeneratorMRPeak extends WorldGenerator {
 
 			if (size != (int) (size - size * gradient * rate) || h == -this.depth) {
 				teSize = (int) (size - size * gradient * rate);
-				initPoints(teSize,teSize/2);
+				if((this.depth+h)%MRConfig.peakFloor==0) {
+					initPoints(teSize,teSize/2);					
+				}
 				pattern = genPattern(teSize, teSize / 2);
 			}
 

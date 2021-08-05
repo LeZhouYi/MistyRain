@@ -20,7 +20,7 @@ public class MRProperty {
     public static float obsidianHardness = 50.0F;
 
     /**用于基础的方块状态 */
-    public static final IProperty<Integer> TWO_STAGE = Property.create("stage",0,1);
+    public static final IProperty<Integer> TWO_STAGE = PropertyInteger.create("stage",0,1);
     public static final IProperty<Integer> PART_STAGE = PropertyInteger.create("stage",0,3);
     public static final IProperty<Integer> HALF_STAGE = PropertyInteger.create("stage",0,7);
 

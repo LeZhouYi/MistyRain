@@ -1,5 +1,8 @@
-package skily_leyu.mistyrain.block.plant.flowingcyantree;
+package skily_leyu.mistyrain.block.plant.flowingcyan;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -7,15 +10,18 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import skily_leyu.mistyrain.block.MRProperty;
 import skily_leyu.mistyrain.block.define.BlockMRPlant;
+import skily_leyu.mistyrain.utility.MRUtils;
 
 /**
  * 流青木根
  * @author Skily
  * @version 1.0.0
  */
-public class BlockFctRoot extends BlockMRPlant{
+public class BlockFlowingCyanRoot extends BlockMRPlant{
     
     /**
      * 是否竖直，false=横着
@@ -23,7 +29,7 @@ public class BlockFctRoot extends BlockMRPlant{
     public static final IProperty<Boolean> VERTICAL = MRProperty.IS_VERTICAL;
     public static final IProperty<EnumFacing> FACING = MRProperty.FACING;
 
-    public BlockFctRoot(){
+    public BlockFlowingCyanRoot(){
         super(Material.WOOD, MapColor.GREEN_STAINED_HARDENED_CLAY);
         this.setHardness(MRProperty.woodHardness);
         this.setResistance(MRProperty.woodHardness);
@@ -40,7 +46,7 @@ public class BlockFctRoot extends BlockMRPlant{
 
     @Override
     public IBlockState getStateFromMeta(int meta){
-        return this.getDefaultState().withProperty(FACING,EnumFacing.HORIZONTAL.facings()[meta/4])
+        return this.getDefaultState().withProperty(FACING,EnumFacing.HORIZONTALS[meta/4])
             .withProperty(VERTICAL,Boolean.valueOf(meta%4/2==1));
     }
 
@@ -64,16 +70,17 @@ public class BlockFctRoot extends BlockMRPlant{
 
     @Override
     public boolean isSuitBlock(IBlockState blockstate){
-        return MRUtils.isPlantSoil(blockstate)||blockstate.getBlock()==MRBlocks.rainStone;
+//        return MRUtils.isPlantSoil(blockstate)||blockstate.getBlock()==MRBlocks.rainStone;
+    	return true;
     }
 
     
     @Override
     public void destroy(World worldIn, Random rand, BlockPos pos, IBlockState state){
-        super(worldIn,rand,pos,state);
+        super.destroy(worldIn,rand,pos,state);
         //掉落
         if(MRUtils.canDrop(rand)){
-            spawnAsEntity(worldIn, pos, new ItemStack(MRBlocks.fctLog));
+//            spawnAsEntity(worldIn, pos, new ItemStack(MRBlocks.fctLog));
         }
         //传递破坏消息
         if(state.getValue(VERTICAL)){
@@ -97,7 +104,7 @@ public class BlockFctRoot extends BlockMRPlant{
             flag = fromPos==pos.offset(state.getValue(FACING));
         }
         if(flag){
-            checkSupport(worldIn,rand,pos,state);
+            checkSupport(worldIn,worldIn.rand,pos,state);
         }
     }
 

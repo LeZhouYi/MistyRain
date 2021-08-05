@@ -80,12 +80,12 @@ public class BlockRainStone extends Block{
                 }
             }
             if(hasCover){
-                worldIn.setBlockState(state.withProperty(STAGE,(hasPlant)?3:0));
+                worldIn.setBlockState(pos,state.withProperty(STAGE,(hasPlant)?3:0),2);
             }else{
                 if(hasSnow){
-                    worldIn.setBlockState(state.withProperty(STAGE,(hasPlant)?5:2));
+                    worldIn.setBlockState(pos,state.withProperty(STAGE,(hasPlant)?5:2),2);
                 }else{
-                    worldIn.setBlockState(state.withProperty(STAGE,(hasPlant)?4:1));
+                    worldIn.setBlockState(pos,state.withProperty(STAGE,(hasPlant)?4:1),2);
                 }
             }
         }

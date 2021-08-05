@@ -1,7 +1,11 @@
 package skily_leyu.mistyrain.utility;
 
+import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.Lists;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,6 +16,7 @@ import skily_leyu.mistyrain.basic.MathUtils;
 import skily_leyu.mistyrain.basic.pattern.Point3D;
 import skily_leyu.mistyrain.basic.type.Season;
 import skily_leyu.mistyrain.basic.type.SolarTerm;
+import skily_leyu.mistyrain.block.define.IMRPlant;
 import skily_leyu.mistyrain.config.MRConfig;
 
 /**
@@ -24,14 +29,14 @@ public class MRUtils{
 	private static List<Block> soilList = Lists.newArrayList(Blocks.GRASS, Blocks.DIRT, Blocks.FARMLAND);
 
 	public static void registerPlantSoil(Block... blocks){
-		soilList.addAll(block);
+		for(Block teBlock:blocks) {
+			soilList.add(teBlock);
+		}
 	}
 
-	public void spreadDestroy(world worldIn, Random rand, BlockPos pos, IBlockState blockstate){
+	public static void spreadDestroy(World worldIn, Random rand, BlockPos pos, IBlockState blockstate){
 		if(isPlant(blockstate)){
-			if(!((IMRPlant)blockstate.getBlock()).hasSupport(worldIn,pos.up(),blockstate)){
-				((IMRPlant)blockstate.getBlock()).destroy(worldIn,rand,pos.up(),blockstate);
-			}
+			((IMRPlant)blockstate.getBlock()).checkSupport(worldIn, rand, pos, blockstate);
 		}
 	}
 
@@ -46,12 +51,12 @@ public class MRUtils{
 	/**
 	 * @return 判断当前是否属于植物类型的方块
 	 */
-	public static boolean isPlant(IBlockState blockstate){
-		return IPlantable.class instanceof blockstate.getBlock().getClass();
+	public static boolean isPlant(IBlockState state){
+		return state.getBlock().getClass().isInstance(IMRPlant.class);
 	}
 
 	public static boolean canDrop(Random rand){
-		return MathUtils.canDo(rand.MRConfig.dropRate);
+		return MathUtils.canDo(rand,MRConfig.dropRate);
 	}
 
 	public static boolean canGrow(Random rand){
