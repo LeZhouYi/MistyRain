@@ -14,7 +14,6 @@ import skily_leyu.mistyrain.basic.type.SolarTerm;
 public class MRConfig {
 
 	// -----------------内置属性------------------
-	public static int peakFloor = 5;// 山峰层级厚度
 	public static int peakDepth = 4;// 山峰填充深度
 	public static int peakGenTime = 16;// 生成山峰次数
 	public static int peakTopBound = 20;// 山峰顶点最大偏移值
@@ -25,6 +24,7 @@ public class MRConfig {
 	
 	public static float peakGenRate = 0.5F;// 生成山峰概率
 	public static float peakCheckRate = 0.75F; // 检查基础的范围，0=只检查一个方块
+	public static float[] peakFloor = new float[0.10F,0.25F];// 山峰层级厚度
 	public static float[] peakWeight= new float[]{1.0F,2.75F}; //图形在XZ方向的权重，影响基本形状
 	public static float[] peakGradient = new float[]{0.5F,0.9F}; // 最小缩放格数
 	public static float[] peakMixRate = new float[] { 0.3F, 0.6F }; // 山峰图格混合比率

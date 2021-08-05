@@ -23,14 +23,15 @@ public class GeneratorMRPeak extends WorldGenerator {
 	private int size; // 图集大小
 	protected float[] spreadRate; // 图格比率
 	protected float[] mixRate; // 混合比率
-
+	
 	// Minecraft相关
 	private Random rand; // 生成器，通常为世界随机生成器
 	private BlockPos pos; // 中心点
 	private List<IBlockState> blockList;// 图格对应的方块列表,以CellType.ordinal()的取值对应
-
+	
 	// Peak相关
 	private int height; // 高度
+	private int floor; //层次高度
 	private int depth; // 填充深度
 	private int bound; // 顶点随机范围
 	private int pointNum; //异形点数量
@@ -52,13 +53,14 @@ public class GeneratorMRPeak extends WorldGenerator {
 	 * @param size 图集大小
 	 * @param radius 图集半径
 	 */
-	private void initPoints(int size, int radius){
+	private void initPoints(int size, int radius, boolean isInitNum){
 		
-		this.pointNum = MathUtils.randInt(rand,MRConfig.peakPointNum);
-		
-		this.points = new ArrayList<>();
-		this.pointRate = new float[this.pointNum];
-		this.pointDist = new float[this.pointNum];
+		if(isInitNum){
+			this.pointNum = MathUtils.randInt(rand,MRConfig.peakPointNum);
+			this.points = new ArrayList<>();
+			this.pointRate = new float[this.pointNum];
+			this.pointDist = new float[this.pointNum];
+		}
 		for(int i = 0; i < this.pointNum; i++){
 			Float[] tePoint = new Float[2];
 			tePoint[0] = (rand.nextInt(2)==0?1:-1)*MathUtils.randFloat(rand,MRConfig.peakPointRadius);
@@ -87,6 +89,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 		this.setHeight(MathUtils.randInt(rand, MRConfig.peakHeight));
 		this.setGradient(MathUtils.randFloat(rand, MRConfig.peakGradient));
 		this.setRadius(MathUtils.randInt(rand, MRConfig.peakRadius));
+		this.floor = (int)this.height*MathUtils.randFloat(rand,MRConfig.peakFloor);
 		this.xWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
 		this.zWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
 		
@@ -247,9 +250,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 
 			if (size != (int) (size - size * gradient * rate) || h == -this.depth) {
 				teSize = (int) (size - size * gradient * rate);
-				if((this.depth+h)%MRConfig.peakFloor==0) {
-					initPoints(teSize,teSize/2);					
-				}
+				initPoints(teSize,teSize/2,(this.depth+h)%this.floor==0);					
 				pattern = genPattern(teSize, teSize / 2);
 			}
 
