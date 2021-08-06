@@ -28,6 +28,17 @@ public class MRUtils{
 
 	private static List<Block> soilList = Lists.newArrayList(Blocks.GRASS, Blocks.DIRT, Blocks.FARMLAND);
 
+	public EnumFacing nextHorizontal(EnumFacing facing,boolean isForward){
+		if(facing.getHorizontalIndex()<0){
+			return EnumFacing.HORIZONTALS[0];
+		}
+		if(isForward){
+			return EnumFacing.HORIZONTALS[(facing.getHorizontalIndex()+1)%4];
+		}else{
+			return EnumFacing.HORIZONTALS[(facing.getHorizontalIndex()+3)%4];
+		}
+	}
+
 	public static void registerPlantSoil(Block... blocks){
 		for(Block teBlock:blocks) {
 			soilList.add(teBlock);
