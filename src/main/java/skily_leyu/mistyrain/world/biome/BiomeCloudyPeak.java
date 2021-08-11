@@ -5,6 +5,9 @@ import net.minecraft.world.biome.BiomeDecorator;
 
 public class BiomeCloudyPeak extends Biome {
 
+	public static Season season
+	public static IBlockstate surface = MRBlocks.springMud.getDefaultState();
+
 	public BiomeCloudyPeak(BiomeProperties properties, BiomeDecorator decorator) {
 		super(properties);
 		if (decorator != null) {

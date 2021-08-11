@@ -25,7 +25,7 @@ import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
  */
 public class MRBlocks {
     
-//   public static final Block springMud = getRegistryBlock(BlockSpringMud.class,"spring_mud","springMud");
+	public static final Block springMud = getRegistryBlock(BlockSpringMud.class,"spring_mud","springMud");
 //    public static final Block rainStone = getRegistryBlock(BlockRainStone.class,"rain_stone","rainStone");
 //    public static final Block waterStone = getRegistryBlock(BlockWaterStone.class,"water_stone","waterStone");
 //    public static final Block swordStone = getRegistryBlock(BlockSwordStone.class,"sword_stone","swordStone");
@@ -47,22 +47,22 @@ public class MRBlocks {
 		public static void registerBlocks(final RegistryEvent.Register<Block> event) {
 			MistyRain.getLogger().info("Registrying Blocks[HerbalGarden]");
 			final IForgeRegistry<Block> registry = event.getRegistry();
-//			registry.registerAll(springMud);
-//			MRUtils.registerPlantSoil(springMud);
+			registry.registerAll(springMud);
+			MRUtils.registerPlantSoil(springMud);
        }
 
 		@SubscribeEvent
 		public static void registerItems(final RegistryEvent.Register<Item> event) {
 			MistyRain.getLogger().info("Registrying items[MistryRain]");
 			final IForgeRegistry<Item> registry = event.getRegistry();
-//			registerItem(registry, springMud);
+			registerItem(registry, springMud);
 		}
 
 		@SubscribeEvent
 		@SideOnly(Side.CLIENT)
 		public static void registerItemModels(final ModelRegistryEvent event) {
 			MistyRain.getLogger().info("Registrying item models[MistryRain]");
-//			registerItemModel(0, springMud);
+			registerItemModel(0, springMud);
 		}
 
 		public static void registerItem(final IForgeRegistry<Item> registry, Block... blockList) {
