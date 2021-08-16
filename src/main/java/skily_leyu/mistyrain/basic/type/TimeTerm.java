@@ -7,14 +7,18 @@ package skily_leyu.mistyrain.basic.type;
  */
 public enum TimeTerm{
 
-	BeforeDawn(1.0F,5.0F,"凌晨"),
-	Dawn(5.0F,7.0F,"黎明"),
-	Morning(7.0F,11.0F,"早晨"),
-	Noon(11.0F,14.0F,"中午"),
-	AfterNoon(14.0F,17.0F,"午后"),
-	Dusk(17.0F,19.0F,"黄昏"),
-	Night(19.0F,23.0F,"夜晚"),
-	MidNight(23.0F,1.0F,"深夜");
+	YeBan(23.0F,1.0F,"夜半"),
+	JiMing(1.0F,3.0F,"鸡鸣"),
+	PinDan(3.0F,5.0F,"平旦"),
+	RiChu(5.0F,7.0F,"日出"),
+	ShiShi(7.0F,9.0F,"食时"),
+	YuZhong(9.0F,11.0F,"隅中"),
+	RiZhong(11.0F,13.0F,"日中"),
+	RiDie(13.0F,15.0F,"日昳"),
+	BuShi(15.0F,17.0F,"晡时"),
+	RiRu(17.0F,19.0F,"日入"),
+	HuangHun(19.0F,21.0F,"黄昏"),
+	RenDing(21.0F,23.0F,"人定");
 
 	private float begin;
 	private float end;
@@ -33,7 +37,7 @@ public enum TimeTerm{
 	 */
 	public static TimeTerm getTimeTerm(float now){
 		for(TimeTerm timeTerm: TimeTerm.values()){
-			if(timeTerm!=MidNight){
+			if(timeTerm!=YeBan){
 				if(now>timeTerm.getBegin()&&now<=timeTerm.getEnd()){
 					return timeTerm;
 				}
