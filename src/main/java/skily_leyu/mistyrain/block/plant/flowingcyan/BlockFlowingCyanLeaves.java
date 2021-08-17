@@ -39,14 +39,48 @@ public class BlockFlowingCyanLeaves extends BlockMRPlant{
 
     @Override
     public boolean hasSupport(World worldIn, BlockPos pos, IBlockState state){
-
+        return listCheckSupport(worldIn,pos,EnumFacing.UP,2);
     }
 
-    listCheckSupport(World worldIn, BlockPos pos, IBlockState state, int time){
+    @Override
+    public boolean isSuitBlock(IBlockState blockstate){
+        return blockstate.getBlock==MRBlocks.flowingCyanBranch||blockstate.getBlock==MRBlocks.flowingCyanCross||blockstate.getBlock==MRBlocks.flowingCyanLog;
+    }
+
+    /**
+     * 深度遍历检测是否存在依赖
+     * @param worldIn 方块存在维度
+     * @param pos 当前处理的方块位置
+     * @param teFacing 上层的迭代方向
+     * @param time 一般指迭代的深度，建议取较小值<=3
+     */
+    public boolean listCheckSupport(World worldIn, BlockPos pos,EnumFacing teFacing, int time){
+        //到达迭代深度
         if(time<=0){
             return false;
         }
-        if(isSuitBlock(worldIn.getBlockState()))
+        //非此方法不进行迭代
+        IBlockState state = worldIn.getBlockState(pos);
+        if(state.getBlock()!=this){
+            return false;
+        }
+        //检测是否存在依赖
+        if(isSuitBlock(state)){
+            return true;
+        }else{
+            //深层遍历，忽略向上遍历
+            for(EnumFacing facing:EnumFacing.values()){
+                //避免循环迭代
+                if(facing!=EnumFacing.UP&&facing!=teFacing){
+                    BlockPos tePos = pos.offset(facing);
+                    IBlockState teState = worldIn.getBlockState(tePos);
+                    if(teState.getBlock()==this&&listCheckSupport(worldIn,tePos,time-1)){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 
 }

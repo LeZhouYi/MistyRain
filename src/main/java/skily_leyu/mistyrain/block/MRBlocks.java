@@ -28,7 +28,14 @@ public class MRBlocks {
 	public static final Block springMud = getRegistryBlock(BlockSpringMud.class,"spring_mud","springMud");
 	public static final Block rainStone = getRegistryBlock(BlockRainStone.class,"rain_stone","rainStone");
 	public static final Block waterStone = getRegistryBlock(BlockWaterStone.class,"water_stone","waterStone");
-//    public static final Block swordStone = getRegistryBlock(BlockSwordStone.class,"sword_stone","swordStone");
+	public static final Block swordStone = getRegistryBlock(BlockSwordStone.class,"sword_stone","swordStone");
+
+	public static final Block flowingCyanSapling = getRegistry(BlockFlowingCyanSapling.class,"flowing_cyan_sapling","flowingCyanSapling");
+	public static final Block flowingCyanRoot = getRegistry(BlockFlowingCyanRoot.class,"flowing_cyan_root","flowingCyanRoot");
+	public static final Block flowingCyanLog = getRegistry(BlockFlowingCyanLog.class,"flowing_cyan_log","flowingCyanLog");
+	public static final Block flowingCyanLeaves = getRegistry(BlockFlowingCyanLeaves.class,"flowing_cyan_leaves","flowingCyanLeaves");
+	public static final Block flowingCyanCross = getRegistry(BlockFlowingCyanCross.class,"flowing_cyan_cross","flowingCyanCross");
+	public static final Block flowingCyanBranch = getRegistry(BlockFlowingCyanBranch.class,"flowing_cyan_branch","flowingCyanBranch");
 
 	protected static Block getRegistryBlock(Class<? extends Block> classIn, String registryName, String unlocalizedName) {
 		try {
@@ -47,22 +54,25 @@ public class MRBlocks {
 		public static void registerBlocks(final RegistryEvent.Register<Block> event) {
 			MistyRain.getLogger().info("Registrying Blocks[HerbalGarden]");
 			final IForgeRegistry<Block> registry = event.getRegistry();
-			registry.registerAll(springMud);
-			MRUtils.registerPlantSoil(springMud,rainStone,waterStone);
+			registry.registerAll(springMud,rainStone,waterStone,swordStone);
+			registry.registerAll(flowingCyanSapling,flowingCyanRoot,flowingCyanLog,flowingCyanLeaves,flowingCyanCross,flowingCyanBranch);
+			MRUtils.registerPlantSoil(springMud);
        }
 
 		@SubscribeEvent
 		public static void registerItems(final RegistryEvent.Register<Item> event) {
 			MistyRain.getLogger().info("Registrying items[MistryRain]");
 			final IForgeRegistry<Item> registry = event.getRegistry();
-			registerItem(registry, springMud,rainStone,waterStone);
+			registerItem(registry, springMud,rainStone,waterStone,swordStone);
+			registerItem(registry, flowingCyanSapling,flowingCyanRoot,flowingCyanLog,flowingCyanLeaves,flowingCyanCross,flowingCyanBranch);
 		}
 
 		@SubscribeEvent
 		@SideOnly(Side.CLIENT)
 		public static void registerItemModels(final ModelRegistryEvent event) {
 			MistyRain.getLogger().info("Registrying item models[MistryRain]");
-			registerItemModel(0, springMud, rainStone, waterStone);
+			registerItemModel(0, springMud, rainStone, waterStone,swordStone);
+			registerItemModel(0, flowingCyanSapling,flowingCyanRoot,flowingCyanLog,flowingCyanLeaves,flowingCyanCross,flowingCyanBranch);
 		}
 
 		public static void registerItem(final IForgeRegistry<Item> registry, Block... blockList) {
