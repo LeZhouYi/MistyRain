@@ -59,7 +59,7 @@ public class BlockFlowingCyanLeaves extends BlockMRPlant{
         if(time<=0){
             return false;
         }
-        //非此方法不进行迭代
+        //非此方块不进行迭代
         IBlockState state = worldIn.getBlockState(pos);
         if(state.getBlock()!=this){
             return false;
@@ -80,6 +80,21 @@ public class BlockFlowingCyanLeaves extends BlockMRPlant{
                 }
             }
             return false;
+        }
+    }
+
+    @Override
+    public void destroy(World worldIn, Random rand, BlockPos pos, IBlockState state){
+        super.destroy(worldIn,rand,pos,state);
+        //传递破坏消息
+        for(EnumFacing facing:EnumFacing.values()){
+            if(facing!=EnumFacing.DOWN){
+                BlockPos tePos = pos.offset(facing);
+                IBlockState teState = worldIn.getBlockState(tePos);
+                if(teState.getBlock()==this){
+                    MRUtils.spreadDestroy(world,rand,tePos,teState);
+                }
+            }
         }
     }
 
