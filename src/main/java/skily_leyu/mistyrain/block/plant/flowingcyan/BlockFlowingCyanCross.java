@@ -66,8 +66,7 @@ public class BlockFlowingCyanCross extends BlockMRPlant{
 
     @Override
     public boolean isSuitBlock(IBlockState blockstate){
-//        return blockstate.getBlock()==this||blockstate.getBlock()==MRBlocks.fctRoot||blockstate.getBlock()==MRBlocks.fctLog;
-    	return true;
+        return blockstate.getBlock()==this||blockstate.getBlock()==MRBlocks.flowingCyanLog||blockstate.getBlock()==MRBlocks.flowingCyanBranch;
     }
 
     @Override
@@ -75,7 +74,7 @@ public class BlockFlowingCyanCross extends BlockMRPlant{
         super.destroy(worldIn,rand,pos,state);
         //掉落
         if(MRUtils.canDrop(rand)){
-//            spawnAsEntity(worldIn, pos, new ItemStack(MRBlocks.fctLog));
+            spawnAsEntity(worldIn, pos, new ItemStack(MRBlocks.flowingCyanLog));
         }
         //传递破坏消息
         if(state.getValue(VERTICAL)){

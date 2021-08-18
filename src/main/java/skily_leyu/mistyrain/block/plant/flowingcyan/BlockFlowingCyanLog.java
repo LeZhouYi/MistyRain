@@ -54,8 +54,7 @@ public class BlockFlowingCyanLog extends BlockMRPlant{
 
     @Override
     public boolean isSuitBlock(IBlockState blockstate){
-//        return blockstate.getBlock()==this||blockstate.getBlock()==MRBlocks.fctRoot||blockstate.getBlock()==MRBlocks.fctBranch||blockstate.getBlock()==MRBlocks.fctCross;
-    	return true;
+        return blockstate.getBlock()==this||blockstate.getBlock()==MRBlocks.flowingCyanRoot||blockstate.getBlock()==MRBlocks.flowingCyanBranch||blockstate.getBlock()==MRBlocks.flowingCyanBranch;
     }
 
     @Override
@@ -63,7 +62,7 @@ public class BlockFlowingCyanLog extends BlockMRPlant{
         super.destroy(worldIn,rand,pos,state);
         //掉落
         if(MRUtils.canDrop(rand)){
-//            spawnAsEntity(worldIn, pos, new ItemStack(this));
+            spawnAsEntity(worldIn, pos, new ItemStack(this));
         }
         //传递破坏消息
         if(state.getValue(VERTICAL)){
