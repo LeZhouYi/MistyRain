@@ -57,6 +57,23 @@ public class BlockFlowingCyanRoot extends BlockMRPlant{
 
     //-------------------Client Method or Property-------------------------------
 
+    //----------------------Update or Event Method-------------------------------
+    
+    /**
+     * 监测依赖方块的变化
+     */
+    @Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        boolean flag = false;
+        if(state.getValue(VERTICAL)){
+            flag = fromPos==pos.down();
+        }else{
+            flag = fromPos==pos.offset(state.getValue(FACING));
+        }
+        if(flag){
+            checkSupport(worldIn,worldIn.rand,pos,state);
+        }
+    }
     
     //-------------------Plant Event and Method-----------------------------
     @Override
@@ -87,23 +104,6 @@ public class BlockFlowingCyanRoot extends BlockMRPlant{
         }else{
             BlockPos tePos = pos.offset(state.getValue(FACING));
             MRUtils.spreadDestroy(worldIn,rand,tePos,worldIn.getBlockState(tePos));
-        }
-    }
-
-
-    /**
-     * 监测依赖方块的变化
-     */
-    @Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        boolean flag = false;
-        if(state.getValue(VERTICAL)){
-            flag = fromPos==pos.down();
-        }else{
-            flag = fromPos==pos.offset(state.getValue(FACING));
-        }
-        if(flag){
-            checkSupport(worldIn,worldIn.rand,pos,state);
         }
     }
 

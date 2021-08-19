@@ -43,6 +43,13 @@ public abstract class BlockMRPlant extends Block implements IMRPlant{
     //---------------------Plant Method------------------------
     @Override
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient){
+        if(!worldIn.isRemote&&isAreaLoaded(worldIn,pos)&&checkSupport(worldIn,rand,pos,state)){
+            PlantEvent event = canGrow(worldIn, rand, pos, state);
+            if(event==PlantEvent.GROW){
+                grow(worldIn,rand,pos,state);
+                return true;
+            }
+        }
         return false;
     }
 

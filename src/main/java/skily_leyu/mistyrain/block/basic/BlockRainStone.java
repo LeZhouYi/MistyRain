@@ -57,6 +57,8 @@ public class BlockRainStone extends Block{
 		return new BlockStateContainer(this, new IProperty[] { STAGE });
 	}
 
+    //---------------------Block Property or Method-----------------------
+
     @Override
 	public int tickRate(World worldIn) {
 		return MRConfig.tickSpeed;
@@ -67,6 +69,8 @@ public class BlockRainStone extends Block{
         return true;
     }
     
+    //----------------------Update or Event Method--------------------------
+
     @Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if(!worldIn.isRemote&&worldIn.isAreaLoaded(pos, 1)){

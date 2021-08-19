@@ -44,17 +44,20 @@ public class MRConfig {
 	// --------------根据获得的属性来计算获得的属性----------------------
 	public static float monthStart;// 游戏初始日期
 	public static int monthDays;// 一月持续天
+	public static float baseGrowRate; //植物生长相关的基础概率
 
 	public MRConfig(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		init();
+		afterInit();
 		config.save();
 	}
 
 	protected void afterInit() {
 		monthStart = SolarTerm.values()[MRConfig.solarTermStart].getStart();
 		monthDays = MRConfig.solarTermDays * 2;
+		baseGrowRate = growRate/monthDays;
 	}
 
 	/** 加载所有属性 */

@@ -39,12 +39,18 @@ public class MRUtils{
 		}
 	}
 
+	/**
+	 * 注册泥土，用于MR的植物对泥土的依赖判断
+	 */
 	public static void registerPlantSoil(Block... blocks){
 		for(Block teBlock:blocks) {
 			soilList.add(teBlock);
 		}
 	}
 
+	/**
+	 * 传递破坏消息，即继承了IMRPlant的方块可以使用该方法，用于植物依赖特性的连锁破坏
+	 */
 	public static void spreadDestroy(World worldIn, Random rand, BlockPos pos, IBlockState blockstate){
 		if(isPlant(blockstate)){
 			((IMRPlant)blockstate.getBlock()).checkSupport(worldIn, rand, pos, blockstate);
@@ -71,7 +77,15 @@ public class MRUtils{
 	}
 
 	public static boolean canGrow(Random rand){
-		return MathUtils.canDo(rand,MRConfig.growRate);
+		return MathUtils.canDo(rand,MRConfig.baseGrowRate);
+	}
+
+	public boolean isBetween(SolarTerm start, SolarTerm end, SolarTerm value){
+		if(start.getStart()<=end.getStart()){
+			return value.getStart()>=start.getStart()&&value.getStart()<=end.getStart();
+		}else{
+			return value.getStart()>=start.getStart()||value.getStart()<=end.getStart();
+		}
 	}
 
     /**
