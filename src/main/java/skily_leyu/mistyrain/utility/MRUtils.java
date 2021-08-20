@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import skily_leyu.mistyrain.MistyRain;
@@ -28,7 +29,7 @@ public class MRUtils{
 
 	private static List<Block> soilList = Lists.newArrayList(Blocks.GRASS, Blocks.DIRT, Blocks.FARMLAND);
 
-	public EnumFacing nextHorizontal(EnumFacing facing,boolean isForward){
+	public static EnumFacing nextHorizontal(EnumFacing facing,boolean isForward){
 		if(facing.getHorizontalIndex()<0){
 			return EnumFacing.HORIZONTALS[0];
 		}
@@ -80,7 +81,7 @@ public class MRUtils{
 		return MathUtils.canDo(rand,MRConfig.baseGrowRate);
 	}
 
-	public boolean isBetween(SolarTerm start, SolarTerm end, SolarTerm value){
+	public static boolean isBetween(SolarTerm start, SolarTerm end, SolarTerm value){
 		if(start.getStart()<=end.getStart()){
 			return value.getStart()>=start.getStart()&&value.getStart()<=end.getStart();
 		}else{

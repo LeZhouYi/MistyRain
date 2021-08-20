@@ -1,5 +1,25 @@
 package skily_leyu.mistyrain.block.plant.flowingcyan;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import skily_leyu.mistyrain.basic.type.SolarTerm;
+import skily_leyu.mistyrain.block.MRBlocks;
+import skily_leyu.mistyrain.block.MRProperty;
+import skily_leyu.mistyrain.block.define.BlockMRPlant;
+import skily_leyu.mistyrain.block.define.PlantEvent;
+import skily_leyu.mistyrain.utility.MRUtils;
+
 public class BlockFlowingCyanSapling extends BlockMRPlant{
 
     public static final IProperty<EnumFacing> FACING = MRProperty.FACING;
@@ -7,7 +27,7 @@ public class BlockFlowingCyanSapling extends BlockMRPlant{
     public static final IProperty<Integer> STAGE = MRProperty.TWO_STAGE;
 
     public BlockFlowingCyanSapling(){
-        super(Material.PLANT, MapColor.GREEN);
+        super(Material.PLANTS, MapColor.GREEN);
         this.setHardness(MRProperty.leavesHardness);
         this.setResistance(MRProperty.leavesHardness);
         this.setSoundType(SoundType.PLANT);
@@ -78,12 +98,12 @@ public class BlockFlowingCyanSapling extends BlockMRPlant{
 
     @Override
     public PlantEvent canGrow(World worldIn, Random rand, BlockPos pos, IBlockState state){
-        if(worldIn.isRainning()){
+        if(worldIn.isRaining()){
             SolarTerm solarTerm = MRUtils.getSolarTerm(worldIn);
             if(MRUtils.isBetween(SolarTerm.BeginningOfSpring,SolarTerm.GrainRain,solarTerm)){
-                return MRUtils.canGrow()?PlantEvent.GROW:PlantEvent.STOP;
+                return MRUtils.canGrow(rand)?PlantEvent.GROW:PlantEvent.STOP;
             }else if(MRUtils.isBetween(SolarTerm.FirstFrost,SolarTerm.GreaterCold,solarTerm)){
-                return MRUtils.canGrow()?PlantEvent.DECAY:PlantEvent.STOP;
+                return MRUtils.canGrow(rand)?PlantEvent.DECAY:PlantEvent.STOP;
             }
         }
         return PlantEvent.STOP;

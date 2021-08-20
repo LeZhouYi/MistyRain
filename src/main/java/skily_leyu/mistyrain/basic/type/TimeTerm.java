@@ -37,7 +37,7 @@ public enum TimeTerm{
 	 */
 	public static TimeTerm getTimeTerm(float now){
 		for(TimeTerm timeTerm: TimeTerm.values()){
-			if(timeTerm!=YeBan){
+			if(timeTerm!=TimeTerm.YeBan){
 				if(now>timeTerm.getBegin()&&now<=timeTerm.getEnd()){
 					return timeTerm;
 				}
@@ -47,7 +47,7 @@ public enum TimeTerm{
 				}
 			}
 		}
-		return TimeTerm.MidNight;
+		return TimeTerm.YeBan;
 	}
 
 	//------------------getter and setter------------------------

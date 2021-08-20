@@ -1,16 +1,27 @@
 package skily_leyu.mistyrain.block.plant.flowingcyan;
 
+import java.util.Random;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import skily_leyu.mistyrain.block.MRBlocks;
 import skily_leyu.mistyrain.block.MRProperty;
 import skily_leyu.mistyrain.block.define.BlockMRPlant;
+import skily_leyu.mistyrain.utility.MRUtils;
 
 public class BlockFlowingCyanLog extends BlockMRPlant{
     
-    public static final IPropery<Boolean> BRANCH = MRProperty.HAS_BRANCH;
-    public static final IPropery<Boolean> VERTICAL = MRProperty.IS_VERTICAL;
-    public static final IPropery<EnumFacing> FACING = MRProperty.FACING;
+    public static final IProperty<Boolean> BRANCH = MRProperty.HAS_BRANCH;
+    public static final IProperty<Boolean> VERTICAL = MRProperty.IS_VERTICAL;
+    public static final IProperty<EnumFacing> FACING = MRProperty.FACING;
 
     public BlockFlowingCyanLog(){
         super(Material.WOOD, MapColor.GREEN_STAINED_HARDENED_CLAY);
@@ -70,11 +81,11 @@ public class BlockFlowingCyanLog extends BlockMRPlant{
             MRUtils.spreadDestroy(worldIn,rand,pos.up(),worldIn.getBlockState(pos.up()));
             if(state.getValue(BRANCH)){
                 BlockPos tePos = pos.offset(state.getValue(FACING));
-                MRUtils.spreadDestroy(world,rand,tePos,worldIn.getBlockState(tePos));
+                MRUtils.spreadDestroy(worldIn,rand,tePos,worldIn.getBlockState(tePos));
             }
         }else{
             //对角，分支在左侧
-            EnumFcing teFacing = state.getValue(FACING);
+            EnumFacing teFacing = state.getValue(FACING);
             BlockPos tePos = pos.offset(teFacing);
             MRUtils.spreadDestroy(worldIn,rand,tePos,worldIn.getBlockState(tePos));
             tePos.offset(MRUtils.nextHorizontal(teFacing,true));

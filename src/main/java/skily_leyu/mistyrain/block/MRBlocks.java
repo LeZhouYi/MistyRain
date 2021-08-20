@@ -16,7 +16,18 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import skily_leyu.mistyrain.MistyRain;
+import skily_leyu.mistyrain.block.basic.BlockRainStone;
+import skily_leyu.mistyrain.block.basic.BlockSpringMud;
+import skily_leyu.mistyrain.block.basic.BlockSwordStone;
+import skily_leyu.mistyrain.block.basic.BlockWaterStone;
+import skily_leyu.mistyrain.block.plant.flowingcyan.BlockFlowingCyanBranch;
+import skily_leyu.mistyrain.block.plant.flowingcyan.BlockFlowingCyanCross;
+import skily_leyu.mistyrain.block.plant.flowingcyan.BlockFlowingCyanLeaves;
+import skily_leyu.mistyrain.block.plant.flowingcyan.BlockFlowingCyanLog;
+import skily_leyu.mistyrain.block.plant.flowingcyan.BlockFlowingCyanRoot;
+import skily_leyu.mistyrain.block.plant.flowingcyan.BlockFlowingCyanSapling;
 import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
+import skily_leyu.mistyrain.utility.MRUtils;
 
 /**
  * 方块注册表
@@ -30,12 +41,12 @@ public class MRBlocks {
 	public static final Block waterStone = getRegistryBlock(BlockWaterStone.class,"water_stone","waterStone");
 	public static final Block swordStone = getRegistryBlock(BlockSwordStone.class,"sword_stone","swordStone");
 
-	public static final Block flowingCyanSapling = getRegistry(BlockFlowingCyanSapling.class,"flowing_cyan_sapling","flowingCyanSapling");
-	public static final Block flowingCyanRoot = getRegistry(BlockFlowingCyanRoot.class,"flowing_cyan_root","flowingCyanRoot");
-	public static final Block flowingCyanLog = getRegistry(BlockFlowingCyanLog.class,"flowing_cyan_log","flowingCyanLog");
-	public static final Block flowingCyanLeaves = getRegistry(BlockFlowingCyanLeaves.class,"flowing_cyan_leaves","flowingCyanLeaves");
-	public static final Block flowingCyanCross = getRegistry(BlockFlowingCyanCross.class,"flowing_cyan_cross","flowingCyanCross");
-	public static final Block flowingCyanBranch = getRegistry(BlockFlowingCyanBranch.class,"flowing_cyan_branch","flowingCyanBranch");
+	public static final Block flowingCyanSapling = getRegistryBlock(BlockFlowingCyanSapling.class,"flowing_cyan_sapling","flowingCyanSapling");
+	public static final Block flowingCyanRoot = getRegistryBlock(BlockFlowingCyanRoot.class,"flowing_cyan_root","flowingCyanRoot");
+	public static final Block flowingCyanLog = getRegistryBlock(BlockFlowingCyanLog.class,"flowing_cyan_log","flowingCyanLog");
+	public static final Block flowingCyanLeaves = getRegistryBlock(BlockFlowingCyanLeaves.class,"flowing_cyan_leaves","flowingCyanLeaves");
+	public static final Block flowingCyanCross = getRegistryBlock(BlockFlowingCyanCross.class,"flowing_cyan_cross","flowingCyanCross");
+	public static final Block flowingCyanBranch = getRegistryBlock(BlockFlowingCyanBranch.class,"flowing_cyan_branch","flowingCyanBranch");
 
 	protected static Block getRegistryBlock(Class<? extends Block> classIn, String registryName, String unlocalizedName) {
 		try {

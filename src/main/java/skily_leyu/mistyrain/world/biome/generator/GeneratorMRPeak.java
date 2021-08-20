@@ -89,7 +89,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 		this.setHeight(MathUtils.randInt(rand, MRConfig.peakHeight));
 		this.setGradient(MathUtils.randFloat(rand, MRConfig.peakGradient));
 		this.setRadius(MathUtils.randInt(rand, MRConfig.peakRadius));
-		this.floor = (int)this.height*MathUtils.randFloat(rand,MRConfig.peakFloor);
+		this.floor = (int)(this.height*MathUtils.randFloat(rand,MRConfig.peakFloor));
 		this.xWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
 		this.zWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
 		

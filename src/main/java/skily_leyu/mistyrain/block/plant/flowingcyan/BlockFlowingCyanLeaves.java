@@ -1,5 +1,21 @@
 package skily_leyu.mistyrain.block.plant.flowingcyan;
 
+import java.util.Random;
+
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import skily_leyu.mistyrain.block.MRBlocks;
+import skily_leyu.mistyrain.block.MRProperty;
+import skily_leyu.mistyrain.block.define.BlockMRPlant;
+import skily_leyu.mistyrain.utility.MRUtils;
+
 public class BlockFlowingCyanLeaves extends BlockMRPlant{
 
     /**
@@ -12,7 +28,7 @@ public class BlockFlowingCyanLeaves extends BlockMRPlant{
         super(Material.LEAVES, MapColor.GREEN);
         this.setHardness(MRProperty.leavesHardness);
         this.setResistance(MRProperty.leavesHardness);
-        this.setSoundType(SoundType.LEAVES);
+        this.setSoundType(SoundType.PLANT);
         this.setDefaultState(blockState.getBaseState().withProperty(STAGE,0));
         this.setTickRandomly(true);
     }
@@ -44,7 +60,7 @@ public class BlockFlowingCyanLeaves extends BlockMRPlant{
 
     @Override
     public boolean isSuitBlock(IBlockState blockstate){
-        return blockstate.getBlock==MRBlocks.flowingCyanBranch||blockstate.getBlock==MRBlocks.flowingCyanCross||blockstate.getBlock==MRBlocks.flowingCyanLog;
+        return blockstate.getBlock()==MRBlocks.flowingCyanBranch||blockstate.getBlock()==MRBlocks.flowingCyanCross||blockstate.getBlock()==MRBlocks.flowingCyanLog;
     }
 
     /**
@@ -74,7 +90,7 @@ public class BlockFlowingCyanLeaves extends BlockMRPlant{
                 if(facing!=EnumFacing.UP&&facing!=teFacing){
                     BlockPos tePos = pos.offset(facing);
                     IBlockState teState = worldIn.getBlockState(tePos);
-                    if(teState.getBlock()==this&&listCheckSupport(worldIn,tePos,time-1)){
+                    if(teState.getBlock()==this&&listCheckSupport(worldIn,tePos,teFacing,time-1)){
                         return true;
                     }
                 }
@@ -92,7 +108,7 @@ public class BlockFlowingCyanLeaves extends BlockMRPlant{
                 BlockPos tePos = pos.offset(facing);
                 IBlockState teState = worldIn.getBlockState(tePos);
                 if(teState.getBlock()==this){
-                    MRUtils.spreadDestroy(world,rand,tePos,teState);
+                    MRUtils.spreadDestroy(worldIn,rand,tePos,teState);
                 }
             }
         }
