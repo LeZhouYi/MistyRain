@@ -7,7 +7,7 @@ import skily_leyu.mistyrain.block.MRBlocks;
 
 public class BiomeCloudyPeak extends Biome {
 
-	public static IBlockState surface = MRBlocks.springMud.getDefaultState();
+//	public static IBlockState surface = MRBlocks.springMud.getDefaultState();
 
 	public BiomeCloudyPeak(BiomeProperties properties, BiomeDecorator decorator) {
 		super(properties);

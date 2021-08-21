@@ -84,7 +84,8 @@ public class BlockFlowingCyanSapling extends BlockMRPlant{
 
     @Override
     public boolean isSuitBlock(IBlockState blockstate){
-        return MRUtils.isPlantSoil(blockstate)||blockstate.getBlock()==MRBlocks.rainStone;
+//        return MRUtils.isPlantSoil(blockstate)||blockstate.getBlock()==MRBlocks.rainStone;
+    	return true;
     }
 
     @Override
@@ -92,7 +93,7 @@ public class BlockFlowingCyanSapling extends BlockMRPlant{
         super.destroy(worldIn,rand,pos,state);
         //掉落
         if(MRUtils.canDrop(rand)){
-            spawnAsEntity(worldIn, pos, new ItemStack(MRBlocks.flowingCyanLog));
+//            spawnAsEntity(worldIn, pos, new ItemStack(MRBlocks.flowingCyanLog));
         }
     }
 

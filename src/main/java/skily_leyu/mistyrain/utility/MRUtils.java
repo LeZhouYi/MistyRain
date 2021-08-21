@@ -29,6 +29,12 @@ public class MRUtils{
 
 	private static List<Block> soilList = Lists.newArrayList(Blocks.GRASS, Blocks.DIRT, Blocks.FARMLAND);
 
+	/**
+	 * 返回下一个水平方向；若facing=Null，则随机一个水平方向
+	 * @param facing 非空则以此为准返回上一个或下一个，若空若随机
+	 * @param isForward true=返回上一个，false=返回下一个
+	 * @return
+	 */
 	public static EnumFacing nextHorizontal(EnumFacing facing,boolean isForward){
 		if(facing.getHorizontalIndex()<0){
 			return EnumFacing.HORIZONTALS[0];
@@ -58,10 +64,20 @@ public class MRUtils{
 		}
 	}
 
+	/**
+	 * 判断是为植物生长的泥士
+	 * @param blockState
+	 * @return
+	 */
 	public static boolean isPlantSoil(IBlockState blockState) {
 		return soilList.contains(blockState.getBlock());
 	}
 
+	/**
+	 * 判断是否是雪或雪相关方块
+	 * @param blockstate
+	 * @return
+	 */
 	public static boolean isSnow(IBlockState blockstate){
 		return blockstate.getMaterial()==Material.SNOW;
 	}
@@ -73,14 +89,31 @@ public class MRUtils{
 		return state.getBlock().getClass().isInstance(IMRPlant.class);
 	}
 
+	/**
+	 * 基础掉落随机
+	 * @param rand
+	 * @return
+	 */
 	public static boolean canDrop(Random rand){
 		return MathUtils.canDo(rand,MRConfig.dropRate);
 	}
 
+	/**
+	 * 基础生长随机
+	 * @param rand
+	 * @return
+	 */
 	public static boolean canGrow(Random rand){
 		return MathUtils.canDo(rand,MRConfig.baseGrowRate);
 	}
 
+	/**
+	 * 是否位于两个时令之间，包括两个时令
+	 * @param start
+	 * @param end
+	 * @param value
+	 * @return
+	 */
 	public static boolean isBetween(SolarTerm start, SolarTerm end, SolarTerm value){
 		if(start.getStart()<=end.getStart()){
 			return value.getStart()>=start.getStart()&&value.getStart()<=end.getStart();

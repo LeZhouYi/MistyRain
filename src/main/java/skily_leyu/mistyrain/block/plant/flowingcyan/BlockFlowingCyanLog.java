@@ -65,7 +65,8 @@ public class BlockFlowingCyanLog extends BlockMRPlant{
 
     @Override
     public boolean isSuitBlock(IBlockState blockstate){
-        return blockstate.getBlock()==this||blockstate.getBlock()==MRBlocks.flowingCyanRoot||blockstate.getBlock()==MRBlocks.flowingCyanBranch||blockstate.getBlock()==MRBlocks.flowingCyanBranch;
+//        return blockstate.getBlock()==this||blockstate.getBlock()==MRBlocks.flowingCyanRoot||blockstate.getBlock()==MRBlocks.flowingCyanBranch||blockstate.getBlock()==MRBlocks.flowingCyanBranch;
+    	return true;
     }
 
     @Override
