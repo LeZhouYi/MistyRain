@@ -1,0 +1,20 @@
+{
+    "parent":"mistyrain:block/column_full",
+    "textures":{
+        "top":"mistyrain:block/basic/peak_dirt_side",
+        "side":"mistyrain:block/basic/peak_dirt_side",
+        "bottom":"mistyrain:block/basic/peak_dirt_side"
+    },
+    "variants":{
+        "stage":{
+            "0":{},
+            "1":{},
+            "2":{},
+            "3":{},
+            "4":{},
+            "5":{},
+            "6":{},
+            "7":{}
+        }
+    }
+}
