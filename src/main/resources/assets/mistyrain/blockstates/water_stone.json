@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+	"defaults": {
+        "textures": {
+            "top":"mistyrain:blocks/basic/peak_water_stone",
+            "side":"mistyrain:blocks/basic/peak_water_stone",
+            "bottom":"mistyrain:blocks/basic/peak_water_stone"
+        },
+        "model": "mistyrain:column_full"
+	},
+	"variants": {
+        "normal": [{}]
+	}
+}

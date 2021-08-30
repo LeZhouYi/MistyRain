@@ -1,8 +1,8 @@
 package skily_leyu.mistyrain.creativetab;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import skily_leyu.mistyrain.block.MRBlocks;
 
 /**
  * MR相关创造物品栏
@@ -14,7 +14,7 @@ public class MRCreativeTabs {
 
 		@Override
 		public ItemStack getTabIconItem() {
-			return new ItemStack(Items.REEDS);
+			return new ItemStack(MRBlocks.springMud);
 		}
 	};
 }

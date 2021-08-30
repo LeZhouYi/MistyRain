@@ -9,11 +9,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import skily_leyu.mistyrain.block.MRProperty;
 import skily_leyu.mistyrain.config.MRConfig;
+import skily_leyu.mistyrain.item.MRItems;
 import skily_leyu.mistyrain.utility.MRUtils;
 
 /**
@@ -68,7 +71,7 @@ public class BlockRainStone extends Block{
     public boolean isFullCube(IBlockState state){
         return true;
     }
-    
+
     //----------------------Update or Event Method--------------------------
 
     @Override
@@ -93,6 +96,18 @@ public class BlockRainStone extends Block{
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+            EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if(!worldIn.isRemote&&playerIn.isCreative()&&worldIn.isAreaLoaded(pos, 1)&&hand==EnumHand.MAIN_HAND){
+            if(playerIn.getHeldItemMainhand().getItem()==MRItems.herbalsBook){
+                worldIn.setBlockState(pos, state.withProperty(STAGE, (state.getValue(STAGE)+1)%6), 2);
+                return true;
+            }
+        }
+        return false;
     }
 
 }

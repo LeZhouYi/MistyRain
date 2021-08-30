@@ -16,7 +16,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import skily_leyu.mistyrain.MistyRain;
+import skily_leyu.mistyrain.block.basic.BlockRainStone;
 import skily_leyu.mistyrain.block.basic.BlockSpringMud;
+import skily_leyu.mistyrain.block.basic.BlockSwordStone;
+import skily_leyu.mistyrain.block.basic.BlockWaterStone;
 import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
 import skily_leyu.mistyrain.utility.MRUtils;
 
@@ -28,9 +31,9 @@ import skily_leyu.mistyrain.utility.MRUtils;
 public class MRBlocks {
 
 	public static final Block springMud = getRegistryBlock(BlockSpringMud.class,"spring_mud","springMud");
-//	public static final Block rainStone = getRegistryBlock(BlockRainStone.class,"rain_stone","rainStone");
-//	public static final Block waterStone = getRegistryBlock(BlockWaterStone.class,"water_stone","waterStone");
-//	public static final Block swordStone = getRegistryBlock(BlockSwordStone.class,"sword_stone","swordStone");
+	public static final Block rainStone = getRegistryBlock(BlockRainStone.class,"rain_stone","rainStone");
+	public static final Block waterStone = getRegistryBlock(BlockWaterStone.class,"water_stone","waterStone");
+	public static final Block swordStone = getRegistryBlock(BlockSwordStone.class,"sword_stone","swordStone");
 
 //	public static final Block flowingCyanSapling = getRegistryBlock(BlockFlowingCyanSapling.class,"flowing_cyan_sapling","flowingCyanSapling");
 //	public static final Block flowingCyanRoot = getRegistryBlock(BlockFlowingCyanRoot.class,"flowing_cyan_root","flowingCyanRoot");
@@ -56,7 +59,7 @@ public class MRBlocks {
 		public static void registerBlocks(final RegistryEvent.Register<Block> event) {
 			MistyRain.getLogger().info("Registrying Blocks[HerbalGarden]");
 			final IForgeRegistry<Block> registry = event.getRegistry();
-			registry.register(springMud);
+			registry.registerAll(springMud, rainStone, waterStone, swordStone);
 
 			// register plant soil
 			MRUtils.registerPlantSoil(springMud);
@@ -66,14 +69,14 @@ public class MRBlocks {
 		public static void registerItems(final RegistryEvent.Register<Item> event) {
 			MistyRain.getLogger().info("Registrying items[MistryRain]");
 			final IForgeRegistry<Item> registry = event.getRegistry();
-			registerItem(registry, springMud);
+			registerItem(registry, springMud, rainStone, waterStone, swordStone);
 		}
 
 		@SubscribeEvent
 		@SideOnly(Side.CLIENT)
 		public static void registerItemModels(final ModelRegistryEvent event) {
 			MistyRain.getLogger().info("Registrying item models[MistryRain]");
-			registerItemModel(0, springMud);
+			registerItemModel(0, springMud, rainStone, waterStone, swordStone);
 		}
 
 		public static void registerItem(final IForgeRegistry<Item> registry, Block... blockList) {
@@ -89,8 +92,6 @@ public class MRBlocks {
 						new ModelResourceLocation(block.getRegistryName(), "inventory"));
 			}
 		}
-
 	}
-    
 
 }

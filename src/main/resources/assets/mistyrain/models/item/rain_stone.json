@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "mistyrain:item/rain_stone"
+        "layer0": "mistyrain:items/peak_rain_stone"
     }
 }

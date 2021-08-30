@@ -5,16 +5,31 @@
         "textures":{
             "top":"mistyrain:blocks/basic/peak_grass",
             "side":"mistyrain:blocks/basic/peak_dirt_side",
-            "bottom":"mistyrain:blocks/basic/peak_dirt_side"
+            "bottom":"mistyrain:blocks/basic/peak_dirt"
         }
     },
     "variants":{
         "stage":{
-            "0":{},
+            "0":{
+                "textures":{
+                    "top":"mistyrain:blocks/basic/peak_dirt",
+                    "side":"mistyrain:blocks/basic/peak_dirt"
+                }
+            },
             "1":{},
             "2":{},
-            "3":{},
-            "4":{},
+            "3":{
+                "textures":{
+                    "top":"mistyrain:blocks/basic/peak_grass_flower",
+                    "side":"mistyrain:blocks/basic/peak_dirt_side"
+                }
+            },
+            "4":{
+                "textures":{
+                    "top":"mistyrain:blocks/basic/peak_dirt_snow",
+                    "side":"mistyrain:blocks/basic/peak_dirt_snow_side"
+                }
+            },
             "5":{},
             "6":{},
             "7":{}

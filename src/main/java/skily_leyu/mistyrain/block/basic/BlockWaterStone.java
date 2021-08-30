@@ -12,7 +12,7 @@ import skily_leyu.mistyrain.block.MRProperty;
  * @version 1.0.0
  */
 public class BlockWaterStone extends Block{
-    
+
     public BlockWaterStone(){
         super(Material.GLASS,MapColor.BLUE);
         this.setHardness(MRProperty.stoneHardness);
