@@ -18,16 +18,16 @@ public class MistyRain {
 	public static final String MODID = "mistyrain";
 	public static final String NAME = "Misty Rain";
 	public static final String VERSION = "0.0.0";
-	
+
 	private static Logger logger;
-	
+
 	@Instance(MistyRain.MODID)
 	public static MistyRain instance;
-	
-    @SidedProxy(clientSide = "skily_leyu.mistyrain.ClientProxy", 
+
+    @SidedProxy(clientSide = "skily_leyu.mistyrain.ClientProxy",
             serverSide = "skily_leyu.mistyrain.CommonProxy")
     public static CommonProxy proxy;
-	
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
@@ -49,7 +49,7 @@ public class MistyRain {
 	public void serverStarting(FMLServerStartingEvent event) {
 		proxy.serverStarting(event);
 	}
-	
+
 	public static Logger getLogger() {
 		return logger;
 	}

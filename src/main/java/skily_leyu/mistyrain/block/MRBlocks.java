@@ -26,7 +26,7 @@ import skily_leyu.mistyrain.utility.MRUtils;
  * @version 1.0.0
  */
 public class MRBlocks {
-    
+
 	public static final Block springMud = getRegistryBlock(BlockSpringMud.class,"spring_mud","springMud");
 //	public static final Block rainStone = getRegistryBlock(BlockRainStone.class,"rain_stone","rainStone");
 //	public static final Block waterStone = getRegistryBlock(BlockWaterStone.class,"water_stone","waterStone");

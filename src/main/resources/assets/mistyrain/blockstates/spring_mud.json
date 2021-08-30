@@ -1,9 +1,12 @@
 {
-    "parent":"mistyrain:block/column_full",
-    "textures":{
-        "top":"mistyrain:block/basic/peak_dirt_side",
-        "side":"mistyrain:block/basic/peak_dirt_side",
-        "bottom":"mistyrain:block/basic/peak_dirt_side"
+    "forge_marker":1,
+    "defaults":{
+        "model":"mistyrain:column_full",
+        "textures":{
+            "top":"mistyrain:blocks/basic/peak_grass",
+            "side":"mistyrain:blocks/basic/peak_dirt_side",
+            "bottom":"mistyrain:blocks/basic/peak_dirt_side"
+        }
     },
     "variants":{
         "stage":{

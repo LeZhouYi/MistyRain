@@ -12,7 +12,7 @@ import net.minecraft.util.EnumFacing;
  * @version 1.0.0
  */
 public class MRProperty {
-    
+
     //------硬度相关的属性----------//
     public static float leavesHardness = 0.2F;
     public static float dirtHardness = 0.5F;
