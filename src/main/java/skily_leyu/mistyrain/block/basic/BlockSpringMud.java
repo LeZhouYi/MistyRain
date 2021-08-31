@@ -10,11 +10,13 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.basic.type.Season;
 import skily_leyu.mistyrain.block.MRProperty;
 import skily_leyu.mistyrain.config.MRConfig;
@@ -73,9 +75,10 @@ public class BlockSpringMud extends Block{
     }
 
     //----------------------Client or Render Method-------------------------
-    @Override
-    public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face) {
-        return super.doesSideBlockRendering(state, world, pos, face);
+
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer(){
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     //----------------------Update or Event Method--------------------------

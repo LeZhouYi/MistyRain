@@ -1,7 +1,7 @@
 package skily_leyu.mistyrain.basic.type;
 
 public enum CellType{
-	
+
 	/**空白**/
 	EMPTY,
 	/**边缘**/
@@ -11,6 +11,7 @@ public enum CellType{
 	/**核心**/
 	CORE,
 	/**表面 */
-	SURFACE;
-
+	SURFACE,
+	/**额外 */
+	EXTRA;
 }

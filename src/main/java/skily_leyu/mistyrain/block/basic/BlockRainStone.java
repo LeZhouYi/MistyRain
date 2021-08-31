@@ -10,10 +10,13 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.block.MRProperty;
 import skily_leyu.mistyrain.config.MRConfig;
 import skily_leyu.mistyrain.item.MRItems;
@@ -70,6 +73,12 @@ public class BlockRainStone extends Block{
     @Override
     public boolean isFullCube(IBlockState state){
         return true;
+    }
+
+    //----------------------Client and Render Method------------------------
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer(){
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     //----------------------Update or Event Method--------------------------

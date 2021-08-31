@@ -31,6 +31,7 @@ public class DecoratorCloudPeak extends BiomeDecorator {
 		blockList.add(MRBlocks.rainStone.getDefaultState());
 		blockList.add(MRBlocks.swordStone.getDefaultState());
 		blockList.add(MRBlocks.springMud.getDefaultState().withProperty(MRProperty.HALF_STAGE, 1));
+		blockList.add(MRBlocks.rainStone.getDefaultState().withProperty(MRProperty.HALF_STAGE, 1));
 		this.peakGenerator = new GeneratorMRPeak(blockList);
 	}
 

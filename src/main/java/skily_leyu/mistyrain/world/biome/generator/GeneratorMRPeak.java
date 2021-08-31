@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.http.util.Asserts;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,12 +25,15 @@ public class GeneratorMRPeak extends WorldGenerator {
 	private int size; // 图集大小
 	protected float[] spreadRate; // 图格比率
 	protected float[] mixRate; // 混合比率
-	
+
 	// Minecraft相关
 	private Random rand; // 生成器，通常为世界随机生成器
 	private BlockPos pos; // 中心点
+	/**
+	 *依次设置为空格方块，边缘填充，主要填充，核心，边缘表面，主要表面
+	 */
 	private List<IBlockState> blockList;// 图格对应的方块列表,以CellType.ordinal()的取值对应
-	
+
 	// Peak相关
 	private int height; // 高度
 	private int floor; //层次高度
@@ -46,7 +51,10 @@ public class GeneratorMRPeak extends WorldGenerator {
 
 	public GeneratorMRPeak(List<IBlockState> blockList) {
 		this.blockList = blockList;
+		Asserts.check(this.blockList.size()>=6, "方块数量必须大于6");
 	}
+
+	//-------------------------pattern generate method-----------------------------
 
 	/**
 	 * 初始化异形点，每次生成新的图层均需要初始化
@@ -54,7 +62,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 	 * @param radius 图集半径
 	 */
 	private void initPoints(int size, int radius, boolean isInitNum){
-		
+
 		if(isInitNum){
 			this.pointNum = MathUtils.randInt(rand,MRConfig.peakPointNum);
 			this.points = new ArrayList<>();
@@ -69,7 +77,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 			this.pointDist[i] = MathUtils.randFloat(rand,MRConfig.peakPointRadius);
 			this.pointRate[i] = MathUtils.randFloat(rand,MRConfig.peakPointRate);
 		}
-		
+
 		this.pointsCache = new Point2D[this.pointNum];
 		for(int i = 0; i< this.pointNum; i++){
 			Float[] tePoints = this.points.get(i);
@@ -92,7 +100,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 		this.floor = (int)(this.height*MathUtils.randFloat(rand,MRConfig.peakFloor));
 		this.xWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
 		this.zWeight = new float[]{MathUtils.randFloat(rand, MRConfig.peakWeight),MathUtils.randFloat(rand, MRConfig.peakWeight)};
-		
+
 		//仅初始化一次
 		if (this.spreadRate == null) {
 			this.setSpreadRate(MRConfig.peakCellRate);
@@ -112,29 +120,8 @@ public class GeneratorMRPeak extends WorldGenerator {
 	}
 
 	/**
-	 * 根据图格取值和当前高度，返回对应的方块
-	 * 
-	 * @param type   图格取值
-	 * @param height 当前处理生成的相对高度
-	 * @return 返回对应逻辑的方块状态
-	 */
-	private IBlockState getCellBlock(CellType type, int height) {
-		if (CellType.EMPTY == type) {
-			return this.blockList.get(type.ordinal());
-		}
-		if (height < this.height - depth * 2) {
-			return this.blockList.get(type.ordinal());
-		} else if (height < this.height - depth) {
-			return MathUtils.canDo(rand, mixRate[0]) ? (this.blockList.get(type.ordinal()))
-					: (this.blockList.get(CellType.SURFACE.ordinal()));
-		} else {
-			return this.blockList.get(CellType.SURFACE.ordinal());
-		}
-	}
-
-	/**
 	 * 检查当前是否可以生成
-	 * 
+	 *
 	 * @param worldIn  自建维度
 	 * @param position 生成的中心点，检查的中心点
 	 * @return true=允许生成，false=不允许生成
@@ -161,7 +148,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 
 	/**
 	 * 生成基础图集
-	 * 
+	 *
 	 * @param size   图集大小
 	 * @param radius 图集半径
 	 * @return 返回根据设置生成图集
@@ -220,6 +207,46 @@ public class GeneratorMRPeak extends WorldGenerator {
 		return disFactor;
 	}
 
+	//----------------------Mixed and Using Method-------------------------------
+
+		/**
+	 * 根据图格取值和当前高度，返回对应的方块
+	 *
+	 * @param type   图格取值
+	 * @param height 当前处理生成的相对高度
+	 * @return 返回对应逻辑的方块状态
+	 */
+	private IBlockState getCellBlock(CellType type, int height) {
+		if (CellType.EMPTY == type) {
+			return this.blockList.get(type.ordinal());
+		}
+		int index = 0;
+		if (height < this.height - depth * 2) {
+			index = type.ordinal();
+		} else if (height < this.height - depth) {
+			index = MathUtils.canDo(rand, mixRate[0])? type.ordinal():CellType.SURFACE.ordinal();
+		} else {
+			index = CellType.SURFACE.ordinal();
+		}
+		index = (index==CellType.SIDE.ordinal())?CellType.SURFACE.ordinal():index;
+		index = (index==CellType.MAIN.ordinal())?CellType.EXTRA.ordinal():index;
+		return this.blockList.get(index);
+	}
+
+	/**
+	 *更新方块，当上方被覆盖方块，下方部分方需要发生改变
+	 * @param world
+	 * @param pos
+	 */
+	private void updateDonwBlockState(World world, BlockPos pos){
+		IBlockState blockState = world.getBlockState(pos);
+		if(blockState.getBlock()==this.blockList.get(CellType.SURFACE.ordinal()).getBlock()){
+			world.setBlockState(pos, this.blockList.get(CellType.SIDE.ordinal()), 2);
+		}else if(blockState.getBlock()==this.blockList.get(CellType.EXTRA.ordinal()).getBlock()){
+			world.setBlockState(pos, this.blockList.get(CellType.MAIN.ordinal()), 2);
+		}
+	}
+
 	/**
 	 * 生成主入口，生成成功则返回True
 	 */
@@ -250,7 +277,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 
 			if (size != (int) (size - size * gradient * rate) || h == -this.depth) {
 				teSize = (int) (size - size * gradient * rate);
-				initPoints(teSize,teSize/2,(this.depth+h)%this.floor==0);					
+				initPoints(teSize,teSize/2,(this.depth+h)%this.floor==0);
 				pattern = genPattern(teSize, teSize / 2);
 			}
 
@@ -264,6 +291,7 @@ public class GeneratorMRPeak extends WorldGenerator {
 					IBlockState blockstate = getCellBlock(pattern.getBit(new Point2D(x, z)), h);
 					if (!MRUtils.isAirBlock(blockstate) && MRUtils.canReplace(worldIn, tePos)) {
 						worldIn.setBlockState(tePos, blockstate, 2);
+						updateDonwBlockState(worldIn, tePos.down());
 					}
 				}
 			}
