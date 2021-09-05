@@ -46,7 +46,7 @@ public class MRBiomeProvider extends BiomeProvider {
 
 	private MRBiomeProvider(long seed, WorldType worldTypeIn, String options) {
 		this.biomeCache = new BiomeCache(this);
-		
+
 		//初始化区块设置
 		if (worldTypeIn == WorldType.CUSTOMIZED && !options.isEmpty()) {
 			this.settings = ChunkGeneratorSettings.Factory.jsonToFactory(options).build();

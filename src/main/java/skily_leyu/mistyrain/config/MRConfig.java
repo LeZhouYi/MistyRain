@@ -7,21 +7,21 @@ import skily_leyu.mistyrain.basic.type.SolarTerm;
 
 /**
  * 用于加载一些可自定义的配置，以及集中一些固定的配置
- * 
+ *
  * @author Skily
  * @version 1.0.0
  */
 public class MRConfig {
 
 	// -----------------内置属性------------------
-	public static int peakDepth = 4;// 山峰填充深度
+	public static int peakDepth = 6;// 山峰填充深度
 	public static int peakGenTime = 16;// 生成山峰次数
 	public static int peakTopBound = 20;// 山峰顶点最大偏移值
 	public static int peakMaxGenHeight = 128; // 只在该高度以下生成山峰，过高容易重叠
 	public static int[] peakRadius = new int[] {5,20}; //山峰的直径
 	public static int[] peakHeight = new int[] {64,128}; //山峰的高度
-	public static int[] peakPointNum = new int[]{1,1}; //山峰异形点的数量 
-	
+	public static int[] peakPointNum = new int[]{1,1}; //山峰异形点的数量
+
 	public static float peakGenRate = 0.5F;// 生成山峰概率
 	public static float peakCheckRate = 0.75F; // 检查基础的范围，0=只检查一个方块
 	public static float[] peakFloor = new float[]{0.10F,0.5F};// 山峰层级厚度
@@ -63,7 +63,7 @@ public class MRConfig {
 	/** 加载所有属性 */
 	protected void init() {
 		tickSpeed = loadInt("tickSpeed", 40);
-		
+
 		growRate = loadFloat("growRate", 0.1F);
 		dropRate = loadFloat("dropRate", 0.1F);
 
@@ -73,7 +73,7 @@ public class MRConfig {
 
 	/**
 	 * 加载属性值为整型的属性
-	 * 
+	 *
 	 * @param key          属性名
 	 * @param defaultValue 默认值
 	 * @return 返回读取到的属性值
@@ -84,7 +84,7 @@ public class MRConfig {
 
 	/**
 	 * 加载属性值为Float的属性
-	 * 
+	 *
 	 * @param key          属性名
 	 * @param defaultValue 默认值
 	 * @return 返回读取到的属性值

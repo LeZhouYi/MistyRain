@@ -159,13 +159,13 @@ public class MRUtils{
 	public static void logInfo(String name, Object object) {
 		MistyRain.getLogger().info(name+":"+object.toString());
 	}
-	
+
 	/**
 	 * 判断是否为覆盖类型的方块
 	 * @return true=是覆盖类型的方块
 	 */
 	public static boolean isCoverBlock(IBlockState blockstate){
-		return blockstate.isFullCube()&&blockstate.isOpaqueCube();
+		return (blockstate.isFullCube()&&blockstate.isOpaqueCube())||(blockstate.getMaterial()==Material.WATER);
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class MRUtils{
 	public static BlockPos toBlockPos(Point3D point){
 		return new BlockPos(point.getX(),point.getY(),point.getZ());
 	}
-	
+
 	/**
 	 * 判断当前方块是否可以被替换的，可能会更改判定条件，一般用于世界生成
 	 * @param worldIn 方块所在的维度
