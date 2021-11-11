@@ -34,4 +34,8 @@ public class MRProperty {
     /**水平坐标系的东南西北 */
     public static final IProperty<EnumFacing> FACING = PropertyDirection.create("facing",EnumFacing.Plane.HORIZONTAL);
 
+
+    /**花盆相关默认设置 */
+    public static final PotProperty WOOD_NORMAL = new PotProperty(1,1);
+
 }
