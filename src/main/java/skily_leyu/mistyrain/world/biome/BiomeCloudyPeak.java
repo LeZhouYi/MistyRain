@@ -9,7 +9,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import skily_leyu.mistyrain.block.MRBlocks;
-import skily_leyu.mistyrain.block.MRProperty;
+import skily_leyu.mistyrain.feature.property.MRProperty;
 
 public class BiomeCloudyPeak extends Biome {
 

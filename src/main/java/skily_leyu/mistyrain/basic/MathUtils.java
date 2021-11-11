@@ -10,7 +10,7 @@ import java.util.Random;
  * @version 1.0.0
  **/
 public class MathUtils{
-	
+
 	/**
 	 * 控制概率的精度=0.001
 	 **/
@@ -94,11 +94,11 @@ public class MathUtils{
 	public static int randInt(Random rand, int[] region) {
 		return randInt(rand, region[0], region[1]-region[0]);
 	}
-	
+
 	public static float randFloat(Random rand, float[] region) {
 		return region[0]+rand.nextFloat()*(region[1]-region[0]);
 	}
-	
+
 	/**
 	 * @param rand 随机数生成器
 	 * @param bound 随机范围[0,bound]

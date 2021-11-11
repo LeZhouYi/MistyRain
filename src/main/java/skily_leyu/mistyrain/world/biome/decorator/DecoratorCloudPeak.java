@@ -16,8 +16,8 @@ import net.minecraft.util.math.ChunkPos;
 
 import skily_leyu.mistyrain.basic.MathUtils;
 import skily_leyu.mistyrain.block.MRBlocks;
-import skily_leyu.mistyrain.block.MRProperty;
 import skily_leyu.mistyrain.config.MRConfig;
+import skily_leyu.mistyrain.feature.property.MRProperty;
 import skily_leyu.mistyrain.world.biome.generator.GeneratorMRPeak;
 
 public class DecoratorCloudPeak extends BiomeDecorator {

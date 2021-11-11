@@ -12,7 +12,7 @@ import skily_leyu.mistyrain.basic.book.Trigger;
 
 /**
  * 用于MR的说明书或成就
- * 
+ *
  * @author Skily
  * @version 1.0.0
  */
@@ -43,7 +43,7 @@ public class MRBook {
 
 	/**
 	 * 将获得的成就添加进Map
-	 * 
+	 *
 	 * @param dotIndex 该成就点对应的index值
 	 */
 	public void addCollection(int dotIndex) {
@@ -59,7 +59,7 @@ public class MRBook {
 
 	/**
 	 * 将当前节点添加进父节点中
-	 * 
+	 *
 	 * @param dot   指当前节点
 	 * @param isDot 指是否是收集点，true=父节点为节点，false=父节点为章节
 	 */
@@ -79,7 +79,7 @@ public class MRBook {
 
 	/**
 	 * 初始化
-	 * 
+	 *
 	 * @param isRebuild true=直接新建，清空原有内容，fasle=仅当Map为空时新建
 	 */
 	public void initMap(boolean isRebuild) {

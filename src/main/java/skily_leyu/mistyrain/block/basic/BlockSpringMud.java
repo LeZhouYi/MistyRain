@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.basic.type.Season;
-import skily_leyu.mistyrain.block.MRProperty;
 import skily_leyu.mistyrain.config.MRConfig;
+import skily_leyu.mistyrain.feature.property.MRProperty;
 import skily_leyu.mistyrain.item.MRItems;
 import skily_leyu.mistyrain.utility.MRUtils;
 

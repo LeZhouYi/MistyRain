@@ -16,9 +16,9 @@ import skily_leyu.mistyrain.MistyRain;
 import skily_leyu.mistyrain.basic.MathUtils;
 import skily_leyu.mistyrain.basic.pattern.Point3D;
 import skily_leyu.mistyrain.basic.type.Season;
-import skily_leyu.mistyrain.basic.type.SolarTerm;
 import skily_leyu.mistyrain.block.define.IMRPlant;
 import skily_leyu.mistyrain.config.MRConfig;
+import skily_leyu.mistyrain.feature.canlendar.SolarTerm;
 
 /**
  * 一些用于Minecraft相关的方法

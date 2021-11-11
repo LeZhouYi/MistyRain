@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.block;
+package skily_leyu.mistyrain.feature.property;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;

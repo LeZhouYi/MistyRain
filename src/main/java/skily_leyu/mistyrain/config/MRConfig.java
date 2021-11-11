@@ -2,8 +2,7 @@ package skily_leyu.mistyrain.config;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-import skily_leyu.mistyrain.basic.type.SolarTerm;
+import skily_leyu.mistyrain.feature.canlendar.SolarTerm;
 
 /**
  * 用于加载一些可自定义的配置，以及集中一些固定的配置
