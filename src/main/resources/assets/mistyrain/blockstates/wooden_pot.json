@@ -1,0 +1,18 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"mistyrain:medium_pot",
+        "textures":{
+            "pot_side":"mistyrain:blocks/pot/wooden_pot_side",
+            "pot_bottom":"mistyrain:blocks/pot/wooden_pot_bottom"
+        }
+    },
+    "variants":{
+        "facing":{
+            "north":{},
+            "south":{},
+            "west":{},
+            "east":{}
+        }
+    }
+}
