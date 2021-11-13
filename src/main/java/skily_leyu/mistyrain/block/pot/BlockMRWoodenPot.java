@@ -93,7 +93,10 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
 		return new MRTileEntityPot(MRProperty.WOOD_NORMAL);
 	}
 
-	@Override
+    /**
+     * 主手手持泥土右键添加泥土
+     */
+    @Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if(hand==EnumHand.MAIN_HAND){
@@ -103,8 +106,8 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
                 if(potTileEntity==null){
                     return false;
                 }
-                int subItemAmount = potTileEntity.addItemStack(mainItemStack);
-                if(subItemAmount>0){
+                if(potTileEntity.isSoil(mainItemStack)){//属于泥土，放置泥土
+                    mainItemStack.shrink(potTileEntity.addSoil(mainItemStack));
                     return true;
                 }
             }

@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.ItemStackHandler;
 import skily_leyu.mistyrain.feature.property.PotProperty;
+import skily_leyu.mistyrain.feature.utility.MRItemStackUtils;
 
 public class MRTileEntityPot extends TileEntity{
 
@@ -20,15 +21,22 @@ public class MRTileEntityPot extends TileEntity{
         };
     }
 
-    public int addItemStack(ItemStack itemStack){
-        if(this.potProperty.containsSoil(itemStack)){
-
-        }
-        return 0;
+    /**
+     * 判断物品是否属于可放置的泥土
+     * @param itemStack
+     * @return
+     */
+    public boolean isSoil(ItemStack itemStack){
+        return this.potProperty.containsSoil(itemStack);
     }
 
-    protected int addSoil(ItemStack itemStack){
-        return 0;
+    /**
+     * 添加泥土并返回放置数量，不处理物品数量的减少，不校验物品是否合法
+     * @param itemStack
+     * @return
+     */
+    public int addSoil(ItemStack itemStack){
+        return MRItemStackUtils.addItemInItemStackHandler(this.soilInventory, itemStack);
     }
 
 }
