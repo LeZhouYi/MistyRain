@@ -1,9 +1,14 @@
 package skily_leyu.mistyrain.feature.property;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 
 /**
@@ -36,6 +41,26 @@ public class MRProperty {
 
 
     /**花盆相关默认设置 */
-    public static final PotProperty WOOD_NORMAL = new PotProperty(1,1);
+    public static List<Item> woodNormalItemList = new ArrayList<>();
+    static{
+        woodNormalItemList.add(Item.getItemFromBlock(Blocks.GRASS));
+    }
+    public static final PotProperty WOOD_NORMAL = new PotProperty("WoodenNormal",1,1,woodNormalItemList);
+
+    //花盆属性默认配置集
+    public static List<PotProperty> potProperties = new ArrayList<>();
+    static{
+        potProperties.add(WOOD_NORMAL);
+    }
+
+    /**属性相关获取方法 */
+    public static PotProperty getPotProperty(String name){
+        for(PotProperty potProperty:potProperties){
+            if(potProperty.getName().equals(name)){
+                return potProperty;
+            }
+        }
+        return potProperties.get(0);
+    }
 
 }

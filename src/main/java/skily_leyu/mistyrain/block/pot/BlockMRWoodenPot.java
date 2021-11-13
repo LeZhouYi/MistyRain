@@ -9,6 +9,8 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -91,4 +93,22 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
 		return new MRTileEntityPot(MRProperty.WOOD_NORMAL);
 	}
 
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if(hand==EnumHand.MAIN_HAND){
+            ItemStack mainItemStack = playerIn.getHeldItemMainhand();
+            if(!mainItemStack.isEmpty()){
+                MRTileEntityPot potTileEntity = (MRTileEntityPot) worldIn.getTileEntity(pos);
+                if(potTileEntity==null){
+                    return false;
+                }
+                int subItemAmount = potTileEntity.addItemStack(mainItemStack);
+                if(subItemAmount>0){
+                    return true;
+                }
+            }
+        }
+        return false;
+	}
 }
