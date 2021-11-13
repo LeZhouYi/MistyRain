@@ -1,6 +1,8 @@
 package skily_leyu.mistyrain.tileentity;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.ItemStackHandler;
 import skily_leyu.mistyrain.feature.property.PotProperty;
@@ -37,6 +39,16 @@ public class MRTileEntityPot extends TileEntity{
      */
     public int addSoil(ItemStack itemStack){
         return MRItemStackUtils.addItemInItemStackHandler(this.soilInventory, itemStack);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound){
+        super.readFromNBT(compound);
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound){
+        return super.writeToNBT(compound);
     }
 
 }
