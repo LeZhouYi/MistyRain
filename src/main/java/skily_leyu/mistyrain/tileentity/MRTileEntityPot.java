@@ -1,10 +1,11 @@
 package skily_leyu.mistyrain.tileentity;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.ItemStackHandler;
+import skily_leyu.mistyrain.feature.property.MRProperty;
 import skily_leyu.mistyrain.feature.property.PotProperty;
 import skily_leyu.mistyrain.feature.utility.MRItemStackUtils;
 
@@ -23,6 +24,14 @@ public class MRTileEntityPot extends TileEntity{
         };
     }
 
+    /**
+     * 返回方块朝向
+     * @return
+     */
+    public EnumFacing getFacing() {
+    	return world.getBlockState(getPos()).getValue(MRProperty.FACING);
+    }
+    
     /**
      * 判断物品是否属于可放置的泥土
      * @param itemStack
@@ -44,11 +53,16 @@ public class MRTileEntityPot extends TileEntity{
     @Override
     public void readFromNBT(NBTTagCompound compound){
         super.readFromNBT(compound);
+        this.potProperty = MRProperty.getPotProperty(compound.getString("PotProperty"));
+        this.soilInventory.deserializeNBT(compound.getCompoundTag("SoidInventory"));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound){
-        return super.writeToNBT(compound);
+        NBTTagCompound superCompound = super.writeToNBT(compound);
+        superCompound.setTag("SoilInventory", this.soilInventory.serializeNBT());
+        superCompound.setString("PotProperty", this.potProperty.getName());
+        return superCompound;
     }
 
 }

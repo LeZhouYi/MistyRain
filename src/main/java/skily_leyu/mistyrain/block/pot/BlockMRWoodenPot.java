@@ -1,5 +1,7 @@
 package skily_leyu.mistyrain.block.pot;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.MapColor;
@@ -22,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.feature.property.MRProperty;
+import skily_leyu.mistyrain.feature.utility.MRItemStackUtils;
 import skily_leyu.mistyrain.tileentity.MRTileEntityPot;
 
 public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
@@ -102,16 +105,24 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
         if(hand==EnumHand.MAIN_HAND){
             ItemStack mainItemStack = playerIn.getHeldItemMainhand();
             if(!mainItemStack.isEmpty()){
-                MRTileEntityPot potTileEntity = (MRTileEntityPot) worldIn.getTileEntity(pos);
+                MRTileEntityPot potTileEntity = getTileEntity(worldIn,pos);
                 if(potTileEntity==null){
                     return false;
                 }
                 if(potTileEntity.isSoil(mainItemStack)){//属于泥土，放置泥土
-                    mainItemStack.shrink(potTileEntity.addSoil(mainItemStack));
+                    MRItemStackUtils.shrinkItemStack(playerIn, mainItemStack, potTileEntity.addSoil(mainItemStack));
+                    potTileEntity.markDirty();
                     return true;
                 }
             }
         }
         return false;
 	}
+
+    @Nullable
+    private MRTileEntityPot getTileEntity(World worldIn, BlockPos pos){
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        return tileentity instanceof MRTileEntityPot ? (MRTileEntityPot)tileentity : null;
+    }
+
 }

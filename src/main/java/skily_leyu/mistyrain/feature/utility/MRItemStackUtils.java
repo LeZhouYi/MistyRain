@@ -1,5 +1,6 @@
 package skily_leyu.mistyrain.feature.utility;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -43,6 +44,18 @@ public class MRItemStackUtils {
             }
         }
         return itemStack.getCount()-itemAmount; //返回应减少的数量
+    }
+
+    /**
+     * 非创造模式下减少对应物品的数量
+     * @param player
+     * @param itemsStack
+     * @param shrinkQuantity
+     */
+    public static void shrinkItemStack( EntityPlayer player,ItemStack itemsStack,int shrinkQuantity){
+        if(!player.isCreative()){
+            itemsStack.shrink(shrinkQuantity);
+        }
     }
 
 }
