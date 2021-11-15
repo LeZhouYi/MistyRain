@@ -5,15 +5,20 @@ import java.util.List;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class PotProperties {
 
     /**花盆相关默认设置 */
-    public static List<Item> woodNormalItemList = new ArrayList<>();
-    static{
-        woodNormalItemList.add(Item.getItemFromBlock(Blocks.GRASS));
-    }
-    public static final PotProperty WOOD_NORMAL = new PotProperty("WoodenNormal",1,1,woodNormalItemList);
+    public static final PotProperty WOOD_NORMAL = new PotProperty().setName("wooden_normal").setSlotSize(1)
+                        .setStackSize(1).setTankSize(1).setVolumeSize(1).
+                        setBlockList(new ArrayList<Item>(){{
+                            add(Item.getItemFromBlock(Blocks.GRASS));
+                        }})
+                        .setFluidList(new ArrayList<Fluid>(){{
+                            add(FluidRegistry.WATER);
+                        }});
 
     //花盆属性默认配置集
     private static List<PotProperty> potProperties = new ArrayList<>();

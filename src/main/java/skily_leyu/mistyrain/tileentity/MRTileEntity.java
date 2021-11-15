@@ -22,23 +22,23 @@ public class MRTileEntity extends TileEntity{
 	public final NBTTagCompound getUpdateTag() {
 		return this.writeToNBT(new NBTTagCompound());
 	}
-	
+
 	@Override
 	public final void markDirty() {
 		super.markDirty();
 		syncToTrackingClients();
 	}
-	
+
 	@Override
 	public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		handleUpdateTag(pkt.getNbtCompound());
 	}
-	
+
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
 		return oldState.getBlock() != newSate.getBlock();
 	}
-	
+
 	protected final void syncToTrackingClients() {
 		if (!this.world.isRemote) {
 			SPacketUpdateTileEntity packet = this.getUpdatePacket();
@@ -51,5 +51,5 @@ public class MRTileEntity extends TileEntity{
 			}
 		}
 	}
-	
+
 }
