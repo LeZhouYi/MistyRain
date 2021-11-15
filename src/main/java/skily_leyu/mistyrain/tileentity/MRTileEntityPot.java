@@ -3,6 +3,7 @@ package skily_leyu.mistyrain.tileentity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import skily_leyu.mistyrain.feature.property.MRProperty;
 import skily_leyu.mistyrain.feature.property.PotProperties;
@@ -13,6 +14,7 @@ public class MRTileEntityPot extends MRTileEntity {
 
 	protected ItemStackHandler soilInventory;
 	protected PotProperty potProperty;
+	protected FluidTank[] fluidTanks;
 
 	public MRTileEntityPot init(PotProperty potProperty) {
 		this.potProperty = potProperty;
@@ -22,6 +24,10 @@ public class MRTileEntityPot extends MRTileEntity {
 				return potProperty.getStackSize();
 			}
 		};
+		this.fluidTanks = new FluidTank[this.potProperty.getTankSize()];
+		for(FluidTank tank: this.fluidTanks){
+			tank.setCapacity(this.potProperty.getVolumeSize());
+		}
 		return this;
 	}
 
@@ -76,6 +82,14 @@ public class MRTileEntityPot extends MRTileEntity {
 		if(compound.hasKey("SoilInventory")) {
 			this.soilInventory.deserializeNBT(compound.getCompoundTag("SoilInventory"));
 		}
+		if(compound.hasKey("FluidTanks")){
+			NBTTagCompound fluidCompound = (NBTTagCompound) compound.getTag("FluidTanks");
+			for(int index = 0; index< this.potProperty.getTankSize();index++){
+				if(fluidCompound.hasKey("FluidTank"+index)){
+					this.fluidTanks[index].readFromNBT(fluidCompound.getCompoundTag("FluidTank"+index));
+				}
+			}
+		}
 	}
 
 	@Override
@@ -83,6 +97,13 @@ public class MRTileEntityPot extends MRTileEntity {
 		super.writeToNBT(compound);
 		compound.setTag("SoilInventory", this.soilInventory.serializeNBT());
 		compound.setString("PotProperty", this.potProperty.getName());
+
+		NBTTagCompound fluidCompound = new NBTTagCompound();
+		for(int index = 0;index<this.fluidTanks.length;index++){
+			fluidCompound.setTag("FluidTank"+index, this.fluidTanks[index].writeToNBT(fluidCompound));
+		}
+		compound.setTag("FluidTanks", fluidCompound);
+
 		return compound;
 	}
 
