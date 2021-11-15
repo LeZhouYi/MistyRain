@@ -21,6 +21,7 @@ import skily_leyu.mistyrain.block.basic.BlockSpringMud;
 import skily_leyu.mistyrain.block.basic.BlockSwordStone;
 import skily_leyu.mistyrain.block.basic.BlockWaterStone;
 import skily_leyu.mistyrain.block.pot.BlockMRWoodenPot;
+import skily_leyu.mistyrain.block.pot.BlockMRWoodenWaterCan;
 import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
 import skily_leyu.mistyrain.utility.MRUtils;
 
@@ -37,6 +38,7 @@ public class MRBlocks {
 	public static final Block swordStone = getRegistryBlock(BlockSwordStone.class,"sword_stone","swordStone");
 
 	public static final Block woodenPot = getRegistryBlock(BlockMRWoodenPot.class, "wooden_pot", "woodenPot");
+	public static final Block woodenWaterCan = getRegistryBlock(BlockMRWoodenWaterCan.class, "wooden_water_can", "WoodenWaterCan");
 
 	protected static Block getRegistryBlock(Class<? extends Block> classIn, String registryName, String unlocalizedName) {
 		try {
@@ -56,7 +58,7 @@ public class MRBlocks {
 			MistyRain.getLogger().info("Registrying Blocks[HerbalGarden]");
 			final IForgeRegistry<Block> registry = event.getRegistry();
 			registry.registerAll(springMud, rainStone, waterStone, swordStone);
-			registry.registerAll(woodenPot);
+			registry.registerAll(woodenPot,woodenWaterCan);
 			MRUtils.registerPlantSoil(springMud);
        }
 
@@ -65,7 +67,7 @@ public class MRBlocks {
 			MistyRain.getLogger().info("Registrying items[MistryRain]");
 			final IForgeRegistry<Item> registry = event.getRegistry();
 			registerItem(registry, springMud, rainStone, waterStone, swordStone);
-			registerItem(registry, woodenPot);
+			registerItem(registry, woodenPot, woodenWaterCan);
 		}
 
 		@SubscribeEvent
@@ -73,7 +75,7 @@ public class MRBlocks {
 		public static void registerItemModels(final ModelRegistryEvent event) {
 			MistyRain.getLogger().info("Registrying item models[MistryRain]");
 			registerItemModel(0, springMud, rainStone, waterStone, swordStone);
-			registerItemModel(0, woodenPot);
+			registerItemModel(0, woodenPot, woodenWaterCan);
 		}
 
 		public static void registerItem(final IForgeRegistry<Item> registry, Block... blockList) {

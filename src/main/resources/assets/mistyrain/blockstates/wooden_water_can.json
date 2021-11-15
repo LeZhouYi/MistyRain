@@ -1,0 +1,25 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"mistyrain:watering_can",
+        "textures":{
+            "water_can_wooden":"mistyrain:blocks/pot/wooden_pot_bottom"
+        }
+    },
+    "variants":{
+        "facing":{
+            "north":{
+                "y": 90
+            },
+            "south":{
+                "y": 270
+            },
+            "west":{
+                "y": 0
+            },
+            "east":{
+                "y": 180
+            }
+        }
+    }
+}

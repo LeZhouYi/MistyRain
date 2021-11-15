@@ -107,15 +107,15 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
             ItemStack mainItemStack = playerIn.getHeldItemMainhand();
             if(!mainItemStack.isEmpty()){
                 MRTileEntityPot potTileEntity = getTileEntity(worldIn,pos);
-                if(potTileEntity==null){
-                    return false;
-                }
-                if(potTileEntity.isSoil(mainItemStack)){//属于泥土，放置泥土
-                    MRItemStackUtils.shrinkItemStack(playerIn, mainItemStack, potTileEntity.addSoil(mainItemStack));
-                    potTileEntity.markDirty();
-                    return true;
+                if(potTileEntity!=null){
+                    if(potTileEntity.isSoil(mainItemStack)){//属于泥土，放置泥土
+                        MRItemStackUtils.shrinkItemStack(playerIn, mainItemStack, potTileEntity.addSoil(mainItemStack));
+                        potTileEntity.markDirty();
+                        return true;
+                    }
                 }
             }
+            return true;
         }
         return false;
 	}

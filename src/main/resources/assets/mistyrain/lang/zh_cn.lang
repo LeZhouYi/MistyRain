@@ -3,6 +3,7 @@ tile.rainStone.name=雨石
 tile.waterStone.name=水石
 tile.swordStone.name=剑石
 tile.woodenPot.name=木条盆
+tile.woodenWaterCan.name=木水壶
 
 item.herbalsBook.name=百草记
 item.springMud.name=春泥
@@ -10,6 +11,7 @@ item.rainStone.name=雨石
 item.waterStone.name=水石
 item.swordStone.name=剑石
 item.woodenPot.name=木条盆
+item.woodenWaterCan.name=木水壶
 
 itemGroup.mistyRain=烟雨
 
