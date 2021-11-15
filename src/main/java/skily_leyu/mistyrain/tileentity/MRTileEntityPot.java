@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.ItemStackHandler;
 import skily_leyu.mistyrain.feature.property.MRProperty;
+import skily_leyu.mistyrain.feature.property.PotProperties;
 import skily_leyu.mistyrain.feature.property.PotProperty;
 import skily_leyu.mistyrain.feature.utility.MRItemStackUtils;
 
@@ -71,7 +72,7 @@ public class MRTileEntityPot extends MRTileEntity {
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		String potNameString = (compound.hasKey("Potproperty")) ? compound.getString("Potproperty") : null;
-        init(MRProperty.getPotProperty(potNameString));
+        init(PotProperties.getPotProperty(potNameString));
 		if(compound.hasKey("SoilInventory")) {
 			this.soilInventory.deserializeNBT(compound.getCompoundTag("SoilInventory"));
 		}
