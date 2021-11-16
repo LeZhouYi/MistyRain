@@ -111,7 +111,6 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
                     if(potTileEntity.isSoil(mainItemStack)){//属于泥土，放置泥土
                         MRItemStackUtils.shrinkItemStack(playerIn, mainItemStack, potTileEntity.addSoil(mainItemStack));
                         potTileEntity.markDirty();
-                        return true;
                     }
                 }
             }
