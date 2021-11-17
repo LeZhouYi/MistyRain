@@ -23,34 +23,35 @@ import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
  */
 public class MRItems{
 
-   public static final Item herbalsBook = getRegistryItem(ItemMRHerbalsBook.class, "herbals_book", "herbalsBook");
+	public static final Item herbalsBook = getRegistryItem(ItemMRHerbalsBook.class, "herbals_book", "herbalsBook");
+	public static final Item woodenWaterCan = getRegistryItem(ItemMRWoodenWaterCan.class, "wooden_water_can", "woodenWaterCan");
 
-   protected static Item getRegistryItem(Class<? extends Item> classIn, String registryName, String unlocalizedName) {
-       try {
-           return classIn.getConstructor().newInstance().setCreativeTab(MRCreativeTabs.tabMistyRain)
-                   .setRegistryName(MistyRain.MODID, registryName).setUnlocalizedName(unlocalizedName);
-       } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-               | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-           e.printStackTrace();
-       }
-		return Items.AIR;
-	}
+	protected static Item getRegistryItem(Class<? extends Item> classIn, String registryName, String unlocalizedName) {
+		try {
+			return classIn.getConstructor().newInstance().setCreativeTab(MRCreativeTabs.tabMistyRain)
+					.setRegistryName(MistyRain.MODID, registryName).setUnlocalizedName(unlocalizedName);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+			return Items.AIR;
+		}
 
-   @Mod.EventBusSubscriber
+	@Mod.EventBusSubscriber
 	public static class ObjectRegistryHandler {
 
 		@SubscribeEvent
 		public static void registerItems(final RegistryEvent.Register<Item> event) {
 			MistyRain.getLogger().info("Registrying items[HerbalGarden]");
 			final IForgeRegistry<Item> registry = event.getRegistry();
-			registry.registerAll(herbalsBook);
-       }
+			registry.registerAll(herbalsBook,woodenWaterCan);
+	}
 
 		@SubscribeEvent
 		@SideOnly(Side.CLIENT)
 		public static void registerItemModels(final ModelRegistryEvent event) {
 			MistyRain.getLogger().info("Registrying item models[HerbalGarden]");
-			registerItemModel(0, herbalsBook);
+			registerItemModel(0, herbalsBook,woodenWaterCan);
 		}
 
 		@SideOnly(Side.CLIENT)

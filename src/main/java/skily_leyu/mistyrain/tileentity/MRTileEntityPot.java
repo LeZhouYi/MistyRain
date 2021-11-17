@@ -25,8 +25,8 @@ public class MRTileEntityPot extends MRTileEntity {
 			}
 		};
 		this.fluidTanks = new FluidTank[this.potProperty.getTankSize()];
-		for(FluidTank tank: this.fluidTanks){
-			tank.setCapacity(this.potProperty.getVolumeSize());
+		for(int i = 0;i<this.fluidTanks.length;i++){
+			this.fluidTanks[i] = new FluidTank(potProperty.getVolumeSize());
 		}
 		return this;
 	}
@@ -100,7 +100,7 @@ public class MRTileEntityPot extends MRTileEntity {
 
 		NBTTagCompound fluidCompound = new NBTTagCompound();
 		for(int index = 0;index<this.fluidTanks.length;index++){
-			fluidCompound.setTag("FluidTank"+index, this.fluidTanks[index].writeToNBT(fluidCompound));
+			fluidCompound.setTag("FluidTank"+index, this.fluidTanks[index].writeToNBT(new NBTTagCompound()));
 		}
 		compound.setTag("FluidTanks", fluidCompound);
 

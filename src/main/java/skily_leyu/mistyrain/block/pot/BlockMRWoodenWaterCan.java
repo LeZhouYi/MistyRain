@@ -23,6 +23,13 @@ public class BlockMRWoodenWaterCan extends Block{
 
     public static final IProperty<EnumFacing> FACING = MRProperty.FACING;
 
+    public static final AxisAlignedBB[] CAN_AABB = new AxisAlignedBB[]{
+        new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.75D, 0.625D, 0.75D),
+        new AxisAlignedBB(0.25D, 0.0D, 0.3125D, 0.6875D, 0.625D, 0.75D),
+        new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.6875D, 0.625D, 0.6875D),
+        new AxisAlignedBB(0.3125D, 0.0D, 0.25D, 0.75D, 0.625D, 0.6875D)
+    };
+
     public BlockMRWoodenWaterCan() {
         super(Material.WOOD,MapColor.BROWN);
     }
@@ -46,7 +53,7 @@ public class BlockMRWoodenWaterCan extends Block{
 
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return NULL_AABB;
+        return CAN_AABB[state.getValue(FACING).getHorizontalIndex()];
     }
 
     @Override
@@ -77,8 +84,8 @@ public class BlockMRWoodenWaterCan extends Block{
     //----------------------Core or Custom Method---------------------------
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
-    		float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-    	return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+        float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
 }
