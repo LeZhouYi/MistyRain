@@ -23,7 +23,7 @@ import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
  */
 public class MRItems{
 
-   public static final Item herbalsBook = getRegistryItem(ItemHerbalsBook.class, "herbals_book", "herbalsBook");
+   public static final Item herbalsBook = getRegistryItem(ItemMRHerbalsBook.class, "herbals_book", "herbalsBook");
 
    protected static Item getRegistryItem(Class<? extends Item> classIn, String registryName, String unlocalizedName) {
        try {

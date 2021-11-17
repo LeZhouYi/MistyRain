@@ -16,10 +16,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import skily_leyu.mistyrain.MistyRain;
-import skily_leyu.mistyrain.block.basic.BlockRainStone;
-import skily_leyu.mistyrain.block.basic.BlockSpringMud;
-import skily_leyu.mistyrain.block.basic.BlockSwordStone;
-import skily_leyu.mistyrain.block.basic.BlockWaterStone;
+import skily_leyu.mistyrain.block.basic.BlockMRRainStone;
+import skily_leyu.mistyrain.block.basic.BlockMRSpringMud;
+import skily_leyu.mistyrain.block.basic.BlockMRSwordStone;
+import skily_leyu.mistyrain.block.basic.BlockMRWaterStone;
 import skily_leyu.mistyrain.block.pot.BlockMRWoodenPot;
 import skily_leyu.mistyrain.block.pot.BlockMRWoodenWaterCan;
 import skily_leyu.mistyrain.creativetab.MRCreativeTabs;
@@ -32,10 +32,10 @@ import skily_leyu.mistyrain.utility.MRUtils;
  */
 public class MRBlocks {
 
-	public static final Block springMud = getRegistryBlock(BlockSpringMud.class,"spring_mud","springMud");
-	public static final Block rainStone = getRegistryBlock(BlockRainStone.class,"rain_stone","rainStone");
-	public static final Block waterStone = getRegistryBlock(BlockWaterStone.class,"water_stone","waterStone");
-	public static final Block swordStone = getRegistryBlock(BlockSwordStone.class,"sword_stone","swordStone");
+	public static final Block springMud = getRegistryBlock(BlockMRSpringMud.class,"spring_mud","springMud");
+	public static final Block rainStone = getRegistryBlock(BlockMRRainStone.class,"rain_stone","rainStone");
+	public static final Block waterStone = getRegistryBlock(BlockMRWaterStone.class,"water_stone","waterStone");
+	public static final Block swordStone = getRegistryBlock(BlockMRSwordStone.class,"sword_stone","swordStone");
 
 	public static final Block woodenPot = getRegistryBlock(BlockMRWoodenPot.class, "wooden_pot", "woodenPot");
 	public static final Block woodenWaterCan = getRegistryBlock(BlockMRWoodenWaterCan.class, "wooden_water_can", "WoodenWaterCan");

@@ -28,7 +28,7 @@ import skily_leyu.mistyrain.utility.MRUtils;
  * @author Skily
  * @version 1.0.0
  */
-public class BlockSpringMud extends Block{
+public class BlockMRSpringMud extends Block{
     /**
      * state = 0, 普通的泥土状态
      * stage = 1, 当上方无完整方法, 冬天，无雪，草雪混合状态
@@ -38,7 +38,7 @@ public class BlockSpringMud extends Block{
      */
     public static final IProperty<Integer> STAGE = MRProperty.HALF_STAGE;
 
-    public BlockSpringMud(){
+    public BlockMRSpringMud(){
         super(Material.GROUND,MapColor.GREEN_STAINED_HARDENED_CLAY);
         this.setHardness(MRProperty.dirtHardness);
         this.setResistance(MRProperty.dirtHardness);

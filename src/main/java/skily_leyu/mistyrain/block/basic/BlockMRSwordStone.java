@@ -7,17 +7,17 @@ import net.minecraft.block.material.Material;
 import skily_leyu.mistyrain.feature.property.MRProperty;
 
 /**
- * 水石
+ * 剑石
  * @author Skily
  * @version 1.0.0
  */
-public class BlockWaterStone extends Block{
+public class BlockMRSwordStone extends Block{
 
-    public BlockWaterStone(){
-        super(Material.GLASS,MapColor.BLUE);
-        this.setHardness(MRProperty.stoneHardness);
-        this.setResistance(MRProperty.dirtHardness);
-        this.setSoundType(SoundType.GLASS);
+    public BlockMRSwordStone(){
+        super(Material.GLASS,MapColor.BLACK);
+        this.setHardness(MRProperty.obsidianHardness);
+        this.setResistance(MRProperty.obsidianHardness);
+        this.setSoundType(SoundType.STONE);
     }
 
 }

@@ -27,7 +27,7 @@ import skily_leyu.mistyrain.utility.MRUtils;
  * @author Skily
  * @version 1.0.0
  */
-public class BlockRainStone extends Block{
+public class BlockMRRainStone extends Block{
 
     /**
      * 0 = 普通的石头状态
@@ -39,7 +39,7 @@ public class BlockRainStone extends Block{
      */
     public static final IProperty<Integer> STAGE = MRProperty.HALF_STAGE;
 
-    public BlockRainStone(){
+    public BlockMRRainStone(){
         super(Material.ROCK,MapColor.BLUE_STAINED_HARDENED_CLAY);
         this.setHardness(MRProperty.stoneHardness);
         this.setResistance(MRProperty.stoneHardness);
