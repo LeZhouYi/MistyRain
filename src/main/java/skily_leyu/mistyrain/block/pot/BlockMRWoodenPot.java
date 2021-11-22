@@ -26,6 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.feature.property.MRProperty;
 import skily_leyu.mistyrain.feature.property.PotProperties;
 import skily_leyu.mistyrain.feature.utility.MRItemStackUtils;
+import skily_leyu.mistyrain.item.ItemMRWoodenWaterCan;
 import skily_leyu.mistyrain.tileentity.MRTileEntityPot;
 
 public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
@@ -57,25 +58,25 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
 
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-    	return POT_AABB;
+        return POT_AABB;
     }
 
     @Override
     public boolean isFullCube(IBlockState state) {
-    	return false;
+        return false;
     }
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {
-    	return false;
+        return false;
     }
 
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-    	if(EnumFacing.DOWN!=face) {
-    		return BlockFaceShape.UNDEFINED;
-    	}
-    	return BlockFaceShape.CENTER;
+        if(EnumFacing.DOWN!=face) {
+            return BlockFaceShape.UNDEFINED;
+        }
+        return BlockFaceShape.CENTER;
     }
 
     //----------------------Client or Render Method-------------------------
@@ -88,8 +89,8 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
     //----------------------Core or Custom Method---------------------------
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
-    		float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-    	return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+            float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
 	@Override
@@ -105,7 +106,7 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if(hand==EnumHand.MAIN_HAND){
             ItemStack mainItemStack = playerIn.getHeldItemMainhand();
-            if(!mainItemStack.isEmpty()){
+            if(!mainItemStack.isEmpty()&&!shouldBlockedItem(mainItemStack)){
                 MRTileEntityPot potTileEntity = getTileEntity(worldIn,pos);
                 if(potTileEntity!=null){
                     if(potTileEntity.isSoil(mainItemStack)){//属于泥土，放置泥土
@@ -113,8 +114,8 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
                         potTileEntity.markDirty();
                     }
                 }
+                return true;
             }
-            return true;
         }
         return false;
 	}
@@ -123,6 +124,10 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
     private MRTileEntityPot getTileEntity(World worldIn, BlockPos pos){
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof MRTileEntityPot ? (MRTileEntityPot)tileentity : null;
+    }
+
+    protected boolean shouldBlockedItem(ItemStack itemStack){
+        return itemStack.getItem() instanceof ItemMRWoodenWaterCan;
     }
 
 }
