@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
-import skily_leyu.mistyrain.feature.property.MRProperty;
-import skily_leyu.mistyrain.feature.property.PotProperties;
-import skily_leyu.mistyrain.feature.property.PotProperty;
+import skily_leyu.mistyrain.feature.properties.MRProperties;
+import skily_leyu.mistyrain.feature.properties.PotProperties;
+import skily_leyu.mistyrain.feature.properties.property.PotProperty;
 import skily_leyu.mistyrain.feature.utility.MRItemStackUtils;
 
 public class MRTileEntityPot extends MRTileEntity {
@@ -51,7 +51,7 @@ public class MRTileEntityPot extends MRTileEntity {
 	 * @return
 	 */
 	public EnumFacing getFacing() {
-		return world.getBlockState(getPos()).getValue(MRProperty.FACING);
+		return world.getBlockState(getPos()).getValue(MRProperties.FACING);
 	}
 
 	/**

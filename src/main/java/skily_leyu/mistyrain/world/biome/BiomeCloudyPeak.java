@@ -9,7 +9,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import skily_leyu.mistyrain.block.MRBlocks;
-import skily_leyu.mistyrain.feature.property.MRProperty;
+import skily_leyu.mistyrain.feature.properties.MRProperties;
 
 public class BiomeCloudyPeak extends Biome {
 
@@ -89,9 +89,9 @@ public class BiomeCloudyPeak extends Biome {
 		if(blockType==0){
 			return Blocks.WATER.getDefaultState();
 		}else if(blockType==1){
-			return MRBlocks.springMud.getDefaultState().withProperty(MRProperty.HALF_STAGE, 1);
+			return MRBlocks.springMud.getDefaultState().withProperty(MRProperties.HALF_STAGE, 1);
 		}else if(blockType==2){
-			return MRBlocks.springMud.getDefaultState().withProperty(MRProperty.HALF_STAGE, 0);
+			return MRBlocks.springMud.getDefaultState().withProperty(MRProperties.HALF_STAGE, 0);
 		}else if(blockType==3){
 			return MRBlocks.waterStone.getDefaultState();
 		}

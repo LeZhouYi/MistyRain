@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.config.MRConfig;
-import skily_leyu.mistyrain.feature.property.MRProperty;
+import skily_leyu.mistyrain.feature.properties.MRProperties;
 import skily_leyu.mistyrain.item.MRItems;
 import skily_leyu.mistyrain.utility.MRUtils;
 
@@ -37,12 +37,12 @@ public class BlockMRRainStone extends Block{
      * 4 = 顶上有草，侧生草状态
      * 5 = 顶上有雪，侧生草状态
      */
-    public static final IProperty<Integer> STAGE = MRProperty.HALF_STAGE;
+    public static final IProperty<Integer> STAGE = MRProperties.HALF_STAGE;
 
     public BlockMRRainStone(){
         super(Material.ROCK,MapColor.BLUE_STAINED_HARDENED_CLAY);
-        this.setHardness(MRProperty.stoneHardness);
-        this.setResistance(MRProperty.stoneHardness);
+        this.setHardness(MRProperties.stoneHardness);
+        this.setResistance(MRProperties.stoneHardness);
         this.setSoundType(SoundType.STONE);
         this.setDefaultState(blockState.getBaseState().withProperty(STAGE,0));
         this.setTickRandomly(true);

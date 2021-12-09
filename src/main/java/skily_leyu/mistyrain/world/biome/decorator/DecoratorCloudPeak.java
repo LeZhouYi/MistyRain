@@ -17,7 +17,7 @@ import net.minecraft.util.math.ChunkPos;
 import skily_leyu.mistyrain.basic.MathUtils;
 import skily_leyu.mistyrain.block.MRBlocks;
 import skily_leyu.mistyrain.config.MRConfig;
-import skily_leyu.mistyrain.feature.property.MRProperty;
+import skily_leyu.mistyrain.feature.properties.MRProperties;
 import skily_leyu.mistyrain.world.biome.generator.GeneratorMRPeak;
 
 public class DecoratorCloudPeak extends BiomeDecorator {
@@ -30,8 +30,8 @@ public class DecoratorCloudPeak extends BiomeDecorator {
 		blockList.add(MRBlocks.springMud.getDefaultState());
 		blockList.add(MRBlocks.rainStone.getDefaultState());
 		blockList.add(MRBlocks.swordStone.getDefaultState());
-		blockList.add(MRBlocks.springMud.getDefaultState().withProperty(MRProperty.HALF_STAGE, 1));
-		blockList.add(MRBlocks.rainStone.getDefaultState().withProperty(MRProperty.HALF_STAGE, 1));
+		blockList.add(MRBlocks.springMud.getDefaultState().withProperty(MRProperties.HALF_STAGE, 1));
+		blockList.add(MRBlocks.rainStone.getDefaultState().withProperty(MRProperties.HALF_STAGE, 1));
 		this.peakGenerator = new GeneratorMRPeak(blockList);
 	}
 

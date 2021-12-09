@@ -1,5 +1,7 @@
 package skily_leyu.mistyrain.item;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -13,7 +15,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import skily_leyu.mistyrain.block.MRBlocks;
 
 public class ItemMRWoodenWaterCan extends ItemBlock{
@@ -65,5 +67,11 @@ public class ItemMRWoodenWaterCan extends ItemBlock{
     protected ItemStack onCollectWater(ItemStack itemStack){
         return itemStack;
     }
+
+    @Nullable
+    public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt){
+        return new FluidHandlerItemStack(stack, 4000);
+    }
+
 
 }

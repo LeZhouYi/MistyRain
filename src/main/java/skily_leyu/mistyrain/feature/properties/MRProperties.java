@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.feature.property;
+package skily_leyu.mistyrain.feature.properties;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
  * @author Skily
  * @version 1.0.0
  */
-public class MRProperty {
+public class MRProperties {
 
     //------硬度相关的属性----------//
     public static float leavesHardness = 0.2F;

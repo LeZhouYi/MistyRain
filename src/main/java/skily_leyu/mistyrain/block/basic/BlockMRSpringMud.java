@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.basic.type.Season;
 import skily_leyu.mistyrain.config.MRConfig;
-import skily_leyu.mistyrain.feature.property.MRProperty;
+import skily_leyu.mistyrain.feature.properties.MRProperties;
 import skily_leyu.mistyrain.item.MRItems;
 import skily_leyu.mistyrain.utility.MRUtils;
 
@@ -36,12 +36,12 @@ public class BlockMRSpringMud extends Block{
      * stage = 3，当上方无完整方块，春夏天，有花状态
      * stage = 4, 当上方为有雪，且为冬天，有雪状态
      */
-    public static final IProperty<Integer> STAGE = MRProperty.HALF_STAGE;
+    public static final IProperty<Integer> STAGE = MRProperties.HALF_STAGE;
 
     public BlockMRSpringMud(){
         super(Material.GROUND,MapColor.GREEN_STAINED_HARDENED_CLAY);
-        this.setHardness(MRProperty.dirtHardness);
-        this.setResistance(MRProperty.dirtHardness);
+        this.setHardness(MRProperties.dirtHardness);
+        this.setResistance(MRProperties.dirtHardness);
         this.setSoundType(SoundType.GROUND);
         this.setDefaultState(blockState.getBaseState().withProperty(STAGE,0));
         this.setTickRandomly(true);

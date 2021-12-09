@@ -23,15 +23,15 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import skily_leyu.mistyrain.feature.property.MRProperty;
-import skily_leyu.mistyrain.feature.property.PotProperties;
+import skily_leyu.mistyrain.feature.properties.MRProperties;
+import skily_leyu.mistyrain.feature.properties.PotProperties;
 import skily_leyu.mistyrain.feature.utility.MRItemStackUtils;
 import skily_leyu.mistyrain.item.ItemMRWoodenWaterCan;
 import skily_leyu.mistyrain.tileentity.MRTileEntityPot;
 
 public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
 
-    public static final IProperty<EnumFacing> FACING = MRProperty.FACING;
+    public static final IProperty<EnumFacing> FACING = MRProperties.FACING;
 
     public static final AxisAlignedBB POT_AABB = new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.4375D, 0.8125D);
 

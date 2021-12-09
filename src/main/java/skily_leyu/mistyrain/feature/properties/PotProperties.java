@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.feature.property;
+package skily_leyu.mistyrain.feature.properties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import skily_leyu.mistyrain.feature.properties.property.PotProperty;
 
 public class PotProperties {
 

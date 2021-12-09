@@ -17,11 +17,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import skily_leyu.mistyrain.feature.property.MRProperty;
+import skily_leyu.mistyrain.feature.properties.MRProperties;
 
 public class BlockMRWoodenWaterCan extends Block{
 
-    public static final IProperty<EnumFacing> FACING = MRProperty.FACING;
+    public static final IProperty<EnumFacing> FACING = MRProperties.FACING;
 
     public static final AxisAlignedBB[] CAN_AABB = new AxisAlignedBB[]{
         new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.75D, 0.625D, 0.75D),

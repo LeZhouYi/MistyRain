@@ -1,4 +1,4 @@
-package skily_leyu.mistyrain.feature.property;
+package skily_leyu.mistyrain.feature.properties.property;
 
 import java.util.List;
 
