@@ -32,3 +32,4 @@
 - 如何避免右键持续激活物品时对着某些方块失效
   - 在onBlockActived中针对该物品返回False
 - 如何为物品添加储水功能且能右键取水
+  - 获取指定视线的方块参考ItemGlassBottle,右键取水采用onItemRightClick

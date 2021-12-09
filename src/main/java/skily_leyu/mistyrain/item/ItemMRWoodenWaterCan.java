@@ -1,28 +1,48 @@
 package skily_leyu.mistyrain.item;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidTank;
 import skily_leyu.mistyrain.block.MRBlocks;
 
 public class ItemMRWoodenWaterCan extends ItemBlock{
 
     public ItemMRWoodenWaterCan() {
         super(MRBlocks.woodenWaterCan);
+        this.setMaxStackSize(1);
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn){
+        RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, true);
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        playerIn.setActiveHand(handIn);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+
+        if (raytraceresult == null){
+            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+        }
+        else{
+            if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK){
+                BlockPos blockpos = raytraceresult.getBlockPos();
+                if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER){
+
+                }else{
+                    playerIn.setActiveHand(handIn);
+                    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+                }
+            }
+            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+        }
     }
 
     @Override
@@ -40,6 +60,10 @@ public class ItemMRWoodenWaterCan extends ItemBlock{
 
     public EnumAction getItemUseAction(ItemStack stack){
         return EnumAction.BOW;
+    }
+
+    protected ItemStack onCollectWater(ItemStack itemStack){
+        return itemStack;
     }
 
 }
