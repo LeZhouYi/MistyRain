@@ -33,3 +33,4 @@
   - 在onBlockActived中针对该物品返回False
 - 如何为物品添加储水功能且能右键取水
   - 获取指定视线的方块参考ItemGlassBottle,右键取水采用onItemRightClick
+  - 储水功能，参考FluidHandlerItemStack
