@@ -95,7 +95,7 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new MRTileEntityPot().init(PotProperties.WOOD_NORMAL);
+		return new MRTileEntityPot().init(PotProperties.WOODEN_NORMAL);
 	}
 
     /**
