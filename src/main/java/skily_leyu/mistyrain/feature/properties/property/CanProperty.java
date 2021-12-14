@@ -13,6 +13,7 @@ public class CanProperty {
     private int volume; //物品流体容积
     private int radius; //浇水的范围，1 = 1格，2=3*3
     private int efficiency; //浇水的效率，每次消耗的流体量可以使浇到的花盆积水的量，需参考浇水范围综合计算,相对1000计算
+    private int volumePerSecond; //每秒消耗水的量
     private int volumePerCollect; //每次装水的流体量
     private List<Fluid> fluidList; //允许装填的流体
 
@@ -41,6 +42,20 @@ public class CanProperty {
      */
     public boolean containsFluid(Fluid fluid){
             return this.fluidList.contains(fluid);
+    }
+
+    /**
+     * 计算当前容积可以持续浇水的时间
+     * @param amount 水量
+     * @return 持续时间Ticks
+     */
+    public int calculateDuration(int amount){
+        return amount/this.volumePerSecond*20;
+    }
+
+    public CanProperty setVolumePerSecond(int volumePerSecond){
+        this.volumePerSecond = volumePerSecond;
+        return this;
     }
 
     public CanProperty setName(String name){
