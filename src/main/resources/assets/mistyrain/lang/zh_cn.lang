@@ -16,3 +16,5 @@ item.woodenWaterCan.name=木水壶
 itemGroup.mistyRain=烟雨
 
 generator.mr_misty_rain=烟雨行
+
+can.volume.info=储水量:%d/%d毫升

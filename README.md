@@ -34,3 +34,5 @@
 - 如何为物品添加储水功能且能右键取水
   - 获取指定视线的方块参考ItemGlassBottle,右键取水采用onItemRightClick
   - 储水功能，参考FluidHandlerItemStack
+- 添加物品信息和Shift查看的信息
+  - 参考addInformation，若Shift，则参考ITooltipFlag

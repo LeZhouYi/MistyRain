@@ -83,6 +83,10 @@ public class CanProperty {
         return this;
     }
 
+    public int getVolumePerSecond(){
+        return this.volumePerSecond;
+    }
+
     public String getName(){
         return this.name;
     }
