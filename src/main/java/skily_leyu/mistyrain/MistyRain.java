@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import skily_leyu.mistyrain.config.MRConfig;
 import skily_leyu.mistyrain.tileentity.MRTileEntities;
 
 @Mod(modid = MistyRain.MODID, name = MistyRain.NAME, version = MistyRain.VERSION, acceptedMinecraftVersions = "1.12.2")
@@ -33,7 +32,6 @@ public class MistyRain {
 	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
 		proxy.preInit(event);
-		new MRConfig(event);
 		new MRTileEntities(event);
 	}
 
