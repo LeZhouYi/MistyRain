@@ -1,0 +1,15 @@
+{
+    "mainDirectories":[
+        {
+            "icon": "src/main/resources/assets/mistyrain/textures/items/wooden_pot.png",
+            "key": "pot",
+            "items":[
+                {
+                    "icon": "src/main/resources/assets/mistyrain/textures/items/wooden_pot.png",
+                    "key": "Edelweiss",
+                    "image": "src/main/resources/assets/mistyrain/textures/items/wooden_pot.png"
+                }
+            ]
+        }
+    ]
+}

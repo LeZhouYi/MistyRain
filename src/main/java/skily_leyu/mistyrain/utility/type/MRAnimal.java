@@ -1,11 +1,11 @@
 package skily_leyu.mistyrain.utility.type;
 
-public class Animal {
+public class MRAnimal {
 
     private AnimalType animalType;
     private AnimaLevel animaLevel;
 
-    public Animal(AnimalType animalType,AnimaLevel animaLevel){
+    public MRAnimal(AnimalType animalType,AnimaLevel animaLevel){
         this.animalType=animalType;
         this.animaLevel=animaLevel;
     }
