@@ -1,8 +1,12 @@
 package skily_leyu.mistyrain.item;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -21,6 +25,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.block.MRBlocks;
 import skily_leyu.mistyrain.feature.properties.CanProperties;
 import skily_leyu.mistyrain.feature.properties.property.CanProperty;
@@ -32,6 +38,7 @@ public class ItemMRWoodenWaterCan extends ItemBlock{
     public ItemMRWoodenWaterCan() {
         super(MRBlocks.woodenWaterCan);
         this.setMaxStackSize(1);
+        this.setMaxDamage(canProperty.getVolume());
     }
 
     @Override
@@ -49,7 +56,10 @@ public class ItemMRWoodenWaterCan extends ItemBlock{
                 if (fluid!=null){
                     //取水操作
                     if(canProperty.containsFluid(fluid)){
-                        if(handler.fill(new FluidStack(fluid,canProperty.getVolumePerCollect()), true)>0){
+                        int amount = handler.fill(new FluidStack(fluid,canProperty.getVolumePerCollect()), true);
+                        if(amount>0){
+                            itemstack.setItemDamage(itemstack.getItemDamage()+amount);
+                            System.out.println(itemstack.getItemDamage());
                             return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
                         }
                     }
@@ -99,11 +109,23 @@ public class ItemMRWoodenWaterCan extends ItemBlock{
 
     @Override
     public void onUsingTick(ItemStack stack, EntityLivingBase player, int count){
-        if(count%20==0&&stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)){
+        if(count%20==0&&player.isActiveItemStackBlocking()&&stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)){
             IFluidHandlerItem handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
             FluidStack fluidStack = handler.drain(canProperty.getVolumePerSecond(), true);
             if(fluidStack!=null){
                 stack.damageItem(fluidStack.amount, player);
+                System.out.println(stack.getItemDamage());
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn){
+        if(flagIn==ITooltipFlag.TooltipFlags.ADVANCED){
+            IFluidHandlerItem handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+            FluidStack fluidStack = handler.drain(canProperty.getVolume(), false);
+            if(fluidStack!=null){
+                tooltip.add(I18n.format("can.volume.info", fluidStack.amount,canProperty.getVolume()));
             }
         }
     }
