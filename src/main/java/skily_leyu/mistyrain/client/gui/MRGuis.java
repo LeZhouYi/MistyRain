@@ -20,7 +20,7 @@ public class MRGuis implements IGuiHandler{
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch(ID){
             case GUI_MR_BOOK:
-                return new GuiMRBook();
+                return new GuiMRBook(player,player.getHeldItemMainhand());
             default:
                 return null;
         }

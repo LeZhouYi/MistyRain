@@ -5,13 +5,19 @@ import java.util.List;
 public class MRBook {
 
     private List<Directory> mainDirectories;
+    private String key;
 
-    public MRBook(List<Directory> directories){
+    public MRBook(List<Directory> directories,String key){
         this.mainDirectories = directories;
+        this.key = key;
     }
 
     public List<Directory> getDirectories(){
         return this.mainDirectories;
+    }
+
+    public String getKey(){
+        return this.key;
     }
 
     public static class Directory{
@@ -55,5 +61,14 @@ public class MRBook {
         public String getImage(){
             return this.image;
         }
+
+        public String getTitle(){
+            return this.key+".title";
+        }
+
+        public String getContent(){
+            return this.key+".content";
+        }
+
     }
 }
