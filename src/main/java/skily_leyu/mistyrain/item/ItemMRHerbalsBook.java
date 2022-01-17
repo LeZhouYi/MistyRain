@@ -26,5 +26,4 @@ public class ItemMRHerbalsBook extends Item{
         }
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
-
 }
