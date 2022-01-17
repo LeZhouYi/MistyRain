@@ -13,6 +13,7 @@ import skily_leyu.mistyrain.MistyRain;
 public class GuiMRBook extends GuiScreen{
 
     private static final ResourceLocation BOOK_GUI_TEXTURES = new ResourceLocation(MistyRain.MODID,"textures/gui/gui_mr_book.png");
+    private static final ResourceLocation PAGE_GUI_TEXTURES = new ResourceLocation(MistyRain.MODID,"textures/gui/gui_mr_book_page.png");
 
     public GuiMRBook(EntityPlayer player, ItemStack book){
     }
@@ -20,10 +21,12 @@ public class GuiMRBook extends GuiScreen{
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
         int x = (this.width - 230)/2;
         int y = (this.height- 156)/2;
-        this.drawTexturedModalRect(x, y, 0, 0, 230, 156);
+        this.mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
+        this.drawTexturedModalRect(x, y, 0, 0, 115, 159);
+        this.mc.getTextureManager().bindTexture(PAGE_GUI_TEXTURES);
+        this.drawTexturedModalRect(x+115, y, 115, 0, 115, 159);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
