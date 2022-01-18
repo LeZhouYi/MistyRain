@@ -11,11 +11,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderTooltipEvent.Color;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.MistyRain;
 import skily_leyu.mistyrain.config.MRSettings;
-import skily_leyu.mistyrain.item.MRItems;
 import skily_leyu.mistyrain.utility.type.MRBook;
 import skily_leyu.mistyrain.utility.type.MRBook.Directory;
 
@@ -72,10 +72,39 @@ public class GuiMRBook extends GuiScreen {
 				}
 			}
 		}
-		ItemStack itemStack = new ItemStack(Item.getByNameOrId("mistyrain:herbals_book"));
-		this.itemRender.zLevel = 100.0F;
-		this.itemRender.renderItemAndEffectIntoGUI(itemStack, x, y);
-		this.itemRender.zLevel = 0.0F;
+		for(int xIndex = 0; xIndex<3; xIndex++){
+			for (int yIndex = 0; yIndex < 3; yIndex++) {
+				ItemStack itemStack = new ItemStack(Item.getByNameOrId("mistyrain:herbals_book"));
+				GlStateManager.pushMatrix();
+				int xOffset = (int)(x/1.6+8+20*xIndex);
+				int yOffset = (int)(y/1.6+8+30*yIndex);
+				int xText = x+18+32*xIndex;
+				int yText = y+40+48*yIndex;
+				this.fontRenderer.drawString("烟雨", xText, yText, 0xFFFFF);
+				GlStateManager.scale(1.6, 1.6, 1.6);
+				this.itemRender.zLevel = 100.0F;
+				this.itemRender.renderItemAndEffectIntoGUI(itemStack, xOffset, yOffset);
+				this.itemRender.zLevel = 0.0F;
+				GlStateManager.popMatrix();
+			}
+		}
+		x+=113;
+		for(int xIndex = 0; xIndex<3; xIndex++){
+			for (int yIndex = 0; yIndex < 3; yIndex++) {
+				ItemStack itemStack = new ItemStack(Item.getByNameOrId("mistyrain:herbals_book"));
+				GlStateManager.pushMatrix();
+				int xOffset = (int)(x/1.6+8+20*xIndex);
+				int yOffset = (int)(y/1.6+8+30*yIndex);
+				int xText = x+18+32*xIndex;
+				int yText = y+40+48*yIndex;
+				this.fontRenderer.drawString("烟雨", xText, yText, 0xFFFFF);
+				GlStateManager.scale(1.6, 1.6, 1.6);
+				this.itemRender.zLevel = 100.0F;
+				this.itemRender.renderItemAndEffectIntoGUI(itemStack, xOffset, yOffset);
+				this.itemRender.zLevel = 0.0F;
+				GlStateManager.popMatrix();
+			}
+		}
 	}
 
 	public static class Page {

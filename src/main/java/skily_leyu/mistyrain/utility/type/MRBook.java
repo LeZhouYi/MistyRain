@@ -21,18 +21,16 @@ public class MRBook {
     }
 
     public static class Directory{
-        private String icon;
+        private String registyItem;
         private String key;
         private List<Items> items;
-        private String domain;
-        public Directory(String icon,String key, String domain,List<Items> items){
-            this.icon = icon;
+        public Directory(String registyItems,String key, String domain,List<Items> items){
+            this.registyItem = registyItems;
             this.key = key;
-            this.domain = domain;
             this.items = items;
         }
-        public String getIcon(){
-            return this.icon;
+        public String getRegistyItem(){
+            return this.registyItem;
         }
 
         public String getKey(){
@@ -43,35 +41,23 @@ public class MRBook {
             return this.items;
         }
 
-        public String getDomain(){
-            return this.domain;
-        }
-
     }
 
     public static class Items{
-        private String icon;
+
         private String key;
-        private String image;
-        private String domain;
-        public Items(String icon,String key, String image, String domain){
-            this.icon = icon;
+        private String registryItem;
+        public Items(String key,String registryItem){
             this.key = key;
-            this.image = image;
-            this.domain = domain;
+            this.registryItem = registryItem;
         }
-        public String getIcon(){
-            return this.icon;
-        }
+
         public String getKey(){
             return this.key;
         }
-        public String getImage(){
-            return this.image;
-        }
 
-        public String getDomain(){
-            return this.domain;
+        public String getRegistryItem(){
+            return this.registryItem;
         }
 
         public String getTitle(){

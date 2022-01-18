@@ -1,15 +1,12 @@
 {
     "mainDirectories":[
         {
-            "icon": "textures/items/wooden_pot.png",
+            "registyItem": "mistyrain:herbals_book",
             "key": "pot",
-            "domain": "mistyrain",
             "items":[
                 {
-                    "icon": "textures/items/wooden_pot.png",
                     "key": "Edelweiss",
-                    "image": "textures/items/wooden_pot.png",
-                    "domain": "mistyrain"
+                    "registyItem": "mistyrain:herbals_book"
                 }
             ]
         }
