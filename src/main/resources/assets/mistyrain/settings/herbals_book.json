@@ -1,12 +1,31 @@
 {
+    "key": "herbals_book",
     "mainDirectories":[
         {
-            "registyItem": "mistyrain:herbals_book",
+            "registryItem": "mistyrain:herbals_book",
             "key": "pot",
             "items":[
                 {
                     "key": "Edelweiss",
-                    "registyItem": "mistyrain:herbals_book"
+                    "registryItem": "mistyrain:herbals_book"
+                },
+                {
+                    "key": "Bamboo",
+                    "registryItem": "mistyrain:herbals_book"
+                }
+            ]
+        },
+        {
+            "registryItem": "mistyrain:herbals_book",
+            "key": "plant",
+            "items":[
+                {
+                    "key": "Edelweiss",
+                    "registryItem": "mistyrain:herbals_book"
+                },
+                {
+                    "key": "Bamboo",
+                    "registryItem": "mistyrain:herbals_book"
                 }
             ]
         }

@@ -20,17 +20,31 @@ public class MRBook {
         return this.key;
     }
 
+    public String getBotton(ButtonType type){
+        if(type==ButtonType.UPPAGE){
+            return this.key+"."+"btnUppage";
+        }else if(type==ButtonType.UPPER){
+            return this.key+"."+"btnUpper";
+        }else{
+            return this.key+"."+"btnNextPage";
+        }
+    }
+
     public static class Directory{
-        private String registyItem;
+        private String registryItem;
         private String key;
         private List<Items> items;
-        public Directory(String registyItems,String key, String domain,List<Items> items){
-            this.registyItem = registyItems;
+        public Directory(String registryItems,String key, String domain,List<Items> items){
+            this.registryItem = registryItems;
             this.key = key;
             this.items = items;
         }
-        public String getRegistyItem(){
-            return this.registyItem;
+        public String getRegistryItem(){
+            return this.registryItem;
+        }
+
+        public String getTitle(){
+            return this.key+".title";
         }
 
         public String getKey(){
@@ -69,4 +83,9 @@ public class MRBook {
         }
 
     }
+
+    public static enum ButtonType{
+        UPPAGE,UPPER,NEXTPAGE;
+    }
+
 }
