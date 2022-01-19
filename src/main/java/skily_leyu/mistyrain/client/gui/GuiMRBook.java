@@ -343,7 +343,7 @@ public class GuiMRBook extends GuiScreen {
 
 		public void operPage(int oper){
 			this.page += oper;
-			this.page = (this.page<0)?this.page:0;
+			this.page = (this.page<0)?0:this.page;
 		}
 
 		public PageLayer getLayer() {
