@@ -37,12 +37,18 @@ public class GuiMRBook extends GuiScreen {
 	protected GuiButton btnUpPage;
 	protected GuiButton btnUpper;
 
+	private int x;
+	private int y;
+
 	public GuiMRBook(EntityPlayer player, ItemStack book) {
 		this.mrBook = MRSettings.getBook(book.getItem().getRegistryName().getResourcePath());
 		this.pageRecord = new ArrayList<>();
 		this.pageRecord.add(new Page(PageLayer.MAIN, 0, 0));
+		this.x = (this.width-230)/2;
+		this.y = (this.height- 156)/2;
 	}
 
+	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		Page page = pageRecord.get(pageRecord.size() - 1);
 		if (page.getLayer() == PageLayer.MAIN) {
@@ -58,8 +64,6 @@ public class GuiMRBook extends GuiScreen {
 
 	public void drawMain(int mouseX, int mouseY, float partialTicks, Page page) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		int x = (this.width - 230) / 2;
-		int y = (this.height - 156) / 2 - 10;
 
 		// 渲染背景
 		if (page.getPage() == 0) {
@@ -67,14 +71,15 @@ public class GuiMRBook extends GuiScreen {
 		} else {
 			this.mc.getTextureManager().bindTexture(PAGE_GUI_TEXTURES);
 		}
-		this.drawTexturedModalRect(x, y, 0, 0, 230, 159);
+		this.drawTexturedModalRect(x, y -10, 0, 0, 230, 159);
 
 		// 渲染主目录
 		List<MRBook.Directory> directories = mrBook.getDirectories();
 		int size = directories.size();
+		String keyPrefix = this.mrBook.getKey();
 
 		//渲染左边页
-		if (page.getPage()%2== 0 && page.getPage() != 0 ) {
+		if (page.getPage()%2== 0 && page.getPage()!= 0 ) {
 			for(int xIndex = 0; xIndex<3; xIndex++){
 				for (int yIndex = 0; yIndex < 3; yIndex++) {
 					int directIndex = (page.getPage()-1)*9+yIndex*3+xIndex;
@@ -82,7 +87,7 @@ public class GuiMRBook extends GuiScreen {
 
 						//图标位置
 						int xOffset = (int)(x/1.6+8+20*xIndex);
-						int yOffset = (int)(y/1.6+8+30*yIndex);
+						int yOffset = (int)((y-10)/1.6+8+30*yIndex);
 
 						//文本位置
 						int xText = x+18+32*xIndex;
@@ -91,7 +96,7 @@ public class GuiMRBook extends GuiScreen {
 						//获取图标和标题文本
 						MRBook.Directory directory = directories.get(directIndex);
 						ItemStack itemStack = new ItemStack(Item.getByNameOrId(directory.getRegistryItem()));
-						String title = I18n.format(this.mrBook.getKey()+"."+directory.getTitle(), new Object());
+						String title = I18n.format(directory.getTitle(keyPrefix), new Object());
 
 						GlStateManager.pushMatrix();
 
@@ -112,15 +117,16 @@ public class GuiMRBook extends GuiScreen {
 		}
 
 		//渲染右边页
-		if ((page.getPage()+1)%2 != 0) {
+		int nextPage = page.getPage()+1;
+		if (nextPage%2 != 0) {
 			for(int xIndex = 0; xIndex<3; xIndex++){
 				for (int yIndex = 0; yIndex < 3; yIndex++) {
-					int directIndex = (page.getPage())*9+yIndex*3+xIndex;
+					int directIndex = (nextPage-1)*9+yIndex*3+xIndex;
 					if(directIndex<size){
 
 						//图标位置
 						int xOffset = (int)((x+115)/1.6+8+20*xIndex);
-						int yOffset = (int)(y/1.6+8+30*yIndex);
+						int yOffset = (int)((y-10)/1.6+8+30*yIndex);
 
 						//文本位置
 						int xText = x+18+32*xIndex+115;
@@ -129,7 +135,7 @@ public class GuiMRBook extends GuiScreen {
 						//获取图标和标题文本
 						MRBook.Directory directory = directories.get(directIndex);
 						ItemStack itemStack = new ItemStack(Item.getByNameOrId(directory.getRegistryItem()));
-						String title = I18n.format(this.mrBook.getKey()+"."+directory.getTitle(), new Object());
+						String title = I18n.format(directory.getTitle(keyPrefix), new Object());
 
 						GlStateManager.pushMatrix();
 
@@ -152,17 +158,16 @@ public class GuiMRBook extends GuiScreen {
 
 	public void drawCatalogue(int mouseX, int mouseY, float partialTicks, Page page) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		int x = (this.width - 230) / 2;
-		int y = (this.height - 156) / 2 - 10;
 
 		//渲染背景
 		this.mc.getTextureManager().bindTexture(PAGE_GUI_TEXTURES);
-		this.drawTexturedModalRect(x, y, 0, 0, 230, 159);
+		this.drawTexturedModalRect(x, y-10, 0, 0, 230, 159);
 
 		// 渲染主目录
-		List<MRBook.Directory> directories = mrBook.getDirectories();
-		List<MRBook.Items> items = directories.get(page.getIndex()).getItems();
+		MRBook.Directory directory = mrBook.getDirectories().get(page.getIndex());
+		List<MRBook.Items> items = directory.getItems();
 		int size = items.size();
+		String itemKeyPrefix = this.mrBook.getKey()+"."+directory.getKey();
 
 		//渲染左边页
 		if (page.getPage()%2== 0) {
@@ -173,7 +178,7 @@ public class GuiMRBook extends GuiScreen {
 
 						//图标位置
 						int xOffset = (int)(x/1.6+8+20*xIndex);
-						int yOffset = (int)(y/1.6+8+30*yIndex);
+						int yOffset = (int)((y-10)/1.6+8+30*yIndex);
 
 						//文本位置
 						int xText = x+18+32*xIndex;
@@ -182,7 +187,7 @@ public class GuiMRBook extends GuiScreen {
 						//获取图标和标题文本
 						MRBook.Items item = items.get(directIndex);
 						ItemStack itemStack = new ItemStack(Item.getByNameOrId(item.getRegistryItem()));
-						String title = I18n.format(this.mrBook.getKey()+"."+item.getTitle(), new Object());
+						String title = I18n.format(item.getTitle(itemKeyPrefix));
 
 						GlStateManager.pushMatrix();
 
@@ -203,15 +208,16 @@ public class GuiMRBook extends GuiScreen {
 		}
 
 		//渲染右边页
-		if ((page.getPage()+1)%2 != 0) {
+		int nextPage = page.getPage()+1;
+		if (nextPage%2 != 0) {
 			for(int xIndex = 0; xIndex<3; xIndex++){
 				for (int yIndex = 0; yIndex < 3; yIndex++) {
-					int directIndex = (page.getPage()+1)*9+yIndex*3+xIndex;
+					int directIndex = nextPage*9+yIndex*3+xIndex;
 					if(directIndex<size){
 
 						//图标位置
-						int xOffset = (int)((x+115)/1.6+8+20*xIndex)+115;
-						int yOffset = (int)(y/1.6+8+30*yIndex)+115;
+						int xOffset = (int)((x+115)/1.6+8+20*xIndex);
+						int yOffset = (int)((y-10)/1.6+8+30*yIndex)+115;
 
 						//文本位置
 						int xText = x+18+32*xIndex+115;
@@ -220,7 +226,7 @@ public class GuiMRBook extends GuiScreen {
 						//获取图标和标题文本
 						MRBook.Items item = items.get(directIndex);
 						ItemStack itemStack = new ItemStack(Item.getByNameOrId(item.getRegistryItem()));
-						String title = I18n.format(this.mrBook.getKey()+"."+item.getTitle(), new Object());
+						String title = I18n.format(itemKeyPrefix, new Object());
 
 						GlStateManager.pushMatrix();
 
@@ -242,6 +248,48 @@ public class GuiMRBook extends GuiScreen {
 	}
 
 	public void drawDetail(int mouseX, int mouseY, float partialTicks, Page page) {
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
+		// 渲染背景
+		this.mc.getTextureManager().bindTexture(PAGE_GUI_TEXTURES);
+		this.drawTexturedModalRect(x, y-10, 0, 0, 230, 159);
+
+		//获取材质和文本
+		Page upperPage = this.pageRecord.get(pageRecord.size()-2);
+		MRBook.Directory directory = this.mrBook.getDirectories().get(upperPage.getIndex());
+		MRBook.Items item = directory.getItems().get(page.getIndex());
+		String itemKeyPrefix = this.mrBook.getKey()+"."+directory.getKey();
+		int pageSize = item.getPageSize(itemKeyPrefix);
+
+		//渲染左边页
+		if(page.getPage()==0){
+			ItemStack itemStack = new ItemStack(Item.getByNameOrId(item.getRegistryItem()));
+			String title = item.getTitle(itemKeyPrefix);
+
+			//图标位置
+			int xOffset = (int)((x)/1.6)+8;
+			int yOffset = (int)((y-10)/1.6+8);
+
+			//渲染图标
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(2.0, 2.0, 2.0);
+			this.itemRender.zLevel = 100.0F;
+			this.itemRender.renderItemAndEffectIntoGUI(itemStack, xOffset, yOffset);
+			this.itemRender.zLevel = 0.0F;
+			GlStateManager.popMatrix();
+
+			//渲染标题
+			this.fontRenderer.drawSplitString(title, xOffset, yOffset+75, 100, 0);
+
+		}else if(page.getPage()%2==0){
+
+		}
+
+		//渲染右边页
+		int nextPage = page.getPage()+1;
+		if(nextPage%2==1&&nextPage<pageSize){
+
+		}
 
 	}
 
@@ -268,12 +316,93 @@ public class GuiMRBook extends GuiScreen {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-		int x = (this.width - 230) / 2;
-		int y = (this.height - 156) / 2 - 5;
+		this.x = (this.width-230)/2;
+		this.y = (this.height- 156)/2;
 
-		this.btnUpPage = this.addButton(new GuiButton(0, x+91+16*0, y+159,16,16,this.mrBook.getBotton(MRBook.ButtonType.UPPAGE)));
-		this.btnUpper = this.addButton(new GuiButton(1, x+91+16*1, y+159,16,16,this.mrBook.getBotton(MRBook.ButtonType.UPPER)));
-		this.btnNextPage = this.addButton(new GuiButton(2, x+91+16*2, y+159,16,16,this.mrBook.getBotton(MRBook.ButtonType.NEXTPAGE)));
+		GuiMRButton tempUpPage = new GuiMRButton(0, this.x+91+16*0, y+154,16,16,this.mrBook.getBotton(MRBook.ButtonType.UPPAGE)).setTexturePoint(BOOK_GUI_TEXTURES, 0, 240, 16, 16);
+		GuiMRButton tempUpper = new GuiMRButton(1, x+91+16*1, y+154,16,16,this.mrBook.getBotton(MRBook.ButtonType.UPPER)).setTexturePoint(BOOK_GUI_TEXTURES, 16, 240, 16, 16);
+		GuiMRButton tempNextPage = new GuiMRButton(2, x+91+16*2, y+154,16,16,this.mrBook.getBotton(MRBook.ButtonType.NEXTPAGE)).setTexturePoint(BOOK_GUI_TEXTURES, 32, 240, 16, 16);
+
+		this.btnUpPage = this.addButton(tempUpPage);
+		this.btnUpper = this.addButton(tempUpper);
+		this.btnNextPage = this.addButton(tempNextPage);
+
+		Page page = this.pageRecord.get(this.pageRecord.size()-1);
+		if(page.getLayer() == PageLayer.MAIN){
+
+			List<MRBook.Directory> directories = mrBook.getDirectories();
+			int size = directories.size();
+
+			//左侧按钮
+			if(page.getPage()%2==0&&page.getPage()!=0){
+				for(int xIndex = 0; xIndex<3; xIndex++){
+					for (int yIndex = 0; yIndex < 3; yIndex++) {
+						int directIndex = (page.getPage()-1)*9+yIndex*3+xIndex;
+						if(directIndex<size){
+							//图标位置
+							int xOffset = (int)(x/1.6+8+20*xIndex);
+							int yOffset = (int)((y-10)/1.6+8+30*yIndex);
+							GuiMRButton tempBtn = new GuiMRButton(100+directIndex,xOffset,yOffset,(int)(16*1.6),(int)(16*1.6),null);
+							this.buttonList.add(tempBtn);
+						}
+					}
+				}
+			}
+			//右侧按钮
+			int nextPage = page.getPage()+1;
+			if(nextPage%2==1){
+				for(int xIndex = 0; xIndex<3; xIndex++){
+					for (int yIndex = 0; yIndex < 3; yIndex++) {
+						int directIndex = (nextPage-1)*9+yIndex*3+xIndex;
+						if(directIndex<size){
+							//图标位置
+							int xOffset = (int)(x/1.6+8+20*xIndex)+115;
+							int yOffset = (int)((y-10)/1.6+8+30*yIndex);
+							GuiMRButton tempBtn = new GuiMRButton(100+directIndex,xOffset,yOffset,(int)(16*1.6),(int)(16*1.6),null);
+							this.buttonList.add(tempBtn);
+						}
+					}
+				}
+			}
+		}else if(page.getLayer()==PageLayer.CATALOGUE){
+			Page upperPage = this.pageRecord.get(this.pageRecord.size()-2);
+			List<MRBook.Items> items = mrBook.getDirectories().get(upperPage.getIndex()).getItems();
+			int size = items.size();
+
+			//左侧按钮
+			if(page.getPage()%2==0){
+				for(int xIndex = 0; xIndex<3; xIndex++){
+					for (int yIndex = 0; yIndex < 3; yIndex++) {
+						int directIndex = page.getPage()*9+yIndex*3+xIndex;
+						if(directIndex<size){
+							//图标位置
+							int xOffset = (int)(x/1.6+8+20*xIndex);
+							int yOffset = (int)((y-10)/1.6+8+30*yIndex);
+							GuiMRButton tempBtn = new GuiMRButton(200+directIndex,xOffset,yOffset,(int)(16*1.6),(int)(16*1.6),null).setTexturePoint(BOOK_GUI_TEXTURES, 0, 240, 16, 16);;
+							this.buttonList.add(tempBtn);
+						}
+					}
+				}
+			}
+			//右侧按钮
+			int nextPage = page.getPage()+1;
+			if(nextPage%2==1){
+				for(int xIndex = 0; xIndex<3; xIndex++){
+					for (int yIndex = 0; yIndex < 3; yIndex++) {
+						int directIndex = nextPage*9+yIndex*3+xIndex;
+						if(directIndex<size){
+							//图标位置
+							int xOffset = (int)(x/1.6+8+20*xIndex)+115;
+							int yOffset = (int)((y-10)/1.6+8+30*yIndex);
+							GuiMRButton tempBtn = new GuiMRButton(200+directIndex,xOffset,yOffset,(int)(16*1.6),(int)(16*1.6),null).setTexturePoint(BOOK_GUI_TEXTURES, 0, 240, 16, 16);;
+							this.buttonList.add(tempBtn);
+						}
+					}
+				}
+			}
+
+		}
+
 	}
 
 	@Override
@@ -285,6 +414,10 @@ public class GuiMRBook extends GuiScreen {
 				updatePageRecord();
 			}else if(button.id==2){
 				updatePageList(2);
+			}else if(button.id>=100&&button.id<200){
+				this.pageRecord.add(new Page(PageLayer.CATALOGUE,0,button.id-100));
+			}else if(button.id>=200&&button.id<300){
+				this.pageRecord.add(new Page(PageLayer.DETAIL,0,button.id-200));
 			}
 		}
 	}

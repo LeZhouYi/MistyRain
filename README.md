@@ -6,16 +6,23 @@
 	- 灵气等级: AnimaLevel
 	- 灵气种类: AnimaType
 - 百草书: HerbalBook
-	- 主目录: MainDirectory
-		- 图标: Icon
-		- 描述: Info
-		- 条目: Items
-			- 物品图标: Icon
-			- 物品名称: Title
-			- 物品内容: Content
-			- 物品图片: Image
-	- 功能:
-		- 翻页: 上一页或下一页
+	- 主键: key
+	- 主目录: mainDirectories,List<Directory>
+		- 物品图标: registryItem
+		- 主键: key
+		- 物品列表: items,List<Items>
+			- 物品图标: registryItem
+			- 主键: key
+			- 文本:
+				- 标题: upperskey.upperkey.key.title
+				- 页数: upperskey.upperkey.key.pageSize
+				- 内容: 按内容数获取，例: upperskey.upperkey.key.content.0
+		- 文本:
+			- 标题: upperkey.key.title
+	- 文本:
+		- 上一页: key.btnUpPage
+		- 上一级: key.btnUpper
+		- 下一页: key.btnNextPage
 
 ### 机制
 - 影响植物的因素

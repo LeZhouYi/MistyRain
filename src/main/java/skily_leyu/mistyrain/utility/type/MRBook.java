@@ -2,6 +2,8 @@ package skily_leyu.mistyrain.utility.type;
 
 import java.util.List;
 
+import net.minecraft.client.resources.I18n;
+
 public class MRBook {
 
     private List<Directory> mainDirectories;
@@ -43,8 +45,8 @@ public class MRBook {
             return this.registryItem;
         }
 
-        public String getTitle(){
-            return this.key+".title";
+        public String getTitle(String key){
+            return key+"."+this.key+".title";
         }
 
         public String getKey(){
@@ -74,12 +76,21 @@ public class MRBook {
             return this.registryItem;
         }
 
-        public String getTitle(){
-            return this.key+".title";
+        public String getTitle(String key){
+            return key+"."+this.key+".title";
         }
 
-        public String getContent(){
-            return this.key+".content";
+        public String getContent(String key){
+            return key+"."+this.key+".content";
+        }
+
+        public int getPageSize(String key){
+            String number = I18n.format(key+"."+this.key+"."+"pageSize", new Object());
+            return Integer.parseInt(number);
+        }
+
+        public String getContent(String key, int page){
+            return key+"."+this.key+".content."+page;
         }
 
     }
