@@ -224,7 +224,6 @@ public class GuiMRBook extends GuiScreen {
 			this.fontRenderer.drawSplitString(title, x+12, y+55, 100, 0);
 			if(pageSize>0){
 				String content = I18n.format(item.getContent(itemKeyPrefix, 0), new Object());
-				content = "    "+content;
 				this.fontRenderer.drawSplitString(content, x+12, y+60, 100, 0);
 			}
 
