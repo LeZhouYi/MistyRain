@@ -26,24 +26,29 @@ public class GuiMRButton extends GuiButton{
      * @param height
      * @return
      */
-    public GuiMRButton setTexturePoint(ResourceLocation btnTexture,int x, int y, int width, int height){
+    public GuiMRButton setTexturePoint(ResourceLocation btnTexture,int xTexture, int yTexture, int widthTexture, int heightTexture){
         bottonTexture = btnTexture;
-        this.xTexture = x;
-        this.yTexture = y;
-        this.widthTexture = width;
-        this.heightTexture = height;
+        this.xTexture = xTexture;
+        this.yTexture = yTexture;
+        this.widthTexture = widthTexture;
+        this.heightTexture = heightTexture;
         return this;
     }
 
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks){
         if (this.visible && bottonTexture!=null){
+
             mc.getTextureManager().bindTexture(bottonTexture);
+
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+
             this.drawTexturedModalRect(this.x, this.y, xTexture, yTexture, widthTexture, heightTexture);
+
             this.mouseDragged(mc, mouseX, mouseY);
 
         }

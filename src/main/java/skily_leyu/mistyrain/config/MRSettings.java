@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+import javax.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -35,6 +37,7 @@ public class MRSettings {
 		return result;
 	}
 
+	@Nullable
 	public static MRBook getBook(String registryName){
 		switch(registryName){
 			case "herbals_book":
