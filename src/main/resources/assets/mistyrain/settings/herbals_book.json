@@ -2,29 +2,11 @@
     "key": "herbals_book",
     "mainDirectories":[
         {
-            "registryItem": "mistyrain:herbals_book",
+            "registryItem": "mistyrain:wooden_pot",
             "key": "pot",
             "items":[
                 {
                     "key": "MountainHydrangea",
-                    "registryItem": "mistyrain:herbals_book"
-                },
-                {
-                    "key": "Bamboo",
-                    "registryItem": "mistyrain:herbals_book"
-                }
-            ]
-        },
-        {
-            "registryItem": "mistyrain:herbals_book",
-            "key": "plant",
-            "items":[
-                {
-                    "key": "Edelweiss",
-                    "registryItem": "mistyrain:herbals_book"
-                },
-                {
-                    "key": "Bamboo",
                     "registryItem": "mistyrain:herbals_book"
                 }
             ]

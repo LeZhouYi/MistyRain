@@ -1,3 +1,7 @@
+item.herbalsBook.name=百草书
+
+tile.woodenPot.name=木盆
+
 anima.level.0=空无
 anima.level.1=稀薄
 anima.level.2=允盈
@@ -11,14 +15,11 @@ anima.type.4=灵水
 anima.type.5=灵火
 anima.type.6=灵土
 
-item.herbalsBook.name=百草书
 
 itemGroup.herbalGarden=烟雨行
 
-herbals_book.pot.title=盆栽集
-herbals_book.plant.title=植株
+herbals_book.pot.title=盆栽
 
 herbals_book.pot.MountainHydrangea.title=山绣球
-herbals_book.pot.MountainHydrangea.pageSize=2
-herbals_book.pot.MountainHydrangea.content.0=灌木，四季常青，花期冬春；喜欢温暖、湿润和半阴环境；耐寒，不适强光。
-herbals_book.pot.MountainHydrangea.content.1=常见的盆栽植物，似乎有散发若有若无的物质，位其前后左右，花期感觉尤甚。
+herbals_book.pot.MountainHydrangea.pageSize=1
+herbals_book.pot.MountainHydrangea.content.0=灌木，四季常青，花期冬春；喜欢温暖、湿润和半阴环境；耐寒，不适强光。常见的盆栽植物，似乎有散发若有若无的物质，位其前后左右，花期感觉尤甚。

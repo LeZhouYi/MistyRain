@@ -203,10 +203,11 @@ public class GuiMRBook extends GuiScreen {
 		String itemKeyPrefix = this.mrBook.getKey()+"."+directory.getKey();
 		int pageSize = item.getPageSize(itemKeyPrefix);
 
-		//渲染左边页
-		if(page.getPage()==0){
+		//渲染第一页
+		if(page.getPage()==0&&pageSize>0){
 			ItemStack itemStack = new ItemStack(Item.getByNameOrId(item.getRegistryItem()));
 			String title = I18n.format(item.getTitle(itemKeyPrefix), new Object());
+			String content = I18n.format(item.getContent(itemKeyPrefix, 0), new Object());
 
 			//图标位置
 			int xOffset = (int)((this.x+36)/3.0);
@@ -220,21 +221,21 @@ public class GuiMRBook extends GuiScreen {
 			this.itemRender.zLevel = 0.0F;
 			GlStateManager.popMatrix();
 
-			//渲染标题
-			this.fontRenderer.drawSplitString(title, x+12, y+55, 100, 0);
-			if(pageSize>0){
-				String content = I18n.format(item.getContent(itemKeyPrefix, 0), new Object());
-				this.fontRenderer.drawSplitString(content, x+12, y+60, 100, 0);
-			}
-
+			//渲染文本
+			this.fontRenderer.drawSplitString(title, x+12, y+55, 95, 0);
+			this.fontRenderer.drawSplitString(content, x+12, y+68, 95, 0);
 		}else if(page.getPage()%2==0){
-
+			if(page.getPage()<pageSize){
+				String content = I18n.format(item.getContent(itemKeyPrefix, page.getPage()), new Object());
+				this.fontRenderer.drawSplitString(content, x+12, y+8, 95, 0);
+			}
 		}
 
 		//渲染右边页
 		int nextPage = page.getPage()+1;
 		if(nextPage%2==1&&nextPage<pageSize){
-
+			String content = I18n.format(item.getContent(itemKeyPrefix, nextPage), new Object());
+			this.fontRenderer.drawSplitString(content, x+12+112, y+8, 95, 0);
 		}
 
 	}
@@ -372,25 +373,32 @@ public class GuiMRBook extends GuiScreen {
 	 */
 	protected void updatePageList(int oper){
 		Page page = this.pageRecord.get(this.pageRecord.size()-1);
-		if(oper>0){
-			if(page.getLayer()==PageLayer.MAIN){
-				int size = this.mrBook.getDirectories().size();
-				if(size>(page.getPage()+1)*9){
-					page.operPage(oper);
-				}
-			}else if(page.getLayer()==PageLayer.CATALOGUE){
-				Page upperPage = this.pageRecord.get(this.pageRecord.size()-2);
-				int size = this.mrBook.getDirectories().get(upperPage.getIndex()).getItems().size();
-				if(size>(page.getPage()+2)*9){
-					page.operPage(oper);
-				}
-			}else{
+		if(page.getLayer()==PageLayer.MAIN){
 
-			}
-		}else{
-			page.operPage(oper);
+			int size = this.mrBook.getDirectories().size();
+			int offset = (size%9>0)?1:0;
+
+			page.operPage(oper, size/9+1+offset);
+		}else if(page.getLayer()==PageLayer.CATALOGUE){
+			Page upperPage = this.pageRecord.get(this.pageRecord.size()-2);
+
+			int size = this.mrBook.getDirectories().get(upperPage.getIndex()).getItems().size();
+			int offset = (size%9>0)?1:0;
+
+			page.operPage(oper, size/9+offset);
+		}else if(page.getLayer()==PageLayer.DETAIL){
+
+			Page upperPage = this.pageRecord.get(this.pageRecord.size()-2);
+			MRBook.Directory directory = this.mrBook.getDirectories().get(upperPage.getIndex());
+			MRBook.Items item = directory.getItems().get(page.getIndex());
+
+			String keyPrefix = this.mrBook.getKey()+"."+directory.getKey();
+
+			int maxIndex = directory.getItems().size();
+			int maxPage = item.getPageSize(keyPrefix);
+
+			page.operPage(oper, maxPage, maxIndex);
 		}
-		this.pageRecord.set(this.pageRecord.size()-1, page);
 	}
 
 	@Override
@@ -412,9 +420,41 @@ public class GuiMRBook extends GuiScreen {
 			this.index = index;
 		}
 
-		public void operPage(int oper){
+		/**
+		 * 翻页，超过边界不切换Index
+		 * @param oper
+		 * @param maxPage
+		 */
+		public void operPage(int oper,int maxPage){
 			this.page += oper;
-			this.page = (this.page<0)?0:this.page;
+			if(this.page<0||this.page>=maxPage){
+				this.page -=oper;
+			}
+		}
+
+		/**
+		 * 翻页，超过边界会切换Index
+		 * @param oper
+		 * @param maxPage
+		 * @param maxIndex
+		 */
+		public void operPage(int oper, int maxPage, int maxIndex){
+				this.page+=oper;
+				if(this.page>=maxPage){
+					if(this.index+1<maxIndex){
+						this.index++;
+						this.page = 0;
+					}else{
+						this.page-=oper;
+					}
+				}else if(this.page<0){
+					if(this.index>0){
+						this.index--;
+						this.page=0;
+					}else{
+						this.page-=oper;
+					}
+				}
 		}
 
 		public PageLayer getLayer() {
