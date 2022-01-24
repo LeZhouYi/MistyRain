@@ -6,8 +6,8 @@ import net.minecraft.client.resources.I18n;
 
 public class MRBook {
 
-    private List<Directory> mainDirectories;
-    private String key;
+    protected List<Directory> mainDirectories;
+    protected String key;
 
     public MRBook(List<Directory> directories,String key){
         this.mainDirectories = directories;

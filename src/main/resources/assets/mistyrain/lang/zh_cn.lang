@@ -4,7 +4,7 @@ tile.woodenPot.name=木盆
 
 anima.level.0=空无
 anima.level.1=稀薄
-anima.level.2=允盈
+anima.level.2=充盈
 anima.level.3=浓郁
 
 anima.type.0=空无
@@ -15,6 +15,42 @@ anima.type.4=灵水
 anima.type.5=灵火
 anima.type.6=灵土
 
+plantStage.0.name=子落
+plantStage.1.name=萌芽
+plantStage.2.name=根深
+plantStage.3.name=葱郁
+plantStage.4.name=含苞
+plantStage.5.name=繁花
+plantStage.6.name=落红
+plantStage.7.name=硕果
+plantStage.8.name=泛黄
+plantStage.9.name=叶落
+plantStage.10.name=凋谢
+
+solarTerms.0.name=立春
+solarTerms.1.name=雨水
+solarTerms.2.name=惊蛰
+solarTerms.3.name=春分
+solarTerms.4.name=清明
+solarTerms.5.name=谷雨
+solarTerms.6.name=立夏
+solarTerms.7.name=小满
+solarTerms.8.name=芒种
+solarTerms.9.name=夏至
+solarTerms.10.name=小暑
+solarTerms.11.name=大暑
+solarTerms.12.name=立秋
+solarTerms.13.name=处暑
+solarTerms.14.name=白露
+solarTerms.15.name=秋分
+solarTerms.16.name=寒露
+solarTerms.17.name=霜降
+solarTerms.18.name=立冬
+solarTerms.19.name=小雪
+solarTerms.20.name=大雪
+solarTerms.21.name=冬至
+solarTerms.22.name=小寒
+solarTerms.23.name=大寒
 
 itemGroup.herbalGarden=烟雨行
 
