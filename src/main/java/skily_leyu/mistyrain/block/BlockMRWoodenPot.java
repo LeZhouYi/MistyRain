@@ -1,6 +1,9 @@
 package skily_leyu.mistyrain.block;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -8,6 +11,11 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -18,8 +26,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import skily_leyu.mistyrain.config.MRProperty;
+import skily_leyu.mistyrain.tileentity.TileEntityMRPot;
+import skily_leyu.mistyrain.utility.MRItemUtils;
 
-public class BlockMRWoodenPot extends Block{
+public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
 
     public static final IProperty<EnumFacing> FACING = MRProperty.FACING_HORIZONTAL;
 
@@ -81,6 +91,35 @@ public class BlockMRWoodenPot extends Block{
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
             float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+            EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if(hand==EnumHand.MAIN_HAND){
+            ItemStack handItem = playerIn.getHeldItemMainhand();
+            //添加泥土
+            if(handItem.getItem()==Item.getItemFromBlock(Blocks.GRASS)){
+                TileEntityMRPot te = getTileEntity(worldIn, pos);
+                if(te!=null){
+                    MRItemUtils.shrinkItemStack(playerIn, handItem, te.addSoil(handItem));
+                    te.markDirty();
+                }
+            }
+        }
+        return true;
+    }
+
+
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityMRPot(MRProperty.WOODEN_BASE);
+    }
+
+    @Nullable
+    private TileEntityMRPot getTileEntity(World worldIn, BlockPos pos){
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        return tileentity instanceof TileEntityMRPot ? (TileEntityMRPot)tileentity : null;
     }
 
 }

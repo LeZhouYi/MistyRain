@@ -1,5 +1,7 @@
 package skily_leyu.mistyrain.utility.type;
 
+import net.minecraft.world.World;
+
 /**
  * 二十四节气
  */
@@ -57,6 +59,17 @@ public enum MRSolarTerm {
             }
         }
         return MRSolarTerm.WINTER_SOLSTICE; //均不符合时只有此节气符合
+    }
+
+    /**
+     * 返回当前世界时间对应的节气
+     * @param world
+     * @return
+     */
+    public static MRSolarTerm getSolarTerm(World world){
+        int days = (int)(world.getTotalWorldTime()/24000) + ((world.getTotalWorldTime()%24000==0)?0:1);
+        float dayNow = 0.0F+(days)/30.0F;
+        return getSolarTerm(dayNow);
     }
 
     public static enum Season{

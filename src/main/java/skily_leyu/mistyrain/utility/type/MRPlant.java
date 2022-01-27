@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 public class MRPlant {
@@ -79,6 +82,35 @@ public class MRPlant {
                 }
             }
             return toStage.get(0);
+        }
+
+    }
+
+    /**
+     * 用于获取本地植物相关数据
+     */
+    public static class PlantSetting{
+        protected Map<String,MRPlant> plantMap;
+
+        public PlantSetting(Map<String,MRPlant> map){
+            this.plantMap = map;
+        }
+
+        @Nullable
+        public MRPlant getPlant(ItemStack item){
+            return getPlant(item.getItem().getRegistryName().toString());
+        }
+
+        @Nullable
+        public MRPlant getPlant(String key){
+            if(this.plantMap.containsKey(key)){
+                return this.plantMap.get(key);
+            }
+            return null;
+        }
+
+        public MRPlant getDefaultPlant(){
+            return this.getPlant("mistyrain:");
         }
 
     }

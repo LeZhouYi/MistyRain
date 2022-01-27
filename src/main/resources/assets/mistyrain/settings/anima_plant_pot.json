@@ -1,0 +1,12 @@
+{
+    "potMap":{
+        "wooden_base":{
+            "soilSize":1,
+            "plantSize": 1,
+            "tankSize": 1,
+            "fertilizerSize":1,
+            "soils":["minecraft:grass"],
+            "fluids": ["minecraft:water"]
+        }
+    }
+}

@@ -1,0 +1,51 @@
+{
+    "plantMap":{
+        "mistyrain:mountain_hydrangea":{
+            "registryItem": "mistyrain:mountain_hydrangea",
+            "light": [9,13],
+            "temperature": [3,11],
+            "humidity": [8,12],
+            "fertilizer": 10,
+            "waterConsumption": 10,
+            "animals":[],
+            "productItems":{
+                "FULL_BLOWN": ["mistyrain:mountain_hydrangea_flower"]
+        },
+            "productAnimal":{
+                "VERDANT":{
+                    "animalType": "DREAM",
+                    "animaLevel": "THIN"
+                },
+                "IN_BUD":{
+                    "animalType": "DREAM",
+                    "animaLevel": "THIN"
+                },
+                "FULL_BLOWN":{
+                    "animalType": "DREAM",
+                    "animaLevel": "RICH"
+                }
+            },
+            "facings":["NORTH","SOUTH","WEST","EAST"],
+            "plans":[
+                {
+                    "nowStage": "SEED_DROP",
+                    "toStage": ["SPROUT"],
+                    "weights":[],
+                    "term": ["SPRING_BEGINS","GREAT_COLD"]
+                },
+                {
+                    "nowStage": "SPROUT",
+                    "toStage": ["ROOT_DEPTH"],
+                    "weights":[],
+                    "term": ["SPRING_BEGINS","GREAT_COLD"]
+                },
+                {
+                    "nowStage": "ROOT_DEPTH",
+                    "toStage": ["VERDANT"],
+                    "weights":[],
+                    "term": ["SPRING_BEGINS","GREAT_COLD"]
+                }
+            ]
+        }
+    }
+}
