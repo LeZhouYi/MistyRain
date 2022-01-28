@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 import skily_leyu.mistyrain.config.MRProperty;
+import skily_leyu.mistyrain.config.MRSettings;
 
 public class MRPot {
 
@@ -15,7 +16,7 @@ public class MRPot {
     private int tankSize; //储水量
     private int fertilizerSize; //储肥料量
 
-    private List<String> soils; //泥土白名单
+    private String soilType; //泥土白名单
     private List<String> fluids; //储水白名单
 
     public int getSoidSize(){
@@ -35,7 +36,7 @@ public class MRPot {
     }
 
     public boolean isSuitSoil(ItemStack itemStack){
-        return this.soils.contains(itemStack.getItem().getRegistryName().toString());
+        return MRSettings.soilMap.isSuitSoil(soilType, itemStack);
     }
 
     public List<String> getFluids(){

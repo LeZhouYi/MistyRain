@@ -27,6 +27,11 @@ public class MRPlant {
     protected List<EnumFacing> facings; //灵气逸散方向
     protected List<PlantPlan> plans; //植物的生长计划
 
+    protected String soilType; //适合生长的土壤
+
+    public String getSoilType(){
+        return this.soilType;
+    }
 
     /**
      * 植物生长状态
@@ -94,6 +99,13 @@ public class MRPlant {
 
         public PlantSetting(Map<String,MRPlant> map){
             this.plantMap = map;
+        }
+
+        /**
+         * 检测是否存在该植物
+         */
+        public boolean isPlant(ItemStack itemStack){
+            return this.plantMap.containsKey(itemStack.getItem().getRegistryName().toString());
         }
 
         @Nullable

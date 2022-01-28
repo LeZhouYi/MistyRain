@@ -5,7 +5,7 @@
             "plantSize": 1,
             "tankSize": 1,
             "fertilizerSize":1,
-            "soils":["minecraft:grass"],
+            "soilType": "NORMAL",
             "fluids": ["minecraft:water"]
         }
     }

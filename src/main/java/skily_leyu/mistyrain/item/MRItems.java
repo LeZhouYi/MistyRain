@@ -24,7 +24,7 @@ import skily_leyu.mistyrain.creativetabs.MRCreativeTabs;
 public class MRItems{
 
     public static final Item herbalsBook = getRegistryItem(ItemMRHerbalsBook.class, "herbals_book", "herbalsBook");
-    public static final Item mountainHydrangea = getRegistryItem(Item.class, "mountain_hydrangea", "mountainHydrangea");
+    // public static final Item mountainHydrangea = getRegistryItem(Item.class, "mountain_hydrangea", "mountainHydrangea");
 
     protected static Item getRegistryItem(Class<? extends Item> classIn, String registryName, String unlocalizedName) {
         try {
@@ -45,7 +45,7 @@ public class MRItems{
             MistyRain.getLogger().info("Registrying items[HerbalGarden]");
             final IForgeRegistry<Item> registry = event.getRegistry();
             registry.registerAll(herbalsBook);
-            registry.registerAll(mountainHydrangea);
+            // registry.registerAll(mountainHydrangea);
         }
 
         @SubscribeEvent
@@ -53,7 +53,7 @@ public class MRItems{
         public static void registerItemModels(final ModelRegistryEvent event) {
             MistyRain.getLogger().info("Registrying item models[HerbalGarden]");
             registerItemModel(0, herbalsBook);
-            registerItemModel(0, mountainHydrangea);
+            // registerItemModel(0, mountainHydrangea);
         }
 
         @SideOnly(Side.CLIENT)

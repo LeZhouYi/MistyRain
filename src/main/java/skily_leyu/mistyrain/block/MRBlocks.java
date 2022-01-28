@@ -22,6 +22,7 @@ import skily_leyu.mistyrain.creativetabs.MRCreativeTabs;
 public class MRBlocks {
 
     public static final Block woodenPot = getRegistryBlock(BlockMRWoodenPot.class, "wooden_pot", "woodenPot");
+	public static final Block mountainHydrangea = getRegistryBlock(BlockMRAnimalPlant.class, "mountain_hydrangea", "mountainHydrangea");
 
     private static Block getRegistryBlock(Class<? extends Block> classIn, String registryName, String unlocalizedName) {
 		try {
@@ -41,6 +42,7 @@ public class MRBlocks {
 			MistyRain.getLogger().info("Registrying Blocks[HerbalGarden]");
 			final IForgeRegistry<Block> registry = event.getRegistry();
             registry.registerAll(woodenPot);
+			registry.registerAll(mountainHydrangea);
         }
 
 		@SubscribeEvent
@@ -48,6 +50,7 @@ public class MRBlocks {
 			MistyRain.getLogger().info("Registrying items[MistryRain]");
 			final IForgeRegistry<Item> registry = event.getRegistry();
             registerItem(registry, woodenPot);
+			registerItem(registry, mountainHydrangea);
 		}
 
 		@SubscribeEvent
@@ -55,6 +58,7 @@ public class MRBlocks {
 		public static void registerItemModels(final ModelRegistryEvent event) {
 			MistyRain.getLogger().info("Registrying item models[MistryRain]");
             registerItemModel(0, woodenPot);
+			registerItemModel(0, mountainHydrangea);
 		}
 
 		public static void registerItem(final IForgeRegistry<Item> registry, Block... blockList) {

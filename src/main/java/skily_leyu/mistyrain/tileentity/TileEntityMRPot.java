@@ -14,7 +14,10 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import skily_leyu.mistyrain.config.MRProperty;
 import skily_leyu.mistyrain.config.MRSettings;
+import skily_leyu.mistyrain.network.MRMessages;
+import skily_leyu.mistyrain.network.MessageMRPot;
 import skily_leyu.mistyrain.utility.MRItemUtils;
+import skily_leyu.mistyrain.utility.MRMathUtils;
 import skily_leyu.mistyrain.utility.type.MRPlant;
 import skily_leyu.mistyrain.utility.type.MRPot;
 import skily_leyu.mistyrain.utility.type.MRPlant.PlantStage;
@@ -31,6 +34,8 @@ public class TileEntityMRPot extends TileEntity{
 	private List<MRPlant> plant;
 	private List<PlantStage> plantStage;
 
+	public TileEntityMRPot() {}
+	
     public TileEntityMRPot(String key){
 		init(key);
     }
@@ -40,25 +45,26 @@ public class TileEntityMRPot extends TileEntity{
 	 * @param key
 	 */
 	protected void init(String key){
-		this.mrPot = MRSettings.potMap.getMRPot(key);
-		if(this.mrPot == null){
-			this.mrPot = MRSettings.potMap.getDeafultMRPot();
-		}
-        this.soilInventory = new ItemStackHandler(mrPot.getSoidSize()){
-            @Override
-            public int getSlotLimit(int slot) {
-                return 1;
-            }
-        };
-		this.plantInventory = new ItemStackHandler(mrPot.getPlantSize()){
-			@Override
-			public int getSlotLimit(int slot) {
-				return 1;
+		this.key = key;
+		if(this.mrPot==null){
+			this.mrPot = MRSettings.potMap.getMRPot(key);
+			if(this.mrPot == null){
+				this.mrPot = MRSettings.potMap.getDeafultMRPot();
 			}
-		};
-		this.waterTank = new FluidTank(this.mrPot.getTankSize());
-		this.plant = new ArrayList<>();
-		this.plantStage = new ArrayList<>();
+			this.soilInventory = new ItemStackHandler(mrPot.getSoidSize()){
+				@Override
+				public int getSlotLimit(int slot) {
+					return 1;
+				}
+			};
+			this.plantInventory = new ItemStackHandler(mrPot.getPlantSize()){
+				@Override
+				public int getSlotLimit(int slot) {
+					return 1;
+				}
+			};
+			this.waterTank = new FluidTank(this.mrPot.getTankSize());
+		}
 	}
 
     /**
@@ -67,9 +73,38 @@ public class TileEntityMRPot extends TileEntity{
 	 * @param itemStack
 	 * @return
 	 */
-	public int addSoil(ItemStack itemStack) {
+	public int addItem(ItemStack itemStack) {
+		//添加泥土
 		if(this.mrPot.isSuitSoil(itemStack)){
-			return MRItemUtils.addItemInItemStackHandler(this.soilInventory, itemStack);
+			int amount = MRItemUtils.addItemInHandlerOneTime(this.soilInventory, itemStack);
+			if(amount>0){
+				NBTTagCompound compound = new NBTTagCompound();
+				compound.setTag("SoilInventory", this.soilInventory.serializeNBT());
+				System.out.print("test");
+				MRMessages.INSTANCE.sendToServer(new MessageMRPot().setMessage(this, compound));
+				return amount;
+			}
+		}
+		//添加植物
+		else if(MRSettings.animalPlantMap.isPlant(itemStack)){
+
+			int size = MRMathUtils.minInteger(this.soilInventory.getSlots(), this.plantInventory.getSlots());
+			MRPlant mrPlant = MRSettings.animalPlantMap.getPlant(itemStack);
+
+			for(int i = 0;i<size;i++){
+				ItemStack soilStack = this.soilInventory.getStackInSlot(i);
+				ItemStack plantStack = this.plantInventory.getStackInSlot(i);
+
+				if(plantStack.isEmpty()){
+					if(!soilStack.isEmpty()&&MRSettings.soilMap.isSuitSoil(mrPlant.getSoilType(), soilStack)){
+						//添加植物成功
+						this.plant.add(mrPlant);
+						this.plantStage.add(PlantStage.SEED_DROP);
+
+						return MRItemUtils.addItemInHandlerOneTime(this.plantInventory, itemStack);
+					}
+				}
+			}
 		}
 		return 0;
 	}
@@ -104,8 +139,11 @@ public class TileEntityMRPot extends TileEntity{
     @Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		this.key = compound.hasKey("PotKey")?compound.getString("PotKey"):MRProperty.WOODEN_BASE;
-		init(key);
+
+		if(compound.hasKey("PotKey")){
+			this.key = compound.getString("PotKey");
+			init(key);
+		}
 		if(compound.hasKey("SoilInventory")) {
 			this.soilInventory.deserializeNBT(compound.getCompoundTag("SoilInventory"));
 		}
@@ -116,6 +154,8 @@ public class TileEntityMRPot extends TileEntity{
 			this.waterTank.writeToNBT(compound.getCompoundTag("WaterTank"));
 		}
 		if(compound.hasKey("PlantStage")){
+			this.plant = new ArrayList<>();
+			this.plantStage = new ArrayList<>();
 			int[] stageArray = compound.getIntArray("PlantStage");
 			for(int i = 0;i<stageArray.length;i++){
 				this.plant.add(MRSettings.animalPlantMap.getPlant(this.plantInventory.getStackInSlot(i)));
@@ -131,8 +171,8 @@ public class TileEntityMRPot extends TileEntity{
 		compound.setTag("SoilInventory", this.soilInventory.serializeNBT());
 		compound.setTag("PlantInventory", this.plantInventory.serializeNBT());
 		compound.setTag("WaterTank", this.waterTank.writeToNBT(new NBTTagCompound()));
-		int plantSize = this.plantStage.size();
-		if(plantSize>0){
+		if(this.plantStage!=null&&this.plantStage.size()>0){
+			int plantSize = this.plantStage.size();
 			int[] stageArray = new int[plantSize];
 			for(int i=0;i<this.plant.size();i++){
 				stageArray[i] = this.plantStage.get(i).ordinal();

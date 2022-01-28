@@ -12,9 +12,8 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -96,14 +95,14 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
             EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(hand==EnumHand.MAIN_HAND){
+        if(worldIn.isRemote&& hand==EnumHand.MAIN_HAND){
             ItemStack handItem = playerIn.getHeldItemMainhand();
-            //添加泥土
-            if(handItem.getItem()==Item.getItemFromBlock(Blocks.GRASS)){
-                TileEntityMRPot te = getTileEntity(worldIn, pos);
-                if(te!=null){
-                    MRItemUtils.shrinkItemStack(playerIn, handItem, te.addSoil(handItem));
-                    te.markDirty();
+            TileEntityMRPot te = getTileEntity(worldIn, pos);
+            if(te!=null){
+                if(handItem.getItem() instanceof ItemTool){
+
+                }else{
+                    MRItemUtils.shrinkItemStack(playerIn, handItem,te.addItem(handItem));
                 }
             }
         }
@@ -117,7 +116,7 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
     }
 
     @Nullable
-    private TileEntityMRPot getTileEntity(World worldIn, BlockPos pos){
+    public static TileEntityMRPot getTileEntity(World worldIn, BlockPos pos){
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof TileEntityMRPot ? (TileEntityMRPot)tileentity : null;
     }

@@ -19,12 +19,50 @@ public class MRItemUtils {
     }
 
     /**
+     * 放置物品并返回物品减少的数量,且只会放置一次(指成功放置的次数)，数量为0则表示物品没放进去
+     * @param itemStackHandler
+     * @param itemStack
+     * @return
+     */
+    public static int addItemInHandlerOneTime(ItemStackHandler itemStackHandler, ItemStack itemStack){
+        int itemAmount = itemStack.getCount();
+        int itemMaxStackSize = itemStack.getMaxStackSize();
+        ItemStack copyItemStack = itemStack.copy();
+
+        for(int index = 0; index<itemStackHandler.getSlots()&&itemAmount>0;index++){
+            ItemStack slotStack = itemStackHandler.getStackInSlot(index);
+            int maxStackSize = MRMathUtils.minInteger(itemStackHandler.getSlotLimit(index),itemMaxStackSize);
+
+            if(slotStack.isEmpty()){
+
+                int addAmount = MRMathUtils.minInteger(maxStackSize, itemAmount);//计算应放数量
+                copyItemStack.setCount(addAmount);
+                itemStackHandler.setStackInSlot(index, copyItemStack); //放置
+                itemAmount-=addAmount; //计算剩余
+                break;
+
+            }else if(slotStack.getItem()==itemStack.getItem()){
+
+                int itemsurplusAmount = maxStackSize-slotStack.getCount();
+                if(itemsurplusAmount>0){ //还能继续存放
+                    int addAmount = MRMathUtils.minInteger(itemsurplusAmount, itemAmount); //计算应放数量
+                    copyItemStack.setCount(slotStack.getCount()+addAmount);
+                    itemStackHandler.setStackInSlot(index, copyItemStack); //追加放置
+                    itemAmount-=addAmount;
+                    break;
+                }
+            }
+        }
+        return itemStack.getCount()-itemAmount; //返回应减少的数量
+    }
+
+    /**
      * 放置物品并返回物品减少的数量，数量为0则表示物品没放进去
      * @param itemStackHandler 所要放置的物品栏
      * @param itemStack 所要放置的物品
      * @return int 返回需要减少的数量
      */
-    public static int addItemInItemStackHandler(ItemStackHandler itemStackHandler, ItemStack itemStack){
+    public static int addItemInHandler(ItemStackHandler itemStackHandler, ItemStack itemStack){
         int itemAmount = itemStack.getCount();
         int itemMaxStackSize = itemStack.getMaxStackSize();
         ItemStack copyItemStack = itemStack.copy();

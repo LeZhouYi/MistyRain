@@ -101,3 +101,9 @@
 	- 特征: 藤蔓状，常年绿，按季开花
 	- 消耗: 消耗水，肥料，灵空
 	- 产生: 灵金(开花阶段)
+
+#TODO:
+	- TileEntity数据更新:采用SimpleNet
+	- TileEntityPot模型加载和模型渲染
+	- TileEntityTick相关内容
+	- 指令设定时间相关内容

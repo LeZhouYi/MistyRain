@@ -2,6 +2,7 @@
     "plantMap":{
         "mistyrain:mountain_hydrangea":{
             "registryItem": "mistyrain:mountain_hydrangea",
+            "soilType": "NORMAL",
             "light": [9,13],
             "temperature": [3,11],
             "humidity": [8,12],

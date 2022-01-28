@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import skily_leyu.mistyrain.MistyRain;
 import skily_leyu.mistyrain.utility.type.MRBook;
+import skily_leyu.mistyrain.utility.type.MRSoil;
 import skily_leyu.mistyrain.utility.type.MRPlant.PlantSetting;
 import skily_leyu.mistyrain.utility.type.MRPot.PotSetting;
 
@@ -20,11 +21,13 @@ public class MRSettings {
     public static MRBook herbalsBook;
 	public static PlantSetting animalPlantMap;
 	public static PotSetting potMap;
+	public static MRSoil soilMap;
 
     public MRSettings(FMLPreInitializationEvent event){
 		herbalsBook = loadJson(MRBook.class, "herbals_book");
 		animalPlantMap = loadJson(PlantSetting.class, "animal_plant");
 		potMap = loadJson(PotSetting.class, "animal_plant_pot");
+		soilMap = loadJson(MRSoil.class, "soil_type");
     }
 
     private <T> T loadJson(Class<T> jsonClass, String registryName) {
