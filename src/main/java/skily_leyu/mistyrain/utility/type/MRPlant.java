@@ -121,10 +121,6 @@ public class MRPlant {
             return null;
         }
 
-        public MRPlant getDefaultPlant(){
-            return this.getPlant("mistyrain:");
-        }
-
     }
 
 }

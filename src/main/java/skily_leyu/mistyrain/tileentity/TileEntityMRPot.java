@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -23,12 +24,19 @@ import skily_leyu.mistyrain.utility.type.MRPlant.PlantStage;
 
 public class TileEntityMRPot extends TileEntity{
 
-	protected String key;
+	private final String TAG_SOIL_INV = "soilInventTag";
+	private final String TAG_PLANT_INV = "plantInventTag";
+	private final String TAG_WATER_TANK = "waterTankTag";
+	private final String TAG_POT_KEY = "potKeyTag";
+	private final String TAG_PLANT_STAGE = "plantStageTage";
+
+	protected String key; //判别花盆类型及属性
+
     protected ItemStackHandler soilInventory;
 	protected ItemStackHandler plantInventory;
 	protected FluidTank waterTank;
 
-	private MRPot mrPot;
+	private MRPot mrPot; //缓存
 
 	private List<MRPlant> plant;
 	private List<PlantStage> plantStage;
@@ -44,25 +52,20 @@ public class TileEntityMRPot extends TileEntity{
 	 */
 	protected void init(String key){
 		this.key = key;
-		if(this.mrPot==null){
-			this.mrPot = MRSettings.potMap.getMRPot(key);
-			if(this.mrPot == null){
-				this.mrPot = MRSettings.potMap.getDeafultMRPot();
+		this.mrPot = MRSettings.potMap.getMRPot(key);
+		this.soilInventory = new ItemStackHandler(mrPot.getSoidSize()){
+			@Override
+			public int getSlotLimit(int slot) {
+				return 1;
 			}
-			this.soilInventory = new ItemStackHandler(mrPot.getSoidSize()){
-				@Override
-				public int getSlotLimit(int slot) {
-					return 1;
-				}
-			};
-			this.plantInventory = new ItemStackHandler(mrPot.getPlantSize()){
-				@Override
-				public int getSlotLimit(int slot) {
-					return 1;
-				}
-			};
-			this.waterTank = new FluidTank(this.mrPot.getTankSize());
-		}
+		};
+		this.plantInventory = new ItemStackHandler(mrPot.getPlantSize()){
+			@Override
+			public int getSlotLimit(int slot) {
+				return 1;
+			}
+		};
+		this.waterTank = new FluidTank(this.mrPot.getTankSize());
 	}
 
     /**
@@ -131,23 +134,23 @@ public class TileEntityMRPot extends TileEntity{
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 
-		if(compound.hasKey("PotKey")){
-			this.key = compound.getString("PotKey");
+		if(compound.hasKey(TAG_POT_KEY)){
+			this.key = compound.getString(TAG_POT_KEY);
 			init(key);
 		}
-		if(compound.hasKey("SoilInventory")) {
-			this.soilInventory.deserializeNBT(compound.getCompoundTag("SoilInventory"));
+		if(compound.hasKey(TAG_SOIL_INV)) {
+			this.soilInventory.deserializeNBT(compound.getCompoundTag(TAG_SOIL_INV));
 		}
-		if(compound.hasKey("PlantInventory")){
-			this.plantInventory.deserializeNBT(compound.getCompoundTag("PlantInventory"));
+		if(compound.hasKey(TAG_PLANT_INV)){
+			this.plantInventory.deserializeNBT(compound.getCompoundTag(TAG_PLANT_INV));
 		}
-		if(compound.hasKey("WaterTank")){
-			this.waterTank.writeToNBT(compound.getCompoundTag("WaterTank"));
+		if(compound.hasKey(TAG_WATER_TANK)){
+			this.waterTank.writeToNBT(compound.getCompoundTag(TAG_WATER_TANK));
 		}
-		if(compound.hasKey("PlantStage")){
+		if(compound.hasKey(TAG_PLANT_STAGE)){
 			this.plant = new ArrayList<>();
 			this.plantStage = new ArrayList<>();
-			int[] stageArray = compound.getIntArray("PlantStage");
+			int[] stageArray = compound.getIntArray(TAG_PLANT_STAGE);
 			for(int i = 0;i<stageArray.length;i++){
 				this.plant.add(MRSettings.animalPlantMap.getPlant(this.plantInventory.getStackInSlot(i)));
 				this.plantStage.add(PlantStage.values()[stageArray[i]]);
@@ -158,25 +161,33 @@ public class TileEntityMRPot extends TileEntity{
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
-		compound.setString("PotKey", this.key);
-		compound.setTag("SoilInventory", this.soilInventory.serializeNBT());
-		compound.setTag("PlantInventory", this.plantInventory.serializeNBT());
-		compound.setTag("WaterTank", this.waterTank.writeToNBT(new NBTTagCompound()));
+		compound.setString(TAG_POT_KEY, this.key);
+		writeUpdatePacket(compound);
+		return compound;
+	}
+
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(getPos(), 1, writeToNBT(new NBTTagCompound()));
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.getNbtCompound());
+	}
+
+	public void writeUpdatePacket(NBTTagCompound nbt){
+		nbt.setTag(TAG_SOIL_INV, this.soilInventory.serializeNBT());
+		nbt.setTag(TAG_PLANT_INV, this.plantInventory.serializeNBT());
+		nbt.setTag(TAG_WATER_TANK, this.waterTank.writeToNBT(new NBTTagCompound()));
 		if(this.plantStage!=null&&this.plantStage.size()>0){
 			int plantSize = this.plantStage.size();
 			int[] stageArray = new int[plantSize];
 			for(int i=0;i<this.plant.size();i++){
 				stageArray[i] = this.plantStage.get(i).ordinal();
 			}
-			compound.setIntArray("PlantStage", stageArray);
+			nbt.setIntArray(TAG_PLANT_STAGE, stageArray);
 		}
-		return compound;
-	}
-
-	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound nbt = new NBTTagCompound();
-		return new SPacketUpdateTileEntity(getPos(), 1, nbt);
 	}
 
 }

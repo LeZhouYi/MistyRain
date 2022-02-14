@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
-import skily_leyu.mistyrain.config.MRProperty;
 import skily_leyu.mistyrain.config.MRSettings;
 
 public class MRPot {
@@ -56,10 +55,6 @@ public class MRPot {
                 return this.potMap.get(key);
             }
             return null;
-        }
-
-        public MRPot getDeafultMRPot(){
-            return getMRPot(MRProperty.WOODEN_BASE);
         }
 
     }
