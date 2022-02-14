@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -14,8 +15,6 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import skily_leyu.mistyrain.config.MRProperty;
 import skily_leyu.mistyrain.config.MRSettings;
-import skily_leyu.mistyrain.network.MRMessages;
-import skily_leyu.mistyrain.network.MessageMRPot;
 import skily_leyu.mistyrain.utility.MRItemUtils;
 import skily_leyu.mistyrain.utility.MRMathUtils;
 import skily_leyu.mistyrain.utility.type.MRPlant;
@@ -35,7 +34,6 @@ public class TileEntityMRPot extends TileEntity{
 	private List<PlantStage> plantStage;
 
 	public TileEntityMRPot() {}
-	
     public TileEntityMRPot(String key){
 		init(key);
     }
@@ -76,14 +74,7 @@ public class TileEntityMRPot extends TileEntity{
 	public int addItem(ItemStack itemStack) {
 		//添加泥土
 		if(this.mrPot.isSuitSoil(itemStack)){
-			int amount = MRItemUtils.addItemInHandlerOneTime(this.soilInventory, itemStack);
-			if(amount>0){
-				NBTTagCompound compound = new NBTTagCompound();
-				compound.setTag("SoilInventory", this.soilInventory.serializeNBT());
-				System.out.print("test");
-				MRMessages.INSTANCE.sendToServer(new MessageMRPot().setMessage(this, compound));
-				return amount;
-			}
+			return MRItemUtils.addItemInHandlerOneTime(this.soilInventory, itemStack);
 		}
 		//添加植物
 		else if(MRSettings.animalPlantMap.isPlant(itemStack)){
@@ -180,6 +171,12 @@ public class TileEntityMRPot extends TileEntity{
 			compound.setIntArray("PlantStage", stageArray);
 		}
 		return compound;
+	}
+
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		NBTTagCompound nbt = new NBTTagCompound();
+		return new SPacketUpdateTileEntity(getPos(), 1, nbt);
 	}
 
 }

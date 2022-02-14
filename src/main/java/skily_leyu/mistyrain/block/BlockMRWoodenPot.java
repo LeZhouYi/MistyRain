@@ -95,14 +95,17 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
             EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(worldIn.isRemote&& hand==EnumHand.MAIN_HAND){
+        if(!worldIn.isRemote&&hand==EnumHand.MAIN_HAND){
             ItemStack handItem = playerIn.getHeldItemMainhand();
             TileEntityMRPot te = getTileEntity(worldIn, pos);
             if(te!=null){
                 if(handItem.getItem() instanceof ItemTool){
-
                 }else{
-                    MRItemUtils.shrinkItemStack(playerIn, handItem,te.addItem(handItem));
+                    int amount = te.addItem(handItem);
+                    if(amount>0) {
+                        worldIn.notifyBlockUpdate(pos, state, state, 2);
+                        MRItemUtils.shrinkItemStack(playerIn, handItem, amount);
+                    }
                 }
             }
         }
