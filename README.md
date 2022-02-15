@@ -103,8 +103,6 @@
 	- 产生: 灵金(开花阶段)
 
 #TODO:
-	- TileEntity数据更新:采用onDataPacket
-	- TileEntity NBT重写，方法重新考虑逻辑
-	- TileEntityPot模型加载和模型渲染
+	- TileEntityPot模型加载和模型渲染,参照RenderItemFrame
 	- TileEntityTick相关内容
 	- 指令设定时间相关内容

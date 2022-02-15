@@ -6,9 +6,6 @@ import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,7 +19,7 @@ import skily_leyu.mistyrain.utility.type.MRPlant;
 import skily_leyu.mistyrain.utility.type.MRPot;
 import skily_leyu.mistyrain.utility.type.MRPlant.PlantStage;
 
-public class TileEntityMRPot extends TileEntity{
+public class TileEntityMRPot extends TileEntityMR{
 
 	private final String TAG_SOIL_INV = "soilInventTag";
 	private final String TAG_PLANT_INV = "plantInventTag";
@@ -117,6 +114,20 @@ public class TileEntityMRPot extends TileEntity{
 		return ItemStack.EMPTY;
 	}
 
+	/**
+	 * 获取存储的植物
+	 * @return
+	 */
+	public ItemStack getPlant() {
+		for (int index = 0; index < this.plantInventory.getSlots(); index++) {
+			ItemStack plantItemStack = this.plantInventory.getStackInSlot(index);
+			if (!plantItemStack.isEmpty()) {
+				return plantItemStack;
+			}
+		}
+		return ItemStack.EMPTY;
+	}
+
     /**
      * 获取方向
      * @return
@@ -162,20 +173,10 @@ public class TileEntityMRPot extends TileEntity{
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		compound.setString(TAG_POT_KEY, this.key);
-		writeUpdatePacket(compound);
 		return compound;
 	}
 
 	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		return new SPacketUpdateTileEntity(getPos(), 1, writeToNBT(new NBTTagCompound()));
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		readFromNBT(pkt.getNbtCompound());
-	}
-
 	public void writeUpdatePacket(NBTTagCompound nbt){
 		nbt.setTag(TAG_SOIL_INV, this.soilInventory.serializeNBT());
 		nbt.setTag(TAG_PLANT_INV, this.plantInventory.serializeNBT());

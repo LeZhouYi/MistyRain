@@ -30,6 +30,26 @@ public class RenderMRPot extends TileEntitySpecialRenderer<TileEntityMRPot>{
 		GlStateManager.popMatrix();
     }
 
+	protected void RenderPlant(TileEntityMRPot te){
+		ItemStack rendItemStack = te.getPlant();
+		if(!rendItemStack.isEmpty()){
+			GlStateManager.pushMatrix();
+			GlStateManager.disableLighting();
+
+			GlStateManager.scale(1.0F, 0.5F, 1.0F);
+			GlStateManager.translate(0.0F,-0.5F,0.0F);
+
+			GlStateManager.pushAttrib();
+			RenderHelper.enableStandardItemLighting();
+			this.itemRender.renderItem(rendItemStack, ItemCameraTransforms.TransformType.FIXED);
+			RenderHelper.disableStandardItemLighting();
+			GlStateManager.popAttrib();
+
+			GlStateManager.enableLighting();
+			GlStateManager.popMatrix();
+		}
+	}
+
 	/**
 	 * 渲染泥土
 	 * @param te
