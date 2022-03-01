@@ -103,9 +103,10 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
                 }else{
                     int amount = te.addItem(handItem);
                     if(amount>0) {
-                        worldIn.notifyBlockUpdate(pos, state, state, 2);
                         MRItemUtils.shrinkItemStack(playerIn, handItem, amount);
                     }
+                    te.syncToTrackingClients();
+                    te.markDirty();
                 }
             }
         }
@@ -115,7 +116,7 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityMRPot(MRProperty.WOODEN_BASE);
+        return new TileEntityMRPot().init(MRProperty.WOODEN_BASE);
     }
 
     @Nullable
