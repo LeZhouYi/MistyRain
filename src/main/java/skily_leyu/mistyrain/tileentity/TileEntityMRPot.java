@@ -64,28 +64,20 @@ public class TileEntityMRPot extends TileEntityMR{
 			}
 		};
 		this.waterTank = new FluidTank(this.mrPot.getTankSize());
+		this.plant = new ArrayList<>();
+		this.plantStage = new ArrayList<>();
         return this;
     }
 
     @Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-        if(compound.hasKey(TAG_POT_KEY)){
-			this.key = compound.getString(TAG_POT_KEY);
-			init(key);
-		}
-		if(compound.hasKey(TAG_SOIL_INV)) {
-			this.soilInventory.deserializeNBT(compound.getCompoundTag(TAG_SOIL_INV));
-		}
-		if(compound.hasKey(TAG_PLANT_INV)){
-			this.plantInventory.deserializeNBT(compound.getCompoundTag(TAG_PLANT_INV));
-		}
-		if(compound.hasKey(TAG_WATER_TANK)){
-			this.waterTank.writeToNBT(compound.getCompoundTag(TAG_WATER_TANK));
-		}
+		this.key = compound.getString(TAG_POT_KEY);
+		init(key);
+		this.soilInventory.deserializeNBT(compound.getCompoundTag(TAG_SOIL_INV));
+		this.plantInventory.deserializeNBT(compound.getCompoundTag(TAG_PLANT_INV));
+		this.waterTank.writeToNBT(compound.getCompoundTag(TAG_WATER_TANK));
 		if(compound.hasKey(TAG_PLANT_STAGE)){
-			this.plant = new ArrayList<>();
-			this.plantStage = new ArrayList<>();
 			int[] stageArray = compound.getIntArray(TAG_PLANT_STAGE);
 			for(int i = 0;i<stageArray.length;i++){
 				this.plant.add(MRSettings.animalPlantMap.getPlant(this.plantInventory.getStackInSlot(i)));
@@ -129,7 +121,7 @@ public class TileEntityMRPot extends TileEntityMR{
 	public int addItem(ItemStack itemStack) {
 		// 添加泥土
 		if(this.mrPot.isSuitSoil(itemStack)){
-			return MRItemUtils.addItemInHandlerOneTime(this.soilInventory, itemStack);
+			return MRItemUtils.addItemInHandler(this.soilInventory, itemStack);
 		}
 		// 添加植物
 		else if(MRSettings.animalPlantMap.isPlant(itemStack)){
@@ -147,7 +139,7 @@ public class TileEntityMRPot extends TileEntityMR{
 						this.plant.add(mrPlant);
 						this.plantStage.add(PlantStage.SEED_DROP);
 
-						return MRItemUtils.addItemInHandlerOneTime(this.plantInventory, itemStack);
+						return MRItemUtils.addItemInHandler(this.plantInventory, itemStack);
 					}
 				}
 			}

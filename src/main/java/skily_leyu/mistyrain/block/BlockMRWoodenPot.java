@@ -13,7 +13,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -98,13 +97,10 @@ public class BlockMRWoodenPot extends Block implements ITileEntityProvider{
         if(!worldIn.isRemote&&hand==EnumHand.MAIN_HAND){
             ItemStack handItem = playerIn.getHeldItemMainhand();
             TileEntityMRPot te = getTileEntity(worldIn, pos);
-            if(te!=null){
-                if(handItem.getItem() instanceof ItemTool){
-                }else{
-                    int amount = te.addItem(handItem);
-                    if(amount>0) {
-                        MRItemUtils.shrinkItemStack(playerIn, handItem, amount);
-                    }
+            if(te!=null&&!handItem.isEmpty()){
+                int amount = te.addItem(handItem);
+                if(amount>0){
+                    MRItemUtils.shrinkItemStack(playerIn, handItem,amount);
                     te.syncToTrackingClients();
                     te.markDirty();
                 }
