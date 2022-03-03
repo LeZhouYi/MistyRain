@@ -55,6 +55,9 @@ solarTerms.23.name=大寒
 
 itemGroup.herbalGarden=烟雨行
 
+commands.mrtime.usage=/mrtime info
+commands.mrtime.success=%s
+
 herbals_book.pot.title=盆栽
 
 herbals_book.pot.MountainHydrangea.title=山绣球

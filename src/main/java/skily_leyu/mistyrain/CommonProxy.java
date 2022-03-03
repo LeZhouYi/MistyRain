@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import skily_leyu.mistyrain.client.gui.MRGuis;
+import skily_leyu.mistyrain.command.MRCommands;
 import skily_leyu.mistyrain.config.MRSettings;
 import skily_leyu.mistyrain.tileentity.MRTileEntities;
 
@@ -24,6 +25,7 @@ public class CommonProxy {
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
+		new MRCommands(event);
 	}
 
 }

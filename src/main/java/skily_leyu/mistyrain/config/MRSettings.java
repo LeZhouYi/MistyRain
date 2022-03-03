@@ -34,8 +34,8 @@ public class MRSettings {
 		return loadJson(jsonClass, registryName, MistyRain.MODID);
 	}
 
-	public static <T> T loadJson(Class<T> jsonClass, String registryName, String ModID) {
-		String site = "/assets/" + ModID + "/" + "settings/" + registryName + ".json";
+	public static <T> T loadJson(Class<T> jsonClass, String registryName, String modID) {
+		String site = String.format("/assets/%s/settings/%s.json", modID,registryName);
 		T result = null;
 		try (Reader reader = new InputStreamReader(MRSettings.class.getResourceAsStream(site), "UTF-8")) {
 			Gson gson = new GsonBuilder().create();

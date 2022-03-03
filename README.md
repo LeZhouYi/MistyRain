@@ -103,6 +103,6 @@
 	- 产生: 灵金(开花阶段)
 
 #TODO:
-	- TileEntityPot模型加载和模型渲染,参照RenderItemFrame
-	- TileEntityTick相关内容
+	- 时间系统
 	- 指令设定时间相关内容
+	- TileEntityTick相关内容

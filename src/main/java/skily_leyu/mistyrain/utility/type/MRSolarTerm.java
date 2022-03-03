@@ -46,6 +46,10 @@ public enum MRSolarTerm {
         return this.season;
     }
 
+    public String getI18nKey(){
+        return String.format("solarTerms.%d.name", this.ordinal());
+    }
+
     /**
      * 返回当天对应节气
      * @param now

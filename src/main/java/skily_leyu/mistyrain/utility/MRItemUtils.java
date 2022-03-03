@@ -7,7 +7,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class MRItemUtils {
 
     /**
-     * 减少物品数量
+     * 减少物品数量(非创造模式)
      * @param player
      * @param itemStack
      * @param amount
@@ -31,11 +31,11 @@ public class MRItemUtils {
 
         for(int index = 0; index<itemStackHandler.getSlots()&&itemAmount>0;index++){
             ItemStack slotStack = itemStackHandler.getStackInSlot(index);
-            int maxStackSize = MRMathUtils.minInteger(itemStackHandler.getSlotLimit(index),itemMaxStackSize);
+            int maxStackSize = Math.min(itemStackHandler.getSlotLimit(index), itemMaxStackSize);
 
             if(slotStack.isEmpty()){
 
-                int addAmount = MRMathUtils.minInteger(maxStackSize, itemAmount);//计算应放数量
+                int addAmount = Math.min(maxStackSize, itemAmount);
                 copyItemStack.setCount(addAmount);
                 itemStackHandler.setStackInSlot(index, copyItemStack); //放置
                 itemAmount-=addAmount; //计算剩余
@@ -44,7 +44,7 @@ public class MRItemUtils {
 
                 int itemsurplusAmount = maxStackSize-slotStack.getCount();
                 if(itemsurplusAmount>0){ //还能继续存放
-                    int addAmount = MRMathUtils.minInteger(itemsurplusAmount, itemAmount); //计算应放数量
+                    int addAmount = Math.min(itemsurplusAmount, itemAmount);
                     copyItemStack.setCount(slotStack.getCount()+addAmount);
                     itemStackHandler.setStackInSlot(index, copyItemStack); //追加放置
                     itemAmount-=addAmount;

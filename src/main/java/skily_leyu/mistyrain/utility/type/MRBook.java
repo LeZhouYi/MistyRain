@@ -31,14 +31,8 @@ public class MRBook {
      * @param type
      * @return
      */
-    public String getBotton(ButtonType type){
-        if(type==ButtonType.UPPAGE){
-            return this.key+"."+"btnUppage";
-        }else if(type==ButtonType.UPPER){
-            return this.key+"."+"btnUpper";
-        }else{
-            return this.key+"."+"btnNextPage";
-        }
+    public String getBotton(ButtonType btnType){
+        return String.format("%s.%s", this.key,btnType.getName());
     }
 
     /**
@@ -69,7 +63,7 @@ public class MRBook {
          * @return
          */
         public String getTitle(String key){
-            return key+"."+this.key+".title";
+            return String.format("%s.%s.title", key,this.key);
         }
 
         public String getKey(){
@@ -117,7 +111,7 @@ public class MRBook {
          * @return
          */
         public String getTitle(String key){
-            return key+"."+this.key+".title";
+            return String.format("%s.%s.title", key,this.key);
         }
 
         /**
@@ -126,7 +120,8 @@ public class MRBook {
          * @return
          */
         public int getPageSize(String key){
-            String number = I18n.format(key+"."+this.key+"."+"pageSize", new Object());
+            String i18nKey = String.format("%s.%s.pageSize", key,this.key);
+            String number = I18n.format(i18nKey, new Object());
             return Integer.parseInt(number);
         }
 
@@ -137,7 +132,7 @@ public class MRBook {
          * @return
          */
         public String getContent(String key, int page){
-            return key+"."+this.key+".content."+page;
+            return String.format("%s.%s.content.%d", key,this.key,page);
         }
 
     }
@@ -146,7 +141,18 @@ public class MRBook {
      * 按钮的类型
      */
     public static enum ButtonType{
-        UPPAGE,UPPER,NEXTPAGE;
+        UPPAGE("btnUppage"),
+        UPPER("btnUpper"),
+        NEXTPAGE("btnNextPage");
+
+        private String name;
+        private ButtonType(String name){
+            this.name = name;
+        }
+
+        public String getName(){
+            return this.name;
+        }
     }
 
 }

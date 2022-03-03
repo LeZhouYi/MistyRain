@@ -12,12 +12,12 @@ public class MRAnimal {
 
     /**
      * 根据输入数返回对应的等级，1-2不降级，3-4降一级，5及以上降两级
-     * @param output
+     * @param level
      * @return
      */
-    public AnimaLevel getAnimaLevel(int output){
-        int decrease = (output<3)?0:((output<5)?1:2);
-        int index = this.getAnimaLevel().ordinal()-decrease;
+    public AnimaLevel getAnimaLevel(int level){
+        int decrease = (level<3)?0:((level<5)?1:2);
+        int index = this.animaLevel.getLevel()-decrease;
         index = (index<0)?0:index;
         return AnimaLevel.values()[index];
     }
@@ -38,7 +38,7 @@ public class MRAnimal {
         RICH;
 
         public String getI18nFormat(){
-            return "anima.level."+this.ordinal();
+            return String.format("anima.level.%d", getLevel());
         }
 
         public int getLevel(){
@@ -58,7 +58,7 @@ public class MRAnimal {
         EARTH;
 
         public String getI18nFormat(){
-            return "anima.level."+this.ordinal();
+            return String.format("anima.type.%d", this.ordinal());
         }
 
     }

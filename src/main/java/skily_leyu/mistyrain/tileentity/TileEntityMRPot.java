@@ -3,7 +3,10 @@ package skily_leyu.mistyrain.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -14,7 +17,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import skily_leyu.mistyrain.config.MRProperty;
 import skily_leyu.mistyrain.config.MRSettings;
 import skily_leyu.mistyrain.utility.MRItemUtils;
-import skily_leyu.mistyrain.utility.MRMathUtils;
 import skily_leyu.mistyrain.utility.type.MRPlant;
 import skily_leyu.mistyrain.utility.type.MRPot;
 import skily_leyu.mistyrain.utility.type.MRPlant.PlantStage;
@@ -32,10 +34,10 @@ public class TileEntityMRPot extends TileEntityMR{
 	protected ItemStackHandler plantInventory;
 	protected FluidTank waterTank;
 
-	private List<MRPlant> plant;
 	private List<PlantStage> plantStage;
 
     private MRPot mrPot; //缓存
+	private List<MRPlant> plant;
 
     public TileEntityMRPot(){}
 
@@ -51,7 +53,7 @@ public class TileEntityMRPot extends TileEntityMR{
 	public TileEntityMRPot init(String key){
 		this.key = key;
 		this.mrPot = MRSettings.potMap.getMRPot(key);
-		this.soilInventory = new ItemStackHandler(mrPot.getSoidSize()){
+		this.soilInventory = new ItemStackHandler(mrPot.getSoilSize()){
 			@Override
 			public int getSlotLimit(int slot) {
 				return 1;
@@ -108,8 +110,11 @@ public class TileEntityMRPot extends TileEntityMR{
 	 * 获取存储的土壤
 	 * @return
 	 */
-	public ItemStack getSoil() {
-		return this.soilInventory.getStackInSlot(0);
+	public ItemStack getSoil(int index) {
+		if(this.soilInventory.getSlots()>index){
+			return this.soilInventory.getStackInSlot(0);
+		}
+		return ItemStack.EMPTY;
 	}
 
 	/**
@@ -126,7 +131,7 @@ public class TileEntityMRPot extends TileEntityMR{
 		// 添加植物
 		else if(MRSettings.animalPlantMap.isPlant(itemStack)){
 
-			int size = MRMathUtils.minInteger(this.soilInventory.getSlots(), this.plantInventory.getSlots());
+			int size = Math.min(this.soilInventory.getSlots(), this.plantInventory.getSlots());
 			MRPlant mrPlant = MRSettings.animalPlantMap.getPlant(itemStack);
 
 			for(int i = 0;i<size;i++){
@@ -147,18 +152,22 @@ public class TileEntityMRPot extends TileEntityMR{
 		return 0;
 	}
 
-		/**
-	 * 获取存储的植物
+	/**
+	 * 获取植物当前状态的模型路径
+	 * @param index
 	 * @return
 	 */
-	public ItemStack getPlant() {
-		for (int index = 0; index < this.plantInventory.getSlots(); index++) {
-			ItemStack plantItemStack = this.plantInventory.getStackInSlot(index);
-			if (!plantItemStack.isEmpty()) {
-				return plantItemStack;
+	@Nullable
+	public ModelResourceLocation getPlantModel(int index){
+		if(this.plantInventory.getSlots()>index){
+			ItemStack plantStack = this.plantInventory.getStackInSlot(index);
+			if(!plantStack.isEmpty()){
+				String registyName = plantStack.getItem().getRegistryName().toString();
+				String variant = String.format("%s=%d",MRProperty.PLANT_STAGE_TAG,this.plantStage.get(index).ordinal());
+				return new ModelResourceLocation(registyName,variant);
 			}
 		}
-		return ItemStack.EMPTY;
+		return null;
 	}
 
     /**

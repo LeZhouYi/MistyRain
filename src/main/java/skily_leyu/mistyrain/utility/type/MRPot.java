@@ -18,7 +18,7 @@ public class MRPot {
     private String soilType; //泥土白名单
     private List<String> fluids; //储水白名单
 
-    public int getSoidSize(){
+    public int getSoilSize(){
         return this.soilSize;
     }
 
