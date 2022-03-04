@@ -6,6 +6,7 @@ public class MRCommands {
 
     public MRCommands(FMLServerStartingEvent event){
         event.registerServerCommand(new CommandMRTime());
+        event.registerServerCommand(new CommandDebug());
     }
 
 }

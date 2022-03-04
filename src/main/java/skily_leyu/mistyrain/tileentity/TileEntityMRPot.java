@@ -118,7 +118,7 @@ public class TileEntityMRPot extends TileEntityMR{
 	}
 
 	/**
-	 * 添加泥土并返回放置数量，不处理物品数量的减少，不校验物品是否合法
+	 * 添加物品并返回放置数量，不处理物品数量的减少，不校验物品是否合法
 	 *
 	 * @param itemStack
 	 * @return

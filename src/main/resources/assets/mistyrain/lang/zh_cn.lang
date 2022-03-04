@@ -53,10 +53,29 @@ solarTerms.21.name=冬至
 solarTerms.22.name=小寒
 solarTerms.23.name=大寒
 
+month.0.name=端月
+month.1.name=绀香
+month.2.name=莺时
+month.3.name=槐序
+month.4.name=鸣蜩
+month.5.name=季夏
+month.6.name=兰秋
+month.7.name=南宫
+month.8.name=菊月
+month.9.name=子春
+month.10.name=葭月
+month.11.name=腊月
+
+timespan.0.name=上旬
+timespan.1.name=中旬
+timespan.2.name=下旬
+
 itemGroup.herbalGarden=烟雨行
 
 commands.mrtime.usage=/mrtime info
-commands.mrtime.success=%s
+commands.mrtime.success=%s %s %s
+commands.mrdebug.usage=/mrdebug solarterm next
+commands.mrdebug.success=%s %s %s
 
 herbals_book.pot.title=盆栽
 

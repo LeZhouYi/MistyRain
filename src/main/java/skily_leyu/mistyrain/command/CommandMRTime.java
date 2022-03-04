@@ -11,6 +11,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 import skily_leyu.mistyrain.utility.type.MRSolarTerm;
 
 public class CommandMRTime extends CommandBase{
@@ -32,10 +33,14 @@ public class CommandMRTime extends CommandBase{
         if(args.length>1){
             throw new WrongUsageException(String.format("commands.%s.usage", NAME));
         }else{
+            //显示时令信息
             if(args[0].equals("info")){
-                MRSolarTerm solarTerm = MRSolarTerm.getSolarTerm(server.getEntityWorld());
-                String solarTermName = I18n.format(solarTerm.getI18nKey());
-                sender.sendMessage(new TextComponentTranslation(String.format("commands.%s.success", NAME),solarTermName));
+                World world = server.getEntityWorld();
+                String solarTermName = I18n.format(MRSolarTerm.getSolarTerm(world).getI18nKey());
+                String monthName = I18n.format(MRSolarTerm.getMonth(world).getI18nKey());
+                String spanName = I18n.format(MRSolarTerm.getTimeSpan(world).getI18nkey());
+
+                sender.sendMessage(new TextComponentTranslation(String.format("commands.%s.success", NAME),solarTermName,monthName,spanName));
             }
         }
     }
@@ -44,7 +49,6 @@ public class CommandMRTime extends CommandBase{
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
             BlockPos targetPos) {
         List<String> tabInfo = new ArrayList<>();
-        System.out.println(args.length);
         if(args.length<2){
             tabInfo.add("info");
         }

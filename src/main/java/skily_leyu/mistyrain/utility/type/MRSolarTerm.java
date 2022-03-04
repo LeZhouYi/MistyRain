@@ -46,17 +46,36 @@ public enum MRSolarTerm {
         return this.season;
     }
 
+    public float getBegin(){
+        return this.start;
+    }
+
     public String getI18nKey(){
         return String.format("solarTerms.%d.name", this.ordinal());
     }
 
     /**
-     * 返回当天对应节气
+     * 设置当前世界时间至下一个节气
+     * @param world
+     */
+    public static void setNextSolarTerm(World world){
+        float now = getNowDays(world); //获取当前月天
+        System.out.println("first"+getSolarTerm(now).ordinal());
+        int nextOrdinal = (getSolarTerm(now).ordinal()+1)%MRSolarTerm.values().length; //获取下一个节气序值
+        System.out.println("next"+nextOrdinal);
+        float nextBegin = MRSolarTerm.values()[nextOrdinal].getBegin(); //获取下一个节气开始的月/天
+        float needAdd = (nextBegin>=now)?(nextBegin-now+0.1F):(nextBegin+11.1F); //需增加的差值
+        System.out.println("add"+(long)(needAdd*30.0F*24000F));
+        long tickAdd = (long)(needAdd*30.0F*24000F); //增加的Tick数
+        world.setTotalWorldTime(world.getTotalWorldTime()+tickAdd);
+    }
+
+    /**
+     * 获取当前月/天对应的节气
      * @param now
      * @return
      */
     public static MRSolarTerm getSolarTerm(float now){
-        now = ((int)now-1)%12+1+(now-(int)(now)); //规整
         for( MRSolarTerm term:values()){
             if(now>=term.start&&now<term.end){
                 return term;
@@ -71,9 +90,41 @@ public enum MRSolarTerm {
      * @return
      */
     public static MRSolarTerm getSolarTerm(World world){
+        float now = getNowDays(world);
+        return getSolarTerm(now);
+    }
+
+    /**
+     * 获取月份
+     * @param world
+     * @return
+     */
+    public static Month getMonth(World world){
+        float now = getNowDays(world);
+        return Month.values()[((int)now)-1];
+    }
+
+    /**
+     * 获取上中下旬
+     * @param world
+     * @return
+     */
+    public static TimeSpan getTimeSpan(World world){
+        float now = getNowDays(world);
+        now = now - ((int)now); //取小数部分
+        return (now<1/3.0F)?TimeSpan.FRONT:(now>2/3.0F?TimeSpan.BEHIND:TimeSpan.MIDDLE);
+    }
+
+    /**
+     * 获取当时月/天数
+     * @param world
+     * @return
+     */
+    public static float getNowDays(World world){
         int days = (int)(world.getTotalWorldTime()/24000) + ((world.getTotalWorldTime()%24000==0)?0:1);
         float dayNow = 0.0F+(days)/30.0F;
-        return getSolarTerm(dayNow);
+        float now = ((int)dayNow)%12+1+(dayNow-(int)(dayNow)); //规整
+        return now;
     }
 
     public static enum Season{
@@ -81,6 +132,36 @@ public enum MRSolarTerm {
         SUMMER,
         AUTUMN,
         WINTER;
+    }
+
+    public static enum Month{
+        JAN,
+        FEB,
+        MAR,
+        APR,
+        MAY,
+        JUN,
+        JUL,
+        AUG,
+        SEPT,
+        OCT,
+        NOV,
+        DEC;
+
+        public String getI18nKey(){
+            return String.format("month.%d.name", this.ordinal());
+        }
+
+    }
+
+    public static enum TimeSpan{
+        FRONT,
+        MIDDLE,
+        BEHIND;
+
+        public String getI18nkey(){
+            return String.format("timespan.%d.name", this.ordinal());
+        }
     }
 
 }
