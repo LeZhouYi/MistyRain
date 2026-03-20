@@ -1,9 +1,9 @@
 package com.skily_leyu.misty_rain;
 
 import com.mojang.logging.LogUtils;
-import com.skily_leyu.misty_rain.blocks.BranchedLogBlock;
+import com.skily_leyu.misty_rain.blocks.StalkBlock;
 import com.skily_leyu.misty_rain.data.Loot.BlockLootProvider;
-import com.skily_leyu.misty_rain.data.client.BranchedLogBlockProvider;
+import com.skily_leyu.misty_rain.data.client.model.StalkBlockProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableProvider;
@@ -35,8 +35,8 @@ public class MistyRain {
     public static final String MODID = "misty_rain";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    public static final DeferredBlock<BranchedLogBlock> BAMBOO_STALK_BLOCK = BLOCKS.registerBlock("bamboo_stalk",
-        (properties) -> new BranchedLogBlock(properties
+    public static final DeferredBlock<StalkBlock> BAMBOO_STALK_BLOCK = BLOCKS.registerBlock("bamboo_stalk",
+        (properties) -> new StalkBlock(properties
             .mapColor(MapColor.WOOD)
             .strength(2.0f, 2.0f)
             .sound(SoundType.BAMBOO)
@@ -66,7 +66,7 @@ public class MistyRain {
 
     public void gatherClientData(GatherDataEvent.Client event) {
         // 处理客户端数据生成 (如模型)
-        event.createProvider(BranchedLogBlockProvider::new);
+        event.createProvider(StalkBlockProvider::new);
     }
 
     public void gatherServerData(GatherDataEvent.Client event) {

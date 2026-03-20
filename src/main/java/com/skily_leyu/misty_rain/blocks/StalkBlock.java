@@ -18,12 +18,12 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BranchedLogBlock extends Block {
+public class StalkBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
     public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
     public static final BooleanProperty BRANCHED = BooleanProperty.create("branched");
 
-    public BranchedLogBlock(Properties properties) {
+    public StalkBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
             .setValue(FACING, Direction.UP)

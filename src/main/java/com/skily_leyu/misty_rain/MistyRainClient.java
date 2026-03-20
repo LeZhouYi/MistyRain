@@ -1,6 +1,5 @@
 package com.skily_leyu.misty_rain;
 
-import com.skily_leyu.misty_rain.data.client.BranchedLogBlockProvider;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -10,7 +9,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 @Mod(value = MistyRain.MODID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = MistyRain.MODID, value = Dist.CLIENT)
