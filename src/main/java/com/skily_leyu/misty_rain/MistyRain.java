@@ -66,6 +66,7 @@ public class MistyRain {
 
     public void gatherClientData(GatherDataEvent.Client event) {
         // 处理客户端数据生成 (如模型)
+        LOGGER.info("Start generating Client Data");
         event.createProvider(StalkBlockProvider::new);
     }
 

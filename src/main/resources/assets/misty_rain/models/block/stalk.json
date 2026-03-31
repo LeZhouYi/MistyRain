@@ -1,0 +1,25 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"end": "#end",
+		"side": "#side",
+        "particle": "#side"
+	},
+	"elements": [
+		{
+			"name": "stalk",
+			"from": [3, 0, 3],
+			"to": [13, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 3]},
+			"faces": {
+				"north": {"uv": [0, 0, 10, 16], "texture": "#side"},
+				"east": {"uv": [2, 0, 12, 16], "texture": "#side"},
+				"south": {"uv": [4, 0, 14, 16], "texture": "#side"},
+				"west": {"uv": [6, 0, 16, 16], "texture": "#side"},
+				"up": {"uv": [10, 10, 0, 0], "texture": "#end"},
+				"down": {"uv": [10, 0, 0, 10], "texture": "#end"}
+			}
+		}
+	]
+}

@@ -28,7 +28,7 @@ public class StalkBlockProvider extends ModelProvider {
         registerBlockModel(blockModels, MistyRain.BAMBOO_STALK_BLOCK.get(),
             new TextureMapping()
                 .put(TextureSlot.SIDE, modLocation("block/bamboo_stalk_side"))
-                .put(TextureSlot.END, modLocation("block/bamboo_stalk_end"))
+                .put(TextureSlot.END, modLocation("block/bamboo_stalk_side"))
         );
     }
 
@@ -39,6 +39,7 @@ public class StalkBlockProvider extends ModelProvider {
          * @param block 要注册模型的方块
          * @param mapping 方块对应的材质映射
          */
+        LOGGER.debug("Register stalk block model:{}", block.getDescriptionId());
         ResourceLocation stalkModel = ModelTemplates.STALK.create(block, mapping, blockModels.modelOutput);
         ResourceLocation branchModel = ModelTemplates.STALK_BRANCH.create(block, mapping, blockModels.modelOutput);
 
