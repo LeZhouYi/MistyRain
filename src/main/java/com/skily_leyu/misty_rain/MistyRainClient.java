@@ -10,8 +10,8 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@Mod(value = MistyRain.MODID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = MistyRain.MODID, value = Dist.CLIENT)
+@Mod(value = MistyRain.MOD_ID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = MistyRain.MOD_ID, value = Dist.CLIENT)
 public class MistyRainClient {
     public MistyRainClient(ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);

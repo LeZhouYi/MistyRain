@@ -1,0 +1,122 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_base",
+        "x": 180
+      },
+      "when": {
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_branch",
+        "x": 180
+      },
+      "when": {
+        "branched": "true",
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_base"
+      },
+      "when": {
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_branch"
+      },
+      "when": {
+        "branched": "true",
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_base",
+        "x": 90
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_branch",
+        "x": 90
+      },
+      "when": {
+        "branched": "true",
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_base",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_branch",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "branched": "true",
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_base",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_branch",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "branched": "true",
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_base",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "misty_rain:block/bamboo_stalk_branch",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "branched": "true",
+        "facing": "east"
+      }
+    }
+  ]
+}
