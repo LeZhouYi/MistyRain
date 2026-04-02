@@ -1,5 +1,7 @@
 {
     "block.misty_rain.bamboo_stalk": "Bamboo Stalk",
     "item.misty_rain.bamboo_stalk": "Bamboo Stalk",
+    "block.misty_rain.bamboo_branch": "Bamboo Branch",
+    "item.misty_rain.bamboo_branch": "Bamboo Branch",
     "itemGroup.misty_rain": "Misty Rain"
 }

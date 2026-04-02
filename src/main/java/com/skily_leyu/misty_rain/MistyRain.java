@@ -1,9 +1,10 @@
 package com.skily_leyu.misty_rain;
 
 import com.mojang.logging.LogUtils;
+import com.skily_leyu.misty_rain.blocks.BranchBlock;
 import com.skily_leyu.misty_rain.blocks.StalkBlock;
-import com.skily_leyu.misty_rain.datagen.ModBlockStateProvider;
-import com.skily_leyu.misty_rain.datagen.ModItemModelProvider;
+import com.skily_leyu.misty_rain.data.ModBlockStateProvider;
+import com.skily_leyu.misty_rain.data.ModItemModelProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
@@ -42,10 +43,20 @@ public class MistyRain {
             .sound(SoundType.BAMBOO)
             .noOcclusion()
         ));
+    public static final DeferredBlock<BranchBlock> BAMBOO_BRANCH_BLOCK = BLOCKS.registerBlock("bamboo_branch",
+        (properties) -> new BranchBlock(properties
+            .mapColor(MapColor.COLOR_GREEN)
+            .strength(1.0F, 1.0F)
+            .sound(SoundType.BAMBOO)
+            .noOcclusion()
+        ));
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
     public static final DeferredItem<BlockItem> BAMBOO_STALK_ITEM = ITEMS.registerSimpleBlockItem(
         "bamboo_stalk", BAMBOO_STALK_BLOCK
+    );
+    public static final DeferredItem<BlockItem> BAMBOO_BRANCH_ITEM = ITEMS.registerSimpleBlockItem(
+        "bamboo_branch", BAMBOO_BRANCH_BLOCK
     );
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
@@ -92,6 +103,7 @@ public class MistyRain {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == MISTY_RAIN_TAB.getKey()) {
             event.accept(BAMBOO_STALK_ITEM);
+            event.accept(BAMBOO_BRANCH_ITEM);
         }
     }
 }

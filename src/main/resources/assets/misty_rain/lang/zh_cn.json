@@ -1,5 +1,7 @@
 {
     "block.misty_rain.bamboo_stalk": "竹秆",
     "item.misty_rain.bamboo_stalk": "竹秆",
+    "block.misty_rain.bamboo_branch": "竹枝",
+    "item.misty_rain.bamboo_branch": "竹枝",
     "itemGroup.misty_rain": "烟雨"
 }

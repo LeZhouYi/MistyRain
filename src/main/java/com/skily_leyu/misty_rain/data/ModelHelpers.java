@@ -1,4 +1,4 @@
-package com.skily_leyu.misty_rain.datagen;
+package com.skily_leyu.misty_rain.data;
 
 import net.minecraft.core.Direction;
 

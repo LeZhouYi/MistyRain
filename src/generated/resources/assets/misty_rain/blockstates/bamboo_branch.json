@@ -1,54 +1,54 @@
 {
   "variants": {
     "facing=down,natural=false": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 180
     },
     "facing=down,natural=true": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 180
     },
     "facing=east,natural=false": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 90,
       "y": 90
     },
     "facing=east,natural=true": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 90,
       "y": 90
     },
     "facing=north,natural=false": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 90
     },
     "facing=north,natural=true": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 90
     },
     "facing=south,natural=false": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 90,
       "y": 180
     },
     "facing=south,natural=true": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 90,
       "y": 180
     },
     "facing=up,natural=false": {
-      "model": "misty_rain:block/bamboo_stalk"
+      "model": "misty_rain:block/bamboo_branch"
     },
     "facing=up,natural=true": {
-      "model": "misty_rain:block/bamboo_stalk"
+      "model": "misty_rain:block/bamboo_branch"
     },
     "facing=west,natural=false": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 90,
       "y": 270
     },
     "facing=west,natural=true": {
-      "model": "misty_rain:block/bamboo_stalk",
+      "model": "misty_rain:block/bamboo_branch",
       "x": 90,
       "y": 270
     }

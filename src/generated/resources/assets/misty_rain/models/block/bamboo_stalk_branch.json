@@ -1,6 +1,0 @@
-{
-  "parent": "misty_rain:block/stalk_branch",
-  "textures": {
-    "end": "misty_rain:block/bamboo_stalk_end"
-  }
-}

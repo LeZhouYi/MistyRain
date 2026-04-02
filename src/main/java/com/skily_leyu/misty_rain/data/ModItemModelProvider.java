@@ -1,4 +1,4 @@
-package com.skily_leyu.misty_rain.datagen;
+package com.skily_leyu.misty_rain.data;
 
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -11,6 +11,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        withExistingParent("bamboo_stalk", modLoc("block/bamboo_stalk_base"));
+        withExistingParent("bamboo_stalk", modLoc("block/bamboo_stalk"));
     }
 }
