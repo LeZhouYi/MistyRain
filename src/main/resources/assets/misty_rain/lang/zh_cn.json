@@ -3,5 +3,9 @@
     "item.misty_rain.bamboo_stalk": "竹秆",
     "block.misty_rain.bamboo_branch": "竹枝",
     "item.misty_rain.bamboo_branch": "竹枝",
+    "block.misty_rain.bamboo_stake": "竹桩",
+    "item.misty_rain.bamboo_stake": "竹桩",
+    "block.misty_rain.bamboo_leaves": "竹叶",
+    "item.misty_rain.bamboo_leaves": "竹叶",
     "itemGroup.misty_rain": "烟雨"
 }

@@ -1,10 +1,14 @@
 package com.skily_leyu.misty_rain;
 
 import com.mojang.logging.LogUtils;
-import com.skily_leyu.misty_rain.blocks.BranchBlock;
-import com.skily_leyu.misty_rain.blocks.StalkBlock;
+import com.skily_leyu.misty_rain.blocks.BambooBranchBlock;
+import com.skily_leyu.misty_rain.blocks.BambooLeavesBlock;
+import com.skily_leyu.misty_rain.blocks.BambooStakeBlock;
+import com.skily_leyu.misty_rain.blocks.BambooStalkBlock;
 import com.skily_leyu.misty_rain.data.ModBlockStateProvider;
+import com.skily_leyu.misty_rain.data.ModBlockTagsProvider;
 import com.skily_leyu.misty_rain.data.ModItemModelProvider;
+import com.skily_leyu.misty_rain.data.ModLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
@@ -36,18 +40,32 @@ public class MistyRain {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MOD_ID);
-    public static final DeferredBlock<StalkBlock> BAMBOO_STALK_BLOCK = BLOCKS.registerBlock("bamboo_stalk",
-        (properties) -> new StalkBlock(properties
+    public static final DeferredBlock<BambooStalkBlock> BAMBOO_STALK_BLOCK = BLOCKS.registerBlock("bamboo_stalk",
+        (properties) -> new BambooStalkBlock(properties
             .mapColor(MapColor.WOOD)
             .strength(2.0f, 2.0f)
             .sound(SoundType.BAMBOO)
             .noOcclusion()
         ));
-    public static final DeferredBlock<BranchBlock> BAMBOO_BRANCH_BLOCK = BLOCKS.registerBlock("bamboo_branch",
-        (properties) -> new BranchBlock(properties
+    public static final DeferredBlock<BambooBranchBlock> BAMBOO_BRANCH_BLOCK = BLOCKS.registerBlock("bamboo_branch",
+        (properties) -> new BambooBranchBlock(properties
             .mapColor(MapColor.COLOR_GREEN)
             .strength(1.0F, 1.0F)
             .sound(SoundType.BAMBOO)
+            .noOcclusion()
+        ));
+    public static final DeferredBlock<BambooStakeBlock> BAMBOO_STAKE_BLOCK = BLOCKS.registerBlock("bamboo_stake",
+        (properties) -> new BambooStakeBlock(properties
+            .mapColor(MapColor.WOOD)
+            .strength(2.0f, 2.0f)
+            .sound(SoundType.BAMBOO)
+            .noOcclusion()
+        ));
+    public static final DeferredBlock<BambooLeavesBlock> BAMBOO_LEAVES_BLOCK = BLOCKS.registerBlock("bamboo_leaves",
+        (properties) -> new BambooLeavesBlock(properties
+            .mapColor(MapColor.COLOR_GREEN)
+            .strength(0.2f, 0.2f)
+            .sound(SoundType.GRASS)
             .noOcclusion()
         ));
 
@@ -57,6 +75,12 @@ public class MistyRain {
     );
     public static final DeferredItem<BlockItem> BAMBOO_BRANCH_ITEM = ITEMS.registerSimpleBlockItem(
         "bamboo_branch", BAMBOO_BRANCH_BLOCK
+    );
+    public static final DeferredItem<BlockItem> BAMBOO_STAKE_ITEM = ITEMS.registerSimpleBlockItem(
+        "bamboo_stake", BAMBOO_STAKE_BLOCK
+    );
+    public static final DeferredItem<BlockItem> BAMBOO_LEAVES_ITEM = ITEMS.registerSimpleBlockItem(
+        "bamboo_leaves", BAMBOO_LEAVES_BLOCK
     );
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
@@ -94,6 +118,15 @@ public class MistyRain {
             event.includeServer(),
             new ModItemModelProvider(output, MOD_ID, existingFileHelper)
         );
+        //注册tag，须先于战利品表
+        generator.addProvider(event.includeServer(), new ModBlockTagsProvider(
+            output,
+            lookupProvider,
+            existingFileHelper
+        ));
+        //注册战利品表
+        generator.addProvider(event.includeServer(),
+            new ModLootTableProvider(output, lookupProvider));
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -104,6 +137,8 @@ public class MistyRain {
         if (event.getTabKey() == MISTY_RAIN_TAB.getKey()) {
             event.accept(BAMBOO_STALK_ITEM);
             event.accept(BAMBOO_BRANCH_ITEM);
+            event.accept(BAMBOO_STAKE_ITEM);
+            event.accept(BAMBOO_LEAVES_ITEM);
         }
     }
 }

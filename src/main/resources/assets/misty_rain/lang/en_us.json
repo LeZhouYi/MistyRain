@@ -3,5 +3,9 @@
     "item.misty_rain.bamboo_stalk": "Bamboo Stalk",
     "block.misty_rain.bamboo_branch": "Bamboo Branch",
     "item.misty_rain.bamboo_branch": "Bamboo Branch",
+    "block.misty_rain.bamboo_stake": "Bamboo Stake",
+    "item.misty_rain.bamboo_stake": "Bamboo Stake",
+    "block.misty_rain.bamboo_leaves": "Bamboo Leaves",
+    "item.misty_rain.bamboo_leaves": "Bamboo Leaves",
     "itemGroup.misty_rain": "Misty Rain"
 }

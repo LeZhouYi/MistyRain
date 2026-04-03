@@ -18,20 +18,20 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public class StalkBlock extends DirectionalBlock {
-    public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
+public class BambooStalkBlock extends DirectionalBlock {
+    public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent");
 
-    public static final MapCodec<BranchBlock> CODEC = simpleCodec(BranchBlock::new);
+    public static final MapCodec<BambooBranchBlock> CODEC = simpleCodec(BambooBranchBlock::new);
 
     protected static final VoxelShape Y_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
     protected static final VoxelShape X_SHAPE = Block.box(0.0D, 3.0D, 3.0D, 16.0D, 13.0D, 13.0D);
     protected static final VoxelShape Z_SHAPE = Block.box(3.0D, 3.0D, 0.0D, 13.0D, 13.0D, 16.0D);
 
-    public StalkBlock(Properties properties) {
+    public BambooStalkBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
-            .setValue(FACING, Direction.NORTH)
-            .setValue(NATURAL, Boolean.FALSE));
+            .setValue(FACING, Direction.UP)
+            .setValue(PERSISTENT, Boolean.TRUE));
     }
 
     @Override
@@ -61,7 +61,7 @@ public class StalkBlock extends DirectionalBlock {
 
     @Override
     protected @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
-        if (state.getValue(NATURAL) && state.getValue(FACING) == Direction.DOWN) {
+        if (!state.getValue(PERSISTENT) && state.getValue(FACING) == Direction.DOWN) {
             BlockState downBlockState = level.getBlockState(pos.below());
             if (!isSustainingBlock(downBlockState)) {
                 if (level instanceof Level world && !world.isClientSide) {
@@ -77,20 +77,23 @@ public class StalkBlock extends DirectionalBlock {
      * 判断是否是可以维持生长的方块
      */
     private boolean isSustainingBlock(@NotNull BlockState blockState) {
-        return blockState.getBlock() == MistyRain.BAMBOO_STALK_BLOCK.get() && blockState.getValue(NATURAL) && blockState.getValue(FACING) == Direction.DOWN;
+        return (blockState.getBlock() == MistyRain.BAMBOO_STALK_BLOCK.get()
+            || blockState.getBlock() == MistyRain.BAMBOO_STAKE_BLOCK.get())
+            && !blockState.getValue(PERSISTENT)
+            && blockState.getValue(FACING) == Direction.UP;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, NATURAL);
+        builder.add(FACING, PERSISTENT);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
             .setValue(FACING, context.getClickedFace())
-            .setValue(NATURAL, false);
+            .setValue(PERSISTENT, Boolean.TRUE);
     }
 
 }

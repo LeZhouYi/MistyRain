@@ -1,55 +1,53 @@
 {
   "variants": {
-    "facing=down,natural=false": {
-      "model": "misty_rain:block/bamboo_branch",
-      "x": 180
-    },
-    "facing=down,natural=true": {
-      "model": "misty_rain:block/bamboo_branch",
-      "x": 180
-    },
-    "facing=east,natural=false": {
+    "facing=down,persistent=false": {
       "model": "misty_rain:block/bamboo_branch",
       "x": 90,
       "y": 90
     },
-    "facing=east,natural=true": {
+    "facing=down,persistent=true": {
       "model": "misty_rain:block/bamboo_branch",
       "x": 90,
       "y": 90
     },
-    "facing=north,natural=false": {
+    "facing=east,persistent=false": {
       "model": "misty_rain:block/bamboo_branch",
-      "x": 90
+      "y": 90
     },
-    "facing=north,natural=true": {
+    "facing=east,persistent=true": {
       "model": "misty_rain:block/bamboo_branch",
-      "x": 90
+      "y": 90
     },
-    "facing=south,natural=false": {
-      "model": "misty_rain:block/bamboo_branch",
-      "x": 90,
-      "y": 180
-    },
-    "facing=south,natural=true": {
-      "model": "misty_rain:block/bamboo_branch",
-      "x": 90,
-      "y": 180
-    },
-    "facing=up,natural=false": {
+    "facing=north,persistent=false": {
       "model": "misty_rain:block/bamboo_branch"
     },
-    "facing=up,natural=true": {
+    "facing=north,persistent=true": {
       "model": "misty_rain:block/bamboo_branch"
     },
-    "facing=west,natural=false": {
+    "facing=south,persistent=false": {
       "model": "misty_rain:block/bamboo_branch",
-      "x": 90,
+      "y": 180
+    },
+    "facing=south,persistent=true": {
+      "model": "misty_rain:block/bamboo_branch",
+      "y": 180
+    },
+    "facing=up,persistent=false": {
+      "model": "misty_rain:block/bamboo_branch",
+      "x": 270,
+      "y": 90
+    },
+    "facing=up,persistent=true": {
+      "model": "misty_rain:block/bamboo_branch",
+      "x": 270,
+      "y": 90
+    },
+    "facing=west,persistent=false": {
+      "model": "misty_rain:block/bamboo_branch",
       "y": 270
     },
-    "facing=west,natural=true": {
+    "facing=west,persistent=true": {
       "model": "misty_rain:block/bamboo_branch",
-      "x": 90,
       "y": 270
     }
   }

@@ -12,5 +12,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         withExistingParent("bamboo_stalk", modLoc("block/bamboo_stalk"));
+        withExistingParent("bamboo_branch", modLoc("block/bamboo_branch"));
+        withExistingParent("bamboo_stake", modLoc("block/bamboo_stake"));
     }
 }

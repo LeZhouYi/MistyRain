@@ -11,14 +11,16 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BranchBlock extends DirectionalBlock {
-    public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
+public class BambooBranchBlock extends DirectionalBlock {
+    public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent");
 
-    public static final MapCodec<BranchBlock> CODEC = simpleCodec(BranchBlock::new);
+    public static final MapCodec<BambooBranchBlock> CODEC = simpleCodec(BambooBranchBlock::new);
 
-    public BranchBlock(Properties properties) {
+    public BambooBranchBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.getStateDefinition().any()
+            .setValue(FACING, Direction.UP)
+            .setValue(PERSISTENT, Boolean.TRUE));
     }
 
     @Override
@@ -34,6 +36,6 @@ public class BranchBlock extends DirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, NATURAL);
+        builder.add(FACING, PERSISTENT);
     }
 }
