@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "misty_rain:block/bamboo_shoot_0"
+    },
+    "age=1": {
+      "model": "misty_rain:block/bamboo_shoot_1"
+    }
+  }
+}

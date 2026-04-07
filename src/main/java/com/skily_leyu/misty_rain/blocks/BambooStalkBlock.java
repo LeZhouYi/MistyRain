@@ -13,13 +13,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class BambooStalkBlock extends DirectionalBlock {
-    public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent");
+    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
     public static final MapCodec<BambooBranchBlock> CODEC = simpleCodec(BambooBranchBlock::new);
 
@@ -63,7 +64,7 @@ public class BambooStalkBlock extends DirectionalBlock {
     protected @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
         if (!state.getValue(PERSISTENT) && state.getValue(FACING) == Direction.DOWN) {
             BlockState downBlockState = level.getBlockState(pos.below());
-            if (!isSustainingBlock(downBlockState)) {
+            if (!canSurviveOn(downBlockState)) {
                 if (level instanceof Level world && !world.isClientSide) {
                     world.destroyBlock(pos, true);
                 }
@@ -76,7 +77,7 @@ public class BambooStalkBlock extends DirectionalBlock {
     /**
      * 判断是否是可以维持生长的方块
      */
-    private boolean isSustainingBlock(@NotNull BlockState blockState) {
+    private boolean canSurviveOn(@NotNull BlockState blockState) {
         return (blockState.getBlock() == MistyRain.BAMBOO_STALK_BLOCK.get()
             || blockState.getBlock() == MistyRain.BAMBOO_STAKE_BLOCK.get())
             && !blockState.getValue(PERSISTENT)

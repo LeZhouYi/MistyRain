@@ -28,10 +28,17 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_AXE)
             .add(MistyRain.BAMBOO_STAKE_BLOCK.get())
             .add(MistyRain.BAMBOO_BRANCH_BLOCK.get())
-            .add(MistyRain.BAMBOO_STALK_BLOCK.get());
+            .add(MistyRain.BAMBOO_STALK_BLOCK.get())
+            .add(MistyRain.BAMBOO_SHOOT_BLOCK.get());
 
         this.tag(BlockTags.SWORD_EFFICIENT)
             .add(MistyRain.BAMBOO_BRANCH_BLOCK.get())
             .add(MistyRain.BAMBOO_LEAVES_BLOCK.get());
+
+        this.tag(BlockTags.MINEABLE_WITH_HOE)
+            .add(MistyRain.BAMBOO_SHOOT_BLOCK.get());
+
+        this.tag(BlockTags.NEEDS_IRON_TOOL)
+            .add(MistyRain.BAMBOO_SHOOT_BLOCK.get());
     }
 }

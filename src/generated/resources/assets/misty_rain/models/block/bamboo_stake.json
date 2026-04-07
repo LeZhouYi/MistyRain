@@ -2,6 +2,6 @@
   "parent": "misty_rain:block/stalk",
   "textures": {
     "end": "misty_rain:block/bamboo_stalk_end",
-    "side": "misty_rain:block/bamboo_stalk_side"
+    "side": "misty_rain:block/bamboo_stake_side"
   }
 }

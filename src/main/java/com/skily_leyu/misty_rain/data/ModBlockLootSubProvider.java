@@ -23,8 +23,11 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        //掉落自身
         this.dropSelf(MistyRain.BAMBOO_STALK_BLOCK.get());
+        this.dropSelf(MistyRain.BAMBOO_SHOOT_BLOCK.get());
 
+        //不精准会掉落其它物品
         Block bambooStakeBlock = MistyRain.BAMBOO_STAKE_BLOCK.get();
         this.add(bambooStakeBlock,
             this.createSilkTouchDispatchTable(
@@ -33,9 +36,11 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
             )
         );
 
+        //只有精准才掉落
         this.add(MistyRain.BAMBOO_BRANCH_BLOCK.get(),
             this.createSilkTouchOnlyTable(MistyRain.BAMBOO_BRANCH_ITEM.get()));
 
+        //叶子掉落逻辑
         this.add(MistyRain.BAMBOO_LEAVES_BLOCK.get(), LootTable.lootTable()
             .withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))

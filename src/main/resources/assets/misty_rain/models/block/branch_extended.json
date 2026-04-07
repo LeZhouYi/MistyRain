@@ -3,15 +3,15 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"2": "#side",
-		"3": "#end",
-		"particle": "#side"
+        "2": "#side",
+        "3": "#end",
+        "particle": "#side"
 	},
 	"elements": [
 		{
 			"name": "main_branch",
 			"from": [7.01, 3.12, 4.3],
-			"to": [9.01, 5.12, 16.3],
+			"to": [9.01, 5.12, 20.3],
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [7, 3.1, 12.2]},
 			"faces": {
 				"north": {"uv": [6, 3, 8, 5], "rotation": 180, "texture": "#3"},

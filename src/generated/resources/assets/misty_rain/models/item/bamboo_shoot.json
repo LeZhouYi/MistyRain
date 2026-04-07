@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "misty_rain:block/bamboo_shoot_1"
+  }
+}

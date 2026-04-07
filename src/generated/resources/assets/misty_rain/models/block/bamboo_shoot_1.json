@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "misty_rain:block/bamboo_shoot_1"
+  }
+}

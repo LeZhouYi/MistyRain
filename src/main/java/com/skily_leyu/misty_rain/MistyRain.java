@@ -1,10 +1,7 @@
 package com.skily_leyu.misty_rain;
 
 import com.mojang.logging.LogUtils;
-import com.skily_leyu.misty_rain.blocks.BambooBranchBlock;
-import com.skily_leyu.misty_rain.blocks.BambooLeavesBlock;
-import com.skily_leyu.misty_rain.blocks.BambooStakeBlock;
-import com.skily_leyu.misty_rain.blocks.BambooStalkBlock;
+import com.skily_leyu.misty_rain.blocks.*;
 import com.skily_leyu.misty_rain.data.ModBlockStateProvider;
 import com.skily_leyu.misty_rain.data.ModBlockTagsProvider;
 import com.skily_leyu.misty_rain.data.ModItemModelProvider;
@@ -17,7 +14,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -46,6 +45,7 @@ public class MistyRain {
             .strength(2.0f, 2.0f)
             .sound(SoundType.BAMBOO)
             .noOcclusion()
+            .pushReaction(PushReaction.DESTROY)
         ));
     public static final DeferredBlock<BambooBranchBlock> BAMBOO_BRANCH_BLOCK = BLOCKS.registerBlock("bamboo_branch",
         (properties) -> new BambooBranchBlock(properties
@@ -53,6 +53,7 @@ public class MistyRain {
             .strength(1.0F, 1.0F)
             .sound(SoundType.BAMBOO)
             .noOcclusion()
+            .pushReaction(PushReaction.DESTROY)
         ));
     public static final DeferredBlock<BambooStakeBlock> BAMBOO_STAKE_BLOCK = BLOCKS.registerBlock("bamboo_stake",
         (properties) -> new BambooStakeBlock(properties
@@ -60,6 +61,7 @@ public class MistyRain {
             .strength(2.0f, 2.0f)
             .sound(SoundType.BAMBOO)
             .noOcclusion()
+            .pushReaction(PushReaction.DESTROY)
         ));
     public static final DeferredBlock<BambooLeavesBlock> BAMBOO_LEAVES_BLOCK = BLOCKS.registerBlock("bamboo_leaves",
         (properties) -> new BambooLeavesBlock(properties
@@ -68,6 +70,16 @@ public class MistyRain {
             .sound(SoundType.GRASS)
             .noOcclusion()
         ));
+    public static final DeferredBlock<BambooShootBlock> BAMBOO_SHOOT_BLOCK = BLOCKS.registerBlock("bamboo_shoot",
+        (properties -> new BambooShootBlock(properties
+            .mapColor(MapColor.TERRACOTTA_GREEN)
+            .strength(1.5f, 1.5f)
+            .sound(SoundType.BAMBOO_SAPLING)
+            .noOcclusion()
+            .pushReaction(PushReaction.DESTROY)
+            .noCollission()
+            .offsetType(BlockBehaviour.OffsetType.XZ)))
+    );
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
     public static final DeferredItem<BlockItem> BAMBOO_STALK_ITEM = ITEMS.registerSimpleBlockItem(
@@ -81,6 +93,9 @@ public class MistyRain {
     );
     public static final DeferredItem<BlockItem> BAMBOO_LEAVES_ITEM = ITEMS.registerSimpleBlockItem(
         "bamboo_leaves", BAMBOO_LEAVES_BLOCK
+    );
+    public static final DeferredItem<BlockItem> BAMBOO_SHOOT_ITEM = ITEMS.registerSimpleBlockItem(
+        "bamboo_shoot", BAMBOO_SHOOT_BLOCK
     );
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
@@ -139,6 +154,7 @@ public class MistyRain {
             event.accept(BAMBOO_BRANCH_ITEM);
             event.accept(BAMBOO_STAKE_ITEM);
             event.accept(BAMBOO_LEAVES_ITEM);
+            event.accept(BAMBOO_SHOOT_ITEM);
         }
     }
 }
