@@ -1,6 +1,5 @@
 package com.skily_leyu.misty_rain;
 
-import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -20,6 +19,5 @@ public class MistyRainClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         MistyRain.LOGGER.info("HELLO FROM CLIENT SETUP");
-        MistyRain.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
 }

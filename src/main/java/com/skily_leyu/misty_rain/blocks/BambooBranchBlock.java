@@ -12,6 +12,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -23,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class BambooBranchBlock extends DirectionalBlock {
+public class BambooBranchBlock extends HorizontalDirectionalBlock {
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
     public static final BooleanProperty EXTENDED = BlockStateProperties.EXTENDED;
 
@@ -41,13 +42,13 @@ public class BambooBranchBlock extends DirectionalBlock {
     public BambooBranchBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
-            .setValue(FACING, Direction.UP)
+            .setValue(FACING, Direction.NORTH)
             .setValue(PERSISTENT, Boolean.TRUE)
             .setValue(EXTENDED, Boolean.FALSE));
     }
 
     @Override
-    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
+    protected @NotNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
         return CODEC;
     }
 
@@ -88,7 +89,7 @@ public class BambooBranchBlock extends DirectionalBlock {
     protected @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
         Direction facing = state.getValue(FACING);
         BlockState oppositeBlockState = level.getBlockState(pos.relative(facing));
-        if (!state.getValue(PERSISTENT) && facing.getAxis().isHorizontal()) {
+        if (!state.getValue(PERSISTENT)) {
             if (!canSurviveOn(oppositeBlockState)) {
                 if (level instanceof Level world && !world.isClientSide) {
                     world.destroyBlock(pos, true);

@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/cube_all",
+  "render_type": "minecraft:cutout_mipped",
   "textures": {
-    "all": "misty_rain:block/bamboo_stake_side"
+    "all": "misty_rain:block/bamboo_leaves"
   }
 }

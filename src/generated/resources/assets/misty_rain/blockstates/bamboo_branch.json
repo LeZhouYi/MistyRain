@@ -1,10 +1,5 @@
 {
   "variants": {
-    "extended=false,facing=down": {
-      "model": "misty_rain:block/bamboo_branch",
-      "x": 90,
-      "y": 90
-    },
     "extended=false,facing=east": {
       "model": "misty_rain:block/bamboo_branch",
       "y": 90
@@ -16,19 +11,9 @@
       "model": "misty_rain:block/bamboo_branch",
       "y": 180
     },
-    "extended=false,facing=up": {
-      "model": "misty_rain:block/bamboo_branch",
-      "x": 270,
-      "y": 90
-    },
     "extended=false,facing=west": {
       "model": "misty_rain:block/bamboo_branch",
       "y": 270
-    },
-    "extended=true,facing=down": {
-      "model": "misty_rain:block/bamboo_branch_extended",
-      "x": 90,
-      "y": 90
     },
     "extended=true,facing=east": {
       "model": "misty_rain:block/bamboo_branch_extended",
@@ -40,11 +25,6 @@
     "extended=true,facing=south": {
       "model": "misty_rain:block/bamboo_branch_extended",
       "y": 180
-    },
-    "extended=true,facing=up": {
-      "model": "misty_rain:block/bamboo_branch_extended",
-      "x": 270,
-      "y": 90
     },
     "extended=true,facing=west": {
       "model": "misty_rain:block/bamboo_branch_extended",

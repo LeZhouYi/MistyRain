@@ -54,6 +54,8 @@ public class MistyRain {
             .sound(SoundType.BAMBOO)
             .noOcclusion()
             .pushReaction(PushReaction.DESTROY)
+            .isViewBlocking((state, getter, pos) -> false)
+            .isSuffocating((state, getter, pos) -> false)
         ));
     public static final DeferredBlock<BambooStakeBlock> BAMBOO_STAKE_BLOCK = BLOCKS.registerBlock("bamboo_stake",
         (properties) -> new BambooStakeBlock(properties
@@ -69,17 +71,21 @@ public class MistyRain {
             .strength(0.2f, 0.2f)
             .sound(SoundType.GRASS)
             .noOcclusion()
+            .isViewBlocking((state, getter, pos) -> false)
+            .isSuffocating((state, getter, pos) -> false)
         ));
     public static final DeferredBlock<BambooShootBlock> BAMBOO_SHOOT_BLOCK = BLOCKS.registerBlock("bamboo_shoot",
-        (properties -> new BambooShootBlock(properties
+        properties -> new BambooShootBlock(properties
             .mapColor(MapColor.TERRACOTTA_GREEN)
             .strength(1.5f, 1.5f)
             .sound(SoundType.BAMBOO_SAPLING)
             .noOcclusion()
             .pushReaction(PushReaction.DESTROY)
             .noCollission()
-            .offsetType(BlockBehaviour.OffsetType.XZ)))
-    );
+            .isViewBlocking((state, getter, pos) -> false)
+            .offsetType(BlockBehaviour.OffsetType.XZ)
+            .isSuffocating((state, getter, pos) -> false)
+        ));
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
     public static final DeferredItem<BlockItem> BAMBOO_STALK_ITEM = ITEMS.registerSimpleBlockItem(

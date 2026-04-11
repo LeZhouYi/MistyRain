@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public class BambooStalkBlock extends DirectionalBlock {
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
-    public static final MapCodec<BambooBranchBlock> CODEC = simpleCodec(BambooBranchBlock::new);
+    public static final MapCodec<BambooStalkBlock> CODEC = simpleCodec(BambooStalkBlock::new);
 
     protected static final VoxelShape Y_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
     protected static final VoxelShape X_SHAPE = Block.box(0.0D, 3.0D, 3.0D, 16.0D, 13.0D, 13.0D);
