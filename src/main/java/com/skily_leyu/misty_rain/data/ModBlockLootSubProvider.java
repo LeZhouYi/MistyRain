@@ -1,6 +1,7 @@
 package com.skily_leyu.misty_rain.data;
 
-import com.skily_leyu.misty_rain.MistyRain;
+import com.skily_leyu.misty_rain.init.ModBlocks;
+import com.skily_leyu.misty_rain.init.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -24,27 +25,27 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
         //掉落自身
-        this.dropSelf(MistyRain.BAMBOO_STALK_BLOCK.get());
-        this.dropSelf(MistyRain.BAMBOO_SHOOT_BLOCK.get());
+        this.dropSelf(ModBlocks.BAMBOO_STALK_BLOCK.get());
+        this.dropSelf(ModBlocks.BAMBOO_SHOOT_BLOCK.get());
 
         //不精准会掉落其它物品
-        Block bambooStakeBlock = MistyRain.BAMBOO_STAKE_BLOCK.get();
+        Block bambooStakeBlock = ModBlocks.BAMBOO_STAKE_BLOCK.get();
         this.add(bambooStakeBlock,
             this.createSilkTouchDispatchTable(
                 bambooStakeBlock,
-                this.applyExplosionDecay(bambooStakeBlock, LootItem.lootTableItem(MistyRain.BAMBOO_STALK_ITEM.get()))
+                this.applyExplosionDecay(bambooStakeBlock, LootItem.lootTableItem(ModItems.BAMBOO_STALK_ITEM.get()))
             )
         );
 
         //只有精准才掉落
-        this.add(MistyRain.BAMBOO_BRANCH_BLOCK.get(),
-            this.createSilkTouchOnlyTable(MistyRain.BAMBOO_BRANCH_ITEM.get()));
+        this.add(ModBlocks.BAMBOO_BRANCH_BLOCK.get(),
+            this.createSilkTouchOnlyTable(ModItems.BAMBOO_BRANCH_ITEM.get()));
 
         //叶子掉落逻辑
-        this.add(MistyRain.BAMBOO_LEAVES_BLOCK.get(), LootTable.lootTable()
+        this.add(ModBlocks.BAMBOO_LEAVES_BLOCK.get(), LootTable.lootTable()
             .withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
-                .add(LootItem.lootTableItem(MistyRain.BAMBOO_LEAVES_ITEM.get())
+                .add(LootItem.lootTableItem(ModItems.BAMBOO_LEAVES_ITEM.get())
                     .when(AnyOfCondition.anyOf(HAS_SHEARS, hasSilkTouch()))
                 )
             )
@@ -54,6 +55,6 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
     @Override
     protected @NotNull Iterable<Block> getKnownBlocks() {
         // 返回该 Mod 中所有需要生成掉落表的方块列表
-        return MistyRain.BLOCKS.getEntries().stream().map(Holder::value).collect(Collectors.toList());
+        return ModBlocks.BLOCKS.getEntries().stream().map(Holder::value).collect(Collectors.toList());
     }
 }

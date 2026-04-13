@@ -1,6 +1,6 @@
 package com.skily_leyu.misty_rain.blocks;
 
-import com.skily_leyu.misty_rain.MistyRain;
+import com.skily_leyu.misty_rain.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -26,9 +26,9 @@ public class BambooLeavesBlock extends Block {
     }
 
     private static int getDistanceAt(BlockState neighbor) {
-        if (neighbor.is(MistyRain.BAMBOO_STALK_BLOCK.get()) && !neighbor.getValue(PERSISTENT)) {
+        if (neighbor.is(ModBlocks.BAMBOO_STALK_BLOCK.get()) && !neighbor.getValue(PERSISTENT)) {
             return 1;
-        } else if (neighbor.is(MistyRain.BAMBOO_LEAVES_BLOCK.get()) && !neighbor.getValue(PERSISTENT)) {
+        } else if (neighbor.is(ModBlocks.BAMBOO_LEAVES_BLOCK.get()) && !neighbor.getValue(PERSISTENT)) {
             //最大值的限制在被调用的方法实现
             return neighbor.getValue(DISTANCE) + 1;
         }

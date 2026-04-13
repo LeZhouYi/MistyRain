@@ -1,7 +1,7 @@
 package com.skily_leyu.misty_rain.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.skily_leyu.misty_rain.MistyRain;
+import com.skily_leyu.misty_rain.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -78,8 +78,8 @@ public class BambooStalkBlock extends DirectionalBlock {
      * 判断是否是可以维持生长的方块
      */
     private boolean canSurviveOn(@NotNull BlockState blockState) {
-        return (blockState.getBlock() == MistyRain.BAMBOO_STALK_BLOCK.get()
-            || blockState.getBlock() == MistyRain.BAMBOO_STAKE_BLOCK.get())
+        return (blockState.getBlock() == ModBlocks.BAMBOO_STALK_BLOCK.get()
+            || blockState.getBlock() == ModBlocks.BAMBOO_STAKE_BLOCK.get())
             && !blockState.getValue(PERSISTENT)
             && blockState.getValue(FACING) == Direction.UP;
     }

@@ -2,7 +2,7 @@ package com.skily_leyu.misty_rain.blocks;
 
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
-import com.skily_leyu.misty_rain.MistyRain;
+import com.skily_leyu.misty_rain.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -61,7 +61,7 @@ public class BambooBranchBlock extends HorizontalDirectionalBlock {
 
         BlockState neighborState = level.getBlockState(neighborPos);
         boolean shouldExtend = false;
-        if (neighborState.is(MistyRain.BAMBOO_STALK_BLOCK.get())) {
+        if (neighborState.is(ModBlocks.BAMBOO_STALK_BLOCK.get())) {
             if (neighborState.hasProperty(BlockStateProperties.FACING)) {
                 Direction neighborFacing = neighborState.getValue(BlockStateProperties.FACING);
                 if (neighborFacing.getAxis() != clickedFace.getAxis()) {
@@ -98,7 +98,7 @@ public class BambooBranchBlock extends HorizontalDirectionalBlock {
             }
         }
         boolean shouldExtend = false;
-        if (neighborState.is(MistyRain.BAMBOO_STALK_BLOCK.get())) {
+        if (neighborState.is(ModBlocks.BAMBOO_STALK_BLOCK.get())) {
             if (neighborState.hasProperty(BlockStateProperties.FACING)) {
                 Direction neighborFacing = neighborState.getValue(BlockStateProperties.FACING);
                 if (neighborFacing.getAxis() != facing.getAxis()) {
@@ -114,7 +114,7 @@ public class BambooBranchBlock extends HorizontalDirectionalBlock {
      * 判断是否是可以维持生长的方块
      */
     private boolean canSurviveOn(@NotNull BlockState blockState) {
-        return blockState.getBlock() == MistyRain.BAMBOO_STALK_BLOCK.get()
+        return blockState.getBlock() == ModBlocks.BAMBOO_STALK_BLOCK.get()
             && !blockState.getValue(BambooStalkBlock.PERSISTENT)
             && blockState.getValue(DirectionalBlock.FACING) == Direction.UP;
     }

@@ -1,6 +1,7 @@
 package com.skily_leyu.misty_rain.data;
 
 import com.skily_leyu.misty_rain.MistyRain;
+import com.skily_leyu.misty_rain.init.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -23,22 +24,22 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         //叶子被剪逻辑
         this.tag(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("mineable/shears")))
-            .add(MistyRain.BAMBOO_LEAVES_BLOCK.get());
+            .add(ModBlocks.BAMBOO_LEAVES_BLOCK.get());
 
         this.tag(BlockTags.MINEABLE_WITH_AXE)
-            .add(MistyRain.BAMBOO_STAKE_BLOCK.get())
-            .add(MistyRain.BAMBOO_BRANCH_BLOCK.get())
-            .add(MistyRain.BAMBOO_STALK_BLOCK.get())
-            .add(MistyRain.BAMBOO_SHOOT_BLOCK.get());
+            .add(ModBlocks.BAMBOO_STAKE_BLOCK.get())
+            .add(ModBlocks.BAMBOO_BRANCH_BLOCK.get())
+            .add(ModBlocks.BAMBOO_STALK_BLOCK.get())
+            .add(ModBlocks.BAMBOO_SHOOT_BLOCK.get());
 
         this.tag(BlockTags.SWORD_EFFICIENT)
-            .add(MistyRain.BAMBOO_BRANCH_BLOCK.get())
-            .add(MistyRain.BAMBOO_LEAVES_BLOCK.get());
+            .add(ModBlocks.BAMBOO_BRANCH_BLOCK.get())
+            .add(ModBlocks.BAMBOO_LEAVES_BLOCK.get());
 
         this.tag(BlockTags.MINEABLE_WITH_HOE)
-            .add(MistyRain.BAMBOO_SHOOT_BLOCK.get());
+            .add(ModBlocks.BAMBOO_SHOOT_BLOCK.get());
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-            .add(MistyRain.BAMBOO_SHOOT_BLOCK.get());
+            .add(ModBlocks.BAMBOO_SHOOT_BLOCK.get());
     }
 }

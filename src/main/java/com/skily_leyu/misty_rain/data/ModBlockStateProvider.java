@@ -1,6 +1,7 @@
 package com.skily_leyu.misty_rain.data;
 
 import com.skily_leyu.misty_rain.MistyRain;
+import com.skily_leyu.misty_rain.init.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
@@ -26,7 +27,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerBambooBranch() {
-        Block block = MistyRain.BAMBOO_BRANCH_BLOCK.get();
+        Block block = ModBlocks.BAMBOO_BRANCH_BLOCK.get();
         MistyRain.LOGGER.debug("Registering model for: {}", block.getDescriptionId());
 
         ModelFile normalModel = models().withExistingParent(
@@ -64,7 +65,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerBambooStalk() {
-        Block block = MistyRain.BAMBOO_STALK_BLOCK.get();
+        Block block = ModBlocks.BAMBOO_STALK_BLOCK.get();
         MistyRain.LOGGER.debug("Registering model for: {}", block.getDescriptionId());
 
         ModelFile stalkModel = models().withExistingParent(
@@ -75,7 +76,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerBambooStake() {
-        Block block = MistyRain.BAMBOO_STAKE_BLOCK.get();
+        Block block = ModBlocks.BAMBOO_STAKE_BLOCK.get();
         MistyRain.LOGGER.debug("Registering model for: {}", block.getDescriptionId());
 
         ModelFile baseModel = models().withExistingParent(
@@ -86,7 +87,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerBambooShoot() {
-        Block block = MistyRain.BAMBOO_SHOOT_BLOCK.get();
+        Block block = ModBlocks.BAMBOO_SHOOT_BLOCK.get();
         MistyRain.LOGGER.debug("Registering model for: {}", block.getDescriptionId());
 
         ModelFile stage0 = models().withExistingParent("bamboo_shoot_0", "minecraft:block/cross")
@@ -103,7 +104,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerBambooLeaves() {
-        Block block = MistyRain.BAMBOO_LEAVES_BLOCK.get();
+        Block block = ModBlocks.BAMBOO_LEAVES_BLOCK.get();
         MistyRain.LOGGER.debug("Registering model for: {}", block.getDescriptionId());
 
         ModelFile model = models().withExistingParent("bamboo_leaves", "minecraft:block/cube_all")
